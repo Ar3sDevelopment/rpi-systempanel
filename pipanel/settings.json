@@ -1,0 +1,46 @@
+{
+	"user": "ares",
+	"password": "system",
+	"widgets": [{
+		"id": "info",
+		"title": "General Info",
+		"templatefile": "general_info.tpl",
+		"visible": true,
+		"enabled": true,
+		"phpfile": null,
+		"command": null
+	},
+	{
+		"id": "memory",
+		"title": "Memory",
+		"templatefile": "memory.tpl",
+		"visible": true,
+		"enabled": true,
+		"phpfile": null,
+		"command": null
+	},
+	{
+		"id": "disks",
+		"title": "Disk Usage",
+		"visible": false,
+		"enabled": true,
+		"phpfile": null,
+		"command": null
+	},
+	{
+		"id": "nics",
+		"title": "Network Usage",
+		"visible": false,
+		"enabled": true,
+		"phpfile": null,
+		"command": null
+	},
+	{
+		"id": "updates",
+		"title": "Updates",
+		"visible": false,
+		"enabled": true,
+		"phpfile": null,
+		"command": null
+	}]
+}
