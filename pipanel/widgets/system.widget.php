@@ -12,7 +12,6 @@
 		public function load()
 		{
 			$this->current_time = exec("date +'%d %b %Y<br />%T %Z'");
-			$this->frequency = number_format(exec("cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq") / 1000);
 			
 			list($this->system, $this->host, $this->kernel) = preg_split("/\s/", exec("uname -a"), 4);
 			
