@@ -60,5 +60,25 @@
 		"phpfile": "updates",
 		"updatetime": 3600000,
 		"position": 5
+	},
+	{
+		"id": "processes",
+		"title": "Processes",
+		"templatefile": "process.tpl",
+		"visible": false,
+		"enabled": true,
+		"phpfile": "process",
+		"updatetime": 1000,
+		"position": 7
+	},
+	{
+		"id": "usb",
+		"title": "USB Info",
+		"templatefile": "usb.tpl",
+		"visible": false,
+		"enabled": true,
+		"phpfile": "usb",
+		"updatetime": 3600000,
+		"position": 4
 	}]
 }

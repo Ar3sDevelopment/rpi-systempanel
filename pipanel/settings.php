@@ -45,6 +45,9 @@
 					$widgets[$widget->position] = $widget;
 				}
 				
+				ksort($widgets);
+				
+				$this->widgets = array();
 				foreach ($widgets as $widget)
 				{
 					$this->widgets[] = $widget;

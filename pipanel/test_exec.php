@@ -10,6 +10,17 @@
 		printr($res);
 	}
 	
+	function execute_test_lsusb($cmd)
+	{
+		exec($cmd, $res);
+		$newres = array();
+		foreach ($res as $res_info)
+		{
+			$newres[] = preg_split("/\s+/", $res_info, 7);
+		}
+		printr($newres);
+	}
+	
 	function printr($res)
 	{
 		echo "<pre>";
@@ -18,6 +29,8 @@
 	}
 	
 	execute_test('ps aux');
+	echo "<br />";
+	execute_test_lsusb('lsusb');
 	echo "<br />";
 	execute_test('/sbin/ifconfig');
 	

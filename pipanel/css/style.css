@@ -8,7 +8,7 @@ body > .container
 	margin-bottom: 0px;
 }
 
-#memory_info .progress, #disks .progress
+#memory_info .progress, #disks .progress, #process .progress
 {
 	margin-bottom: 5px;
 }
