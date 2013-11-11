@@ -23,26 +23,28 @@
 </head>
 <body>
 	<div class="container">
-		{for $c = 0 to count($widgets) - 1 step 2}
+		{$c = 0}
+		{$columns = 0}
 		<div class="row">
-			{if !$widgets[$c]->visible}
-			<div class="col-md-6" style="display: none;">
-			{else}
-			<div class="col-md-6">
-			{/if}
-				{include file="widget.tpl" widget=$widgets[$c]}
-			</div>
-			{if ($c + 1) < count($widgets)}
-				{if !$widgets[$c + 1]->visible}
-			<div class="col-md-6" style="display: none;">
+		{while $c < count($widgets)}
+			{if $widgets[$c]->enabled}
+				{if !$widgets[$c]->visible}
+					<div class="col-md-{$widgets[$c]->columns}" style="display: none;">
 				{else}
-			<div class="col-md-6">
+					<div class="col-md-{$widgets[$c]->columns}">
 				{/if}
-				{include file="widget.tpl" widget=$widgets[$c + 1]}
-			</div>
+				{include file="widget.tpl" widget=$widgets[$c]}
+				</div>
+				{$columns = $columns + {$widgets[$c]->columns}}
+				{if $columns == 12}
+					{$columns = 0}
+					</div>
+					<div class="row">
+				{/if}
 			{/if}
+			{$c = $c + 1}
+		{/while}
 		</div>
-		{/for}
 	</div>
 </body>
 </html>

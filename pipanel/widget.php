@@ -11,12 +11,14 @@
 		public $templatefile;
 		public $updatetime;
 		public $position;
+		public $columns;
 		
 		public function __construct()
 		{
 			$this->visible = true;
 			$this->enabled = true;
 			$this->updatetime = 1000;
+			$this->columns = 6;
 		}
 	}
 ?>

@@ -40,6 +40,9 @@
 					if (isset($json_widget["visible"]))
 						$widget->visible = $json_widget["visible"];
 					
+					if (isset($json_widget["columns"]))
+						$widget->columns = $json_widget["columns"];
+					
 					$widget->position = isset($json_widget["position"]) ? $json_widget["position"] : count($this->widgets);
 					$widget->templatefile = $json_widget["templatefile"];
 					$widget->phpfile = $json_widget["phpfile"];
@@ -79,8 +82,8 @@
 					exit;
 				}
 				
-			/*	apc_store('USER', $this->user);
-				apc_store('PASSWORD', $this->password);
+			/*	apc_store('USER', $this->user, 15 * 60);
+				apc_store('PASSWORD', $this->password, 15 * 60);
 			}*/
 		}
 	}

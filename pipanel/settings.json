@@ -10,7 +10,8 @@
 		"enabled": true,
 		"phpfile": "system",
 		"updatetime": 60000,
-		"position": 0
+		"position": 0,
+		"columns": 6
 	},
 	{
 		"id": "cpu_info",
@@ -20,7 +21,8 @@
 		"enabled": true,
 		"phpfile": "processor",
 		"updatetime": 1000,
-		"position": 1
+		"position": 1,
+		"columns": 6
 	},
 	{
 		"id": "memory_info",
@@ -30,7 +32,8 @@
 		"enabled": true,
 		"phpfile": "memory",
 		"updatetime": 1000,
-		"position": 2
+		"position": 4,
+		"columns": 4
 	},
 	{
 		"id": "nics",
@@ -40,7 +43,8 @@
 		"enabled": true,
 		"phpfile": "network",
 		"updatetime": 1000,
-		"position": 3
+		"position": 3,
+		"columns": 4
 	},
 	{
 		"id": "disks",
@@ -50,7 +54,8 @@
 		"enabled": true,
 		"phpfile": "disk",
 		"updatetime": 60000,
-		"position": 6
+		"position": 6,
+		"columns": 6
 	},
 	{
 		"id": "updates",
@@ -60,7 +65,8 @@
 		"enabled": true,
 		"phpfile": "updates",
 		"updatetime": 3600000,
-		"position": 5
+		"position": 5,
+		"columns": 6
 	},
 	{
 		"id": "processes",
@@ -70,7 +76,8 @@
 		"enabled": true,
 		"phpfile": "process",
 		"updatetime": 1000,
-		"position": 7
+		"position": 7,
+		"columns": 6
 	},
 	{
 		"id": "usb",
@@ -80,6 +87,7 @@
 		"enabled": true,
 		"phpfile": "usb",
 		"updatetime": 3600000,
-		"position": 4
+		"position": 2,
+		"columns": 4
 	}]
 }
