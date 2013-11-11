@@ -1,6 +1,5 @@
 $(document).ready(function () {
 	$('.panel-heading .btn-link[data-toggle="hide"]').click(function () {
-		console.log($(this).attr('data-target'));
 		if (!$(this).attr('data-only') || ($(this).attr('data-only') == 'false'))
 		{
 			$('.panel').parent().hide();
