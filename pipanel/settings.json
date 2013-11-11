@@ -2,45 +2,63 @@
 	"user": "ares",
 	"password": "system",
 	"widgets": [{
-		"id": "info",
-		"title": "General Info",
+		"id": "sys_info",
+		"title": "System Info",
 		"templatefile": "general_info.tpl",
 		"visible": true,
 		"enabled": true,
-		"phpfile": null,
-		"command": null
+		"phpfile": "system",
+		"updatetime": 60000,
+		"position": 0
 	},
 	{
-		"id": "memory",
-		"title": "Memory",
+		"id": "cpu_info",
+		"title": "CPU Info",
+		"templatefile": "cpu_info.tpl",
+		"visible": true,
+		"enabled": true,
+		"phpfile": "processor",
+		"updatetime": 1000,
+		"position": 1
+	},
+	{
+		"id": "memory_info",
+		"title": "Memory Usage",
 		"templatefile": "memory.tpl",
 		"visible": true,
 		"enabled": true,
-		"phpfile": null,
-		"command": null
-	},
-	{
-		"id": "disks",
-		"title": "Disk Usage",
-		"visible": false,
-		"enabled": true,
-		"phpfile": null,
-		"command": null
+		"phpfile": "memory",
+		"updatetime": 1000,
+		"position": 2
 	},
 	{
 		"id": "nics",
 		"title": "Network Usage",
+		"templatefile": "network.tpl",
 		"visible": false,
 		"enabled": true,
-		"phpfile": null,
-		"command": null
+		"phpfile": "network",
+		"updatetime": 1000,
+		"position": 3
+	},
+	{
+		"id": "disks",
+		"title": "Disk Usage",
+		"templatefile": "disks.tpl",
+		"visible": false,
+		"enabled": true,
+		"phpfile": "disk",
+		"updatetime": 60000,
+		"position": 6
 	},
 	{
 		"id": "updates",
 		"title": "Updates",
+		"templatefile": "updates.tpl",
 		"visible": false,
 		"enabled": true,
-		"phpfile": null,
-		"command": null
+		"phpfile": "updates",
+		"updatetime": 3600000,
+		"position": 5
 	}]
 }

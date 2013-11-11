@@ -6,14 +6,17 @@
 		public $id;
 		public $title;
 		public $visible;
-		
-		public $templatefile;
+		public $enabled;
 		public $phpfile;
+		public $templatefile;
+		public $updatetime;
+		public $position;
 		
 		public function __construct()
 		{
 			$this->visible = true;
-			$this->templatefile = null;
+			$this->enabled = true;
+			$this->updatetime = 1000;
 		}
 	}
 ?>

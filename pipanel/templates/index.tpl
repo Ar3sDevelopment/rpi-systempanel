@@ -17,12 +17,7 @@
 </head>
 <body>
 	<div class="container">
-		<nav class="navbar navbar-default navbar-fixed-top">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="javascript:updateSingle();"><span class="glyphicon glyphicon-refresh"></span></a></li>
-			</ul>
-		</nav>
-		{for $c = 0 to $widget_count - 1 step 2}
+		{for $c = 0 to count($widgets) - 1 step 2}
 		<div class="row">
 			{if !$widgets[$c]->visible}
 			<div class="col-md-6" style="display: none;">
@@ -31,7 +26,7 @@
 			{/if}
 				{include file="widget.tpl" widget=$widgets[$c]}
 			</div>
-			{if ($c + 1) < ($widget_count - 1)}
+			{if ($c + 1) < count($widgets) - 1}
 				{if !$widgets[$c + 1]->visible}
 			<div class="col-md-6" style="display: none;">
 				{else}

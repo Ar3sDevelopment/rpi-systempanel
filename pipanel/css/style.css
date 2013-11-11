@@ -1,13 +1,3 @@
-div#bar1 { background-color:#D78787; }
-div#bar2 { background-color:#AFD787; }
-div#bar3 { background-color:#F7F7AF; }
-div#bar4 { background-color:#87AFD7; }
-div#bar5 { background-color:#D7AFD7; }
-div#bar6 { background-color:#AFD7D7; }
-div#bar7 { background-color:#F78787; }
-div.bar8 { background-color:#E77878; }
-div.bar9 { background-color:#87F787; }
-
 body > .container
 {
 	padding-top: 70px;
@@ -18,7 +8,7 @@ body > .container
 	margin-bottom: 0px;
 }
 
-#memory .progress, #swap .progress, #disks .progress
+#memory_info .progress, #disks .progress
 {
 	margin-bottom: 5px;
 }
@@ -26,5 +16,5 @@ body > .container
 .panel-heading .btn-link
 {
 	color: #fff;
-	padding: 0px;
+	padding: 0px 3px;
 }

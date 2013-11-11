@@ -5,9 +5,7 @@ require_once('widget.php');
 
 class Smarty_Widget extends Smarty
 {
-	private $widget;
-
-	function __construct($widget)
+	function __construct()
 	{
 		parent::__construct();
 		
@@ -15,9 +13,6 @@ class Smarty_Widget extends Smarty
 		$this->setCompileDir('widgets/templates_c/');
 		$this->setConfigDir('widgets/configs/');
 		$this->setCacheDir('widgets/cache/');
-		$this->widget = $widget;
-		$this->assign('widget', $this->widget);
 	}
-
 }
 ?>
