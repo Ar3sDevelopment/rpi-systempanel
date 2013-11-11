@@ -4,6 +4,10 @@
 	$smarty = new Smarty();
 	$smarty->testInstall();
 
+	echo "<div>";
+	echo hash("sha512", 'aresrulez');
+	echo "</div>";
+
 	function execute_test($cmd)
 	{
 		exec($cmd, $res);

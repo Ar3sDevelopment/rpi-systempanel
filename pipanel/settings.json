@@ -1,6 +1,7 @@
 {
 	"user": "ares",
-	"password": "system",
+	"hashmethod": "sha512",
+	"passwordhashed": "3316551a77702d15c234664a9c3c52d2db7ddf3759e795ff619c4d897b09e9f2d1108b741a8a768c0b5ca2afbac2cb996b57c59ddd8e1879650627261491dc16",
 	"widgets": [{
 		"id": "sys_info",
 		"title": "System Info",

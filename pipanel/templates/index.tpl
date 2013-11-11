@@ -32,7 +32,7 @@
 			{/if}
 				{include file="widget.tpl" widget=$widgets[$c]}
 			</div>
-			{if ($c + 1) < count($widgets) - 1}
+			{if ($c + 1) < count($widgets)}
 				{if !$widgets[$c + 1]->visible}
 			<div class="col-md-6" style="display: none;">
 				{else}
