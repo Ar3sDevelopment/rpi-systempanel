@@ -7,6 +7,10 @@
 		public $frequency;
 		public $cpuload;
 		public $cpu_temperature;
+		public $cores;
+		public $cpus;
+		public $sockets;
+		public $nodes;
 		
 		public function load()
 		{
@@ -35,7 +39,20 @@
 				$load = (1 - ($idlesum / ($sum2 - $sum1))) * 100;
 				$this->cpuload += $load;
 			}
+			
 			$this->cpuload = round($this->cpuload, 1);
+			exec("lscpu -p | grep '^[0-9]'", $lscpu);
+			$split = preg_split('/\,/', $lscpu[0], 4);
+			
+			if (count($split) > 3)
+				list($cpus, $cores, $sockets, $nodes) = $split;
+			else
+				list($cpus, $cores, $sockets) = $split;
+			
+			$this->cpus = $cpus + 1;
+			$this->cores = $cores + 1;
+			$this->sockets = $sockets + 1;
+			$this->nodes = $nodes;
 		}
 	}
 	

@@ -3,6 +3,22 @@
 	<div class="col-xs-6" id="processor">{$widget->processor}</div>
 </div>
 <div class="row">
+	<div class="col-xs-3">CPUs</div>
+	<div class="col-xs-3" id="cpus">{$widget->cpus}</div>
+	<div class="col-xs-3">Cores</div>
+	<div class="col-xs-3" id="cores">{$widget->cores}</div>
+</div>
+<div class="row">
+	<div class="col-xs-3">Sockets</div>
+	<div class="col-xs-3" id="sockets">{$widget->sockets}</div>
+	<div class="col-xs-3">Nodes</div>
+	<div class="col-xs-3" id="nodes">{$widget->nodes}</div>
+</div>
+<div class="row">
+	<div class="col-xs-6">Model</div>
+	<div class="col-xs-6" id="processor">{$widget->processor}</div>
+</div>
+<div class="row">
 	<div class="col-xs-6">Frequency</div>
 	<div class="col-xs-6" id="freq">{$widget->frequency} MHz</div>
 </div>

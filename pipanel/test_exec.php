@@ -32,6 +32,18 @@
 		echo "</pre>";
 	}
 	
+	exec("lscpu -p | grep '^[0-9]'", $lscpu);
+	printr($lscpu);
+	
+	$split = preg_split('/\,/', $lscpu[0], 4);
+	
+	printr($split);
+	
+	if (count($split) > 3)
+		list($cpus, $cores, $sockets, $nodes) = $split;
+	else
+		list($cpus, $cores, $sockets) = $split;
+	
 	execute_test('ps aux');
 	echo "<br />";
 	execute_test_lsusb('lsusb');
