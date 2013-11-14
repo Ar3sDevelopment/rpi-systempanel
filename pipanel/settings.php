@@ -11,7 +11,7 @@
 	{
 		if (isset($_POST['username']))
 		{
-			$settings->username = $_POST['username'];
+			$settings->user = $_POST['username'];
 		}
 		
 		if (isset($_POST['hashmethod']))
