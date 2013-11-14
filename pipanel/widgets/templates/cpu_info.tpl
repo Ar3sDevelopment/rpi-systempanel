@@ -16,7 +16,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-6">Model</div>
-	<div class="col-xs-6" id="processor">{$widget->processor}</div>
+	<div class="col-xs-6" id="processor_model">{$widget->processor}</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">Frequency</div>

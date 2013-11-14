@@ -89,5 +89,16 @@
 		"updatetime": 3600000,
 		"position": 2,
 		"columns": 4
+	},
+	{
+		"id": "still",
+		"title": "Camera Image",
+		"templatefile": "raspistill.tpl",
+		"visible": true,
+		"enabled": true,
+		"phpfile": "raspistill",
+		"updatetime": 300000,
+		"position": 10,
+		"columns": 6
 	}]
 }
