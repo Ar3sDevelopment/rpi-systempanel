@@ -30,8 +30,7 @@
 			{
 				$this->path = $path;
 				$string = file_get_contents($path);
-				$this = json_decode($string);
-				/*$json = json_decode($string);
+				$json = json_decode($string);
 				$this->user = $json->user;
 				$this->hashmethod = isset($json->hashmethod) ? $json->hashmethod : "sha512";
 				$this->passwordhashed = isset($json->passwordhashed) ? $json->passwordhashed : $this->hash($json->password);
@@ -61,7 +60,7 @@
 					$widget->phpfile = $json_widget->phpfile;
 					
 					$widgets[$widget->position] = $widget;
-				}*/
+				}
 				
 				ksort($widgets);
 				
@@ -75,29 +74,15 @@
 		
 		public function check_auth($auth = false)
 		{
-			/*if (apc_fetch('USER'))
+			if (!isset($_SERVER['PHP_AUTH_USER']) || $_SERVER['PHP_AUTH_USER'] != $this->user || hash("sha512", $_SERVER['PHP_AUTH_PW']) != $this->passwordhashed)
 			{
-				if (apc_fetch('USER') != $this->user || apc_fetch('PASSWORD') != $this->password)
-				{
-					apc_delete('USER');
-				}
-			}
-			
-			if (!apc_fetch('USER'))
-			{*/
-				if (!isset($_SERVER['PHP_AUTH_USER']) || $_SERVER['PHP_AUTH_USER'] != $this->user || hash("sha512", $_SERVER['PHP_AUTH_PW']) != $this->passwordhashed)
-				{
-					if ($auth) header('WWW-Authenticate: Basic realm="Insert settings.json credentials"');
-					header('HTTP/1.0 401 Unauthorized');
+				if ($auth) header('WWW-Authenticate: Basic realm="Insert settings.json credentials"');
+				header('HTTP/1.0 401 Unauthorized');
 ?>
-					<h1>HTTP/1.0 401 Unauthorized</h1>
+				<h1>HTTP/1.0 401 Unauthorized</h1>
 <?php
-					exit;
-				}
-				
-			/*	apc_store('USER', $this->user, 15 * 60);
-				apc_store('PASSWORD', $this->password, 15 * 60);
-			}*/
+				exit;
+			}
 		}
 	}
 ?>
