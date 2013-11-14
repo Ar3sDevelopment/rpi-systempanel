@@ -43,7 +43,7 @@
 			<div class="form-group">
 				<label for="username" class="col-sm-2 control-label">Email</label>
 				<div class="col-sm-10">
-					<input type="email" class="form-control" id="username" name="username" placeholder="Username" value="{$settings->user}" />
+					<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{$settings->user}" />
 				</div>
 			</div>
 			<div class="form-group">
@@ -56,11 +56,58 @@
 				<label for="hashmethod" class="col-sm-2 control-label">Hash Method</label>
 				<div class="col-sm-10">
 					<select class="form-control" id="hashmethod" name="hashmethod">
-						<option value="md5" {if $settings->hash_method == "md5"} selected="selected" {/if}>MD5</option>
-						<option value="sha1" {if $settings->hash_method == "sha1"} selected="selected" {/if}>SHA 1</option>
-						<option value="sha256" {if $settings->hash_method == "sha256"} selected="selected" {/if}>SHA 256</option>
-						<option value="sha512" {if $settings->hash_method == "sha512"} selected="selected" {/if}>SHA 512</option>
+						<option value="md5" {if $settings->hashmethod == "md5"} selected="selected" {/if}>MD5</option>
+						<option value="sha1" {if $settings->hashmethod == "sha1"} selected="selected" {/if}>SHA 1</option>
+						<option value="sha256" {if $settings->hashmethod == "sha256"} selected="selected" {/if}>SHA 256</option>
+						<option value="sha512" {if $settings->hashmethod == "sha512"} selected="selected" {/if}>SHA 512</option>
 					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Widgets</label>
+				<div class="col-sm-10">
+					{$c = 0}
+					{$columns = 0}
+					<div class="row">
+					{while $c < count($settings->widgets)}
+						{$widget=$settings->widgets[$c]}
+						<div class="col-md-{$widget->columns}">
+							<div class="well">
+								<div class="form-group">
+									<label for="widget-id" class="col-sm-2 control-label">ID</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="widget-id[]" placeholder="ID" value="{$widget->id}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="widget-title" class="col-sm-2 control-label">Title</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="widget-title[]" placeholder="Title" value="{$widget->title}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="widget-columns" class="col-sm-2 control-label">Columns</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="widget-columns[]" placeholder="Columns" value="{$widget->columns}" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="widget-position" class="col-sm-2 control-label">Position</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="widget-position[]" placeholder="Position" value="{$widget->position}" />
+									</div>
+								</div>
+							</div>
+						</div>
+						{$columns = $columns + {$widget->columns}}
+						{if $columns == 12}
+							{$columns = 0}
+							</div>
+							<div class="row">
+						{/if}
+						{$c = $c + 1}
+					{/while}
+					</div>
 				</div>
 			</div>
 			<div class="form-group">

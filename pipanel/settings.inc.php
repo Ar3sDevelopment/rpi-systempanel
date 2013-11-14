@@ -3,11 +3,11 @@
 
 	class Settings
 	{
-		public $path;
+		private $path;
 		public $user;
-		public $password;
+		public $passwordhashed;
 		public $widgets;
-		public $hash_method;
+		public $hashmethod;
 		
 		public function __construct($path)
 		{
@@ -16,13 +16,12 @@
 		
 		public function hash($password)
 		{
-			return hash($this->hash_method, $json['password']);
+			return hash($this->hashmethod, $password);
 		}
 		
 		public function save()
 		{
-			$json = $json = json_encode($this,true);
-			file_put_contents($this->path, json_encode($json));
+			file_put_contents($this->path, json_encode($this));
 		}
 		
 		public function loadFile($path)
@@ -33,8 +32,8 @@
 				$string = file_get_contents($path);
 				$json = json_decode($string);
 				$this->user = $json->user;
-				$this->hash_method = isset($json->hashmethod) ? $json->hashmethod : "sha512";
-				$this->password = isset($json->passwordhashed) ? $json->passwordhashed : $this->hash($json->password);
+				$this->hashmethod = isset($json->hashmethod) ? $json->hashmethod : "sha512";
+				$this->passwordhashed = isset($json->passwordhashed) ? $json->passwordhashed : $this->hash($json->password);
 				$widgets = array();
 				
 				foreach ($json->widgets as $json_widget)
@@ -85,7 +84,7 @@
 			
 			if (!apc_fetch('USER'))
 			{*/
-				if (!isset($_SERVER['PHP_AUTH_USER']) || $_SERVER['PHP_AUTH_USER'] != $this->user || hash("sha512", $_SERVER['PHP_AUTH_PW']) != $this->password)
+				if (!isset($_SERVER['PHP_AUTH_USER']) || $_SERVER['PHP_AUTH_USER'] != $this->user || hash("sha512", $_SERVER['PHP_AUTH_PW']) != $this->passwordhashed)
 				{
 					if ($auth) header('WWW-Authenticate: Basic realm="Insert settings.json credentials"');
 					header('HTTP/1.0 401 Unauthorized');

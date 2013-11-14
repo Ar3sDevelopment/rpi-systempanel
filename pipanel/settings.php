@@ -9,6 +9,10 @@
 	
 	if (isset($_POST['save']))
 	{
+		echo '<pre>';
+		print_r($_POST);
+		echo '</pre>';
+		
 		if (isset($_POST['username']))
 		{
 			$settings->user = $_POST['username'];
@@ -16,12 +20,12 @@
 		
 		if (isset($_POST['hashmethod']))
 		{
-			$settings->hash_method = $_POST['hashmethod'];
+			$settings->hashmethod = $_POST['hashmethod'];
 		}
 		
 		if (isset($_POST['password']))
 		{
-			$settings->passwordHashed = $settings->hash($_POST['password']);
+			$settings->passwordhashed = $settings->hash($_POST['password']);
 		}
 		
 		$settings->save();
