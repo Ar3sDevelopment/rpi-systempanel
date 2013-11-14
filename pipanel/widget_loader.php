@@ -1,5 +1,5 @@
 <?php
-	require_once('settings.php');
+	require_once('settings.inc.php');
 	require_once('smarty_widget.php');
 	
 	$settings = new Settings('settings.json');

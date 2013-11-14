@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	require_once('settings.php');
+	require_once('settings.inc.php');
 	require_once('Smarty.class.php');
 	require_once('widget.php');
 	

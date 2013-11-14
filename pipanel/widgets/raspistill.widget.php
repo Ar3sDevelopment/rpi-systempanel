@@ -4,7 +4,7 @@
 	class RaspstillWidget extends AbstractWidget
 	{
 		public function load() {
-			exec("/usr/bin/sudo /usr/bin/raspistill -t 0 -o /var/www/system/tmp/still.jpg");
+			exec("cd /home/pi && /usr/bin/sudo /usr/bin/raspistill -o still.jpg -w 640 -h 480 -t 1");
 			sleep(1);
 		}
 	}

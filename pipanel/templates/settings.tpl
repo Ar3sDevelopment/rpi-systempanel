@@ -34,33 +34,41 @@
 			</div>
 			<div id="menu-navbar-collapse" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="index.php">Home</a></li>
-					<li><a href="settings.php">Settings</a></li>
+					<li><a href="index.php">Home</a></li>
+					<li class="active"><a href="settings.php">Settings</a></li>
 				</ul>
 			</div>
 		</nav>
-		{$c = 0}
-		{$columns = 0}
-		<div class="row">
-		{while $c < count($widgets)}
-			{if $widgets[$c]->enabled}
-				{if !$widgets[$c]->visible}
-					<div class="col-md-{$widgets[$c]->columns}" style="display: none;">
-				{else}
-					<div class="col-md-{$widgets[$c]->columns}">
-				{/if}
-				{include file="widget.tpl" widget=$widgets[$c]}
+		<form action="settings.php" method="post" class="form-horizontal">
+			<div class="form-group">
+				<label for="username" class="col-sm-2 control-label">Email</label>
+				<div class="col-sm-10">
+					<input type="email" class="form-control" id="username" name="username" placeholder="Username" value="{$settings->user}" />
 				</div>
-				{$columns = $columns + {$widgets[$c]->columns}}
-				{if $columns == 12}
-					{$columns = 0}
-					</div>
-					<div class="row">
-				{/if}
-			{/if}
-			{$c = $c + 1}
-		{/while}
-		</div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-sm-2 control-label">Password</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="hashmethod" class="col-sm-2 control-label">Hash Method</label>
+				<div class="col-sm-10">
+					<select class="form-control" id="hashmethod" name="hashmethod">
+						<option value="md5" {if $settings->hash_method == "md5"} selected="selected" {/if}>MD5</option>
+						<option value="sha1" {if $settings->hash_method == "sha1"} selected="selected" {/if}>SHA 1</option>
+						<option value="sha256" {if $settings->hash_method == "sha256"} selected="selected" {/if}>SHA 256</option>
+						<option value="sha512" {if $settings->hash_method == "sha512"} selected="selected" {/if}>SHA 512</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" name="save" id="save" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</form>
 	</div>
 </body>
 </html>

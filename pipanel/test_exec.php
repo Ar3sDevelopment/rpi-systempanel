@@ -80,7 +80,7 @@
 	
 	printr($avail_updates);
 	
-	require('settings.php');
+	require('settings.inc.php');
 	
 	$settings = new Settings('settings.json');
 	
