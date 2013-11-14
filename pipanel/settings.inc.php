@@ -30,7 +30,8 @@
 			{
 				$this->path = $path;
 				$string = file_get_contents($path);
-				$json = json_decode($string);
+				$this = json_decode($string);
+				/*$json = json_decode($string);
 				$this->user = $json->user;
 				$this->hashmethod = isset($json->hashmethod) ? $json->hashmethod : "sha512";
 				$this->passwordhashed = isset($json->passwordhashed) ? $json->passwordhashed : $this->hash($json->password);
@@ -60,7 +61,7 @@
 					$widget->phpfile = $json_widget->phpfile;
 					
 					$widgets[$widget->position] = $widget;
-				}
+				}*/
 				
 				ksort($widgets);
 				
