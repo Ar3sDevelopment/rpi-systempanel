@@ -2,8 +2,8 @@
 	require_once('settings.inc.php');
 	require_once('smarty_widget.php');
 	
-	$settings = new Settings('settings.json');
-	$settings->check_auth(true);
+	$settings = new Settings(true);
+	//$settings->check_auth(true);
 	
 	if (isset($_POST['widget_php']))
 	{

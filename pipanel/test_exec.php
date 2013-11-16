@@ -82,7 +82,7 @@
 	
 	require('settings.inc.php');
 	
-	$settings = new Settings('settings.json');
+	$settings = new Settings(true);
 	
 	printr($settings);
 ?>

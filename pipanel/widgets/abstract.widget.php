@@ -1,8 +1,8 @@
 <?php
 	require_once('settings.inc.php');
 
-	$settings = new Settings('settings.json');
-	$settings->check_auth();
+	$settings = new Settings();
+	//$settings->check_auth();
 
 	abstract class AbstractWidget
 	{

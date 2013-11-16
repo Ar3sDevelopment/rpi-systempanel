@@ -1,8 +1,4 @@
 <div class="row">
-	<div class="col-xs-6">Model</div>
-	<div class="col-xs-6" id="processor">{$widget->processor}</div>
-</div>
-<div class="row">
 	<div class="col-xs-3">CPUs</div>
 	<div class="col-xs-3" id="cpus">{$widget->cpus}</div>
 	<div class="col-xs-3">Cores</div>
@@ -16,14 +12,14 @@
 </div>
 <div class="row">
 	<div class="col-xs-6">Model</div>
-	<div class="col-xs-6" id="processor_model">{$widget->processor}</div>
+	<div class="col-xs-6" id="model">{$widget->processor}</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">Frequency</div>
 	<div class="col-xs-6" id="freq">{$widget->frequency} MHz</div>
 </div>
 <div class="row">
-	<div class="col-xs-6">oad</div>
+	<div class="col-xs-6">Load</div>
 	<div class="col-xs-3" id="cpuload">{$widget->cpuload} %</div>
 	<div class="col-xs-3" id="cpuload_percent">
 		<div class="progress">

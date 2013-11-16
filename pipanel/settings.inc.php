@@ -4,14 +4,113 @@
 	class Settings
 	{
 		private $path;
+		private $id_user;
 		public $user;
 		public $passwordhashed;
 		public $widgets;
 		public $hashmethod;
 		
-		public function __construct($path)
+		public function __construct($auth = false)
 		{
-			$this->loadFile($path);
+			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel");
+				
+			if (!isset($_SERVER['PHP_AUTH_USER']))
+			{
+				if ($auth) header('WWW-Authenticate: Basic realm="Insert settings.json credentials"');
+				header('HTTP/1.0 401 Unauthorized');
+?>
+				<h1>HTTP/1.0 401 Unauthorized</h1>
+<?php
+				exit;
+			}
+			
+			if ($mysqli->connect_errno) {
+				echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+			}
+			
+			$query = "SELECT u.id, u.username, u.password, h.name hash FROM users u INNER JOIN hash h ON u.id_hash = h.id WHERE username = ?";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("s", $_SERVER['PHP_AUTH_USER']); 
+			$stmt->execute();
+
+			if ($result = $stmt->get_result())
+			{
+				while ($obj = $result->fetch_object())
+				{
+					if ($obj->password == hash($obj->hash, $_SERVER['PHP_AUTH_PW']))
+					{
+						$this->id_user = $obj->id;
+						$this->user = $obj->username;
+						$this->passwordHashed = $obj->password;
+						$this->hashMethod = $obj->hash;
+					}
+					else
+					{
+						$this->id_user = -1;
+						
+						if ($auth) header('WWW-Authenticate: Basic realm="Insert settings.json credentials"');
+						header('HTTP/1.0 401 Unauthorized');
+?>
+						<h1>HTTP/1.0 401 Unauthorized</h1>
+<?php
+						exit;
+					}
+				}
+
+				$result->close();
+			}
+			else
+			{
+				$this->id_user = -1;
+				
+				if ($auth) header('WWW-Authenticate: Basic realm="Insert settings.json credentials"');
+				header('HTTP/1.0 401 Unauthorized');
+?>
+				<h1>HTTP/1.0 401 Unauthorized</h1>
+<?php
+				exit;
+			}
+			
+			$stmt->close();
+			
+			if ($this->id_user != -1)
+			{		
+				$query = "SELECT * FROM widget WHERE id_user = ? ORDER BY position";
+				$stmt = $mysqli->stmt_init();
+				$stmt->prepare($query);
+				$stmt->bind_param("i", $this->id_user); 
+				$stmt->execute();
+	
+				if ($result = $stmt->get_result())
+				{
+					$this->widgets = array();		
+					
+					while ($obj = $result->fetch_object())
+					{
+						$widget = new Widget();
+					
+						$widget->id = $obj->id_html;
+						$widget->title = $obj->title;
+						$widget->updatetime = $obj->updatetime;
+						$widget->enabled = $obj->enabled;
+						$widget->visible = $obj->visible;
+						$widget->columns = $obj->columns;
+						$widget->position = $obj->position;
+						$widget->templatefile = $obj->templatefile;
+						$widget->phpfile = $obj->phpfile;
+						
+						$this->widgets[] = $widget;
+					}
+					
+					$result->close();
+				}
+				
+				$stmt->close();
+				$mysqli->close();
+			}
+			
+			/*$this->loadFile($path);*/
 		}
 		
 		public function hash($password)

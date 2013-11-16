@@ -4,8 +4,7 @@
 	require_once('Smarty.class.php');
 	require_once('widget.php');
 	
-	$settings = new Settings('settings.json');
-	$settings->check_auth(true);
+	$settings = new Settings(true);
 	
 	$smarty = new Smarty();
 	
