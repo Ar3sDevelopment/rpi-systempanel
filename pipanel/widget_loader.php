@@ -20,7 +20,6 @@
 		
 		$smarty = new Smarty_Widget();
 		
-		//$widget->load();
 		echo $widget->html($smarty);
 	}
 ?>

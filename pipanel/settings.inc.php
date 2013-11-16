@@ -8,7 +8,6 @@
 		
 		public static function get_user_info($sid)
 		{
-			$user = null;
 			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel");
 			
 			if ($mysqli->connect_errno)
