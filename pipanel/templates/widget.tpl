@@ -17,7 +17,7 @@
 	});
 	
 	function updateWidget{$widget->id}Repeat() {
-		$.post('widget_loader.php', { 'widget_php': '{$widget->phpfile}' }, function (data) {
+		$.post('widget_loader.php', { 'widget_php': '{$widget->phpfile}', 'sid': '{$sid}' }, function (data) {
 			$('#{$widget->id} .panel-body').html(data);
 			if (data.length > 0)
 			{
@@ -32,7 +32,7 @@
 	}
 	
 	function updateWidget{$widget->id}() {
-		$.post('widget_loader.php', { 'widget_php': '{$widget->phpfile}' }, function (data) {
+		$.post('widget_loader.php', { 'widget_php': '{$widget->phpfile}', 'sid': '{$sid}' }, function (data) {
 			$('#{$widget->id} .panel-body').html(data);
 			if ($('[data-only="true"]').length <= 0)
 				$('#{$widget->id}').parent().show();

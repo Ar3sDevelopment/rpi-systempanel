@@ -1,8 +1,7 @@
 <?php
 	require_once('settings.inc.php');
 
-	$settings = new Settings();
-	//$settings->check_auth();
+	$settings = new Settings($sid);
 
 	abstract class AbstractWidget
 	{

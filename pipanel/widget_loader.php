@@ -2,8 +2,9 @@
 	require_once('settings.inc.php');
 	require_once('smarty_widget.php');
 	
-	$settings = new Settings(true);
-	//$settings->check_auth(true);
+	$sid = $_POST['sid'];
+	
+	$settings = new Settings($sid);
 	
 	if (isset($_POST['widget_php']))
 	{

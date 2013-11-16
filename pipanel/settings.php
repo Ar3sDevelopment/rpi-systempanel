@@ -1,11 +1,16 @@
 <?php
-	session_start();
+	if (!isset($_GET['sid']) && !isset($_POST['sid']))
+		header('Location: login.php');
+
+	$sid = isset($_GET['sid']) ? $_GET['sid'] : $_POST['sid'];
+	$session_id = session_id($sid);
+	if (empty($session_id)) session_start();
+	
 	require_once('settings.inc.php');
 	require_once('Smarty.class.php');
 	require_once('widget.php');
 	
-	$settings = new Settings(true);
-	//$settings->check_auth(true);
+	$settings = new Settings($sid);
 	
 	function compare_position($w1, $w2)
 	{
@@ -15,25 +20,15 @@
 	}
 	
 	if (isset($_POST['save']))
-	{	
-		if (isset($_POST['username']))
-		{
-			$settings->user = $_POST['username'];
-		}
+	{
+		$username =  $_POST['username'];
+		$hashmethod = $_POST['hashmethod'];
+		$password = hash($hashmethod, $_POST['password']);
 		
-		if (isset($_POST['hashmethod']))
-		{
-			$settings->hashmethod = $_POST['hashmethod'];
-		}
-		
-		if (isset($_POST['password']))
-		{
-			$settings->passwordhashed = $settings->hash($_POST['password']);
-		}
-		
+		$widgets = array();
 		for ($c = 0; $c < count($settings->widgets); $c++)
 		{
-			$widget = $settings->widgets[$c];
+			$widget = new Widget();
 			
 			$widget->id = $_POST["widget-id"][$c];
 			$widget->position = $_POST["widget-position"][$c];
@@ -42,16 +37,21 @@
 			$widget->updatetime = $_POST["widget-updatetime"][$c];
 			$widget->phpfile = $_POST["widget-phpfile"][$c];
 			$widget->templatefile = $_POST["widget-templatefile"][$c];
-			$widget->visible = isset($_POST["widget-visible"][$c]) ? $_POST["widget-visible"][$c] : false;
-			$widget->enabled = isset($_POST["widget-enabled"][$c]) ? $_POST["widget-enabled"][$c] : false;
+			$widget->visible = isset($_POST["widget-visible"][$c]) ? 1 : 0;
+			$widget->enabled = isset($_POST["widget-enabled"][$c]) ? 1 : 0;
+			
+			$widgets[] = $widget;
 		}
 		
-		usort($settings->widgets, "compare_position");
-		$settings->save();
+		$settings->save($sid, $username, $password, $hashmethod, $widgets);
 	}
 	
 	$smarty = new Smarty();
 	
+	$hashes = Settings::get_hash_methods($sid);
+	
+	$smarty->assign('sid', $sid);
 	$smarty->assign('settings', $settings);
+	$smarty->assign('hashes', $hashes);
 	$smarty->display('settings.tpl');
 ?>
