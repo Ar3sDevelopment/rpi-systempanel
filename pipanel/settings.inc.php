@@ -6,6 +6,35 @@
 		private $path;
 		public $widgets;
 		
+		public static function get_user_info($sid)
+		{
+			$user = null;
+			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel");
+			
+			if ($mysqli->connect_errno)
+			{
+				die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+			}
+			
+			$query = "SELECT * FROM users WHERE sid = ?";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("s", $sid);
+			$stmt->execute();
+			
+			if ($result = $stmt->get_result())
+			{	
+				$obj = $result->fetch_object();
+
+				$result->close();
+				$stmt->close();
+				$mysqli->close();
+				return $obj;
+			}
+			
+			return null;
+		}
+		
 		public static function get_hash_methods($sid)
 		{
 			$hashes = array();
@@ -73,7 +102,7 @@
 			return $uid;
 		}
 		
-		public static function update_sid($sid,$uid)
+		public static function update_sid($sid, $uid)
 		{
 			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel");
 			

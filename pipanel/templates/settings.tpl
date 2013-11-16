@@ -11,7 +11,7 @@
 			<div class="form-group">
 				<label for="username" class="col-sm-2 control-label">Email</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{$settings->user}" />
+					<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{$user->username}" />
 				</div>
 			</div>
 			<div class="form-group">

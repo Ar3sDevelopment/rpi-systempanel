@@ -49,9 +49,11 @@
 	$smarty = new Smarty();
 	
 	$hashes = Settings::get_hash_methods($sid);
+	$user_info = Settings::get_user_info($sid);
 	
 	$smarty->assign('sid', $sid);
 	$smarty->assign('settings', $settings);
+	$smarty->assign('user', $user_info);
 	$smarty->assign('hashes', $hashes);
 	$smarty->display('settings.tpl');
 ?>
