@@ -32,15 +32,10 @@
 		$widgets = array();
 		for ($c = 0; $c < count($settings->widgets); $c++)
 		{
-			$widget = new Widget();
+			$widget = $settings->widgets[$c];
 			
 			$widget->id = $_POST["widget-id"][$c];
 			$widget->position = $_POST["widget-position"][$c];
-			$widget->title = $_POST["widget-title"][$c];
-			$widget->columns = $_POST["widget-columns"][$c];
-			$widget->updatetime = $_POST["widget-updatetime"][$c];
-			$widget->phpfile = $_POST["widget-phpfile"][$c];
-			$widget->templatefile = $_POST["widget-templatefile"][$c];
 			$widget->visible = isset($_POST["widget-visible"][$c]) ? 1 : 0;
 			$widget->enabled = isset($_POST["widget-enabled"][$c]) ? 1 : 0;
 			

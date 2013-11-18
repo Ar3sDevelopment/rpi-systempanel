@@ -6,6 +6,66 @@
 		private $path;
 		public $widgets;
 		
+		public static function get_widgets()
+		{
+			$hashes = array();
+			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel");
+			
+			if ($mysqli->connect_errno)
+			{
+				die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+			}
+			
+			$query = "SELECT * FROM widget";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->execute();
+			
+			if ($result = $stmt->get_result())
+			{	
+				while ($obj = $result->fetch_object())
+				{
+					$widgets[] = $obj;
+				}
+
+				$result->close();
+			}
+			
+			$stmt->close();
+			$mysqli->close();
+			
+			return $widgets;
+		}
+		
+		public static function save_widgets($widgets)
+		{
+			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel");
+			
+			if ($mysqli->connect_errno)
+			{
+				die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+			}
+			
+			for ($c = 0; $c < count($widgets); $c++)
+			{
+				$widget = $widgets[$c];
+				$new_widget = $new_widgets[$c];
+				
+				$query = "UPDATE widget SET columns = ?, updatettime = ?, title = ?, phpfile = ?, templatefile = ? WHERE id = ?";
+				$stmt = $mysqli->stmt_init();
+				$stmt->prepare($query);
+				$stmt->bind_param("iisssi", $new_widget->columns,
+												$new_widget->updatettime,
+												$new_widget->title,
+												$new_widget->phpfile,
+												$new_widget->templatefile,
+												$widget->id);
+
+				$stmt->execute();
+				$stmt->close();
+			}
+		}
+		
 		public static function get_user_info($sid)
 		{
 			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel");
@@ -191,7 +251,7 @@
 				$query = "UPDATE user_widget SET position = ?, id_html = ?, visible = ?, enabled = ? WHERE id_html = ?";
 				$stmt = $mysqli->stmt_init();
 				$stmt->prepare($query);
-				$stmt->bind_param("iiissssiis", $new_widget->position,
+				$stmt->bind_param("isiis", $new_widget->position,
 												$new_widget->id,
 												$new_widget->visible,
 												$new_widget->enabled,
