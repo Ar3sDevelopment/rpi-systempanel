@@ -4,7 +4,7 @@
 	if (!isset($_GET['sid']) && !isset($_POST['sid']))
 		header('Location: login.php');
 
-require_once('settings.inc.php');
+	require_once('settings.inc.php');
 
 	$sid = isset($_GET['sid']) ? $_GET['sid'] : $_POST['sid'];
 	$session_id = session_id($sid);
