@@ -34,7 +34,6 @@
 		
 		Settings::save_widgets($widgets);
 	}
-
 	
 	$smarty = new Smarty();
 	

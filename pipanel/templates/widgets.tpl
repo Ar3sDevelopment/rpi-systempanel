@@ -23,7 +23,7 @@
 								<div class="form-group">
 									<label for="widget-position" class="col-sm-4 control-label">Update Time</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" name="widget-updatettime[{$c}]" placeholder="Update Time" value="{$widget->updatetime}" />
+										<input type="text" class="form-control" name="widget-updatetime[{$c}]" placeholder="Update Time" value="{$widget->updatetime}" />
 									</div>
 								</div>
 								<div class="form-group">
