@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	{include file="html_head.tpl" title="SIP Settings"}
+	{include file="html_head.tpl" title="SIP Widgets"}
 </head>
 <body>
 	<div class="container">
