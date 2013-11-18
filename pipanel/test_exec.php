@@ -80,7 +80,7 @@
 	
 	printr($avail_updates);
 	
-	require('settings.inc.php');
+	require('../framework/settings.inc.php');
 	
 	$settings = new Settings(true);
 	

@@ -1,5 +1,5 @@
 <?php
-	require_once('widget.php');
+	require_once('widget.inc.php');
 
 	class Settings
 	{

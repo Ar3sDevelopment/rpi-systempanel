@@ -4,7 +4,7 @@
 	if (!isset($_GET['sid']))
 		header('Location: login.php');
 	
-	require_once('settings.inc.php');
+	require_once('../framework/settings.inc.php');
 	
 	$sid = $_GET['sid'];
 	$session_id = session_id($sid);
@@ -12,7 +12,7 @@
 	if (empty($session_id) || Settings::get_user_info($sid) == null) header('Location: login.php');
 	
 	require_once('Smarty.class.php');
-	require_once('widget.php');
+	require_once('../framework/widget.inc.php');
 	
 	$settings = new Settings($sid);
 	

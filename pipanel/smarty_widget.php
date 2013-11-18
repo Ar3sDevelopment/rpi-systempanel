@@ -1,7 +1,7 @@
 <?php
 
 require_once('Smarty.class.php');
-require_once('widget.php');
+require_once('../framework/widget.inc.php');
 
 class Smarty_Widget extends Smarty
 {

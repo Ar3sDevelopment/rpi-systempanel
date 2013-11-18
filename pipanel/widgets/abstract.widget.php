@@ -1,5 +1,5 @@
 <?php
-	require_once('settings.inc.php');
+	require_once('../framework/settings.inc.php');
 
 	$settings = new Settings($sid);
 
