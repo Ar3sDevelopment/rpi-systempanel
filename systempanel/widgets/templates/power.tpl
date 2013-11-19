@@ -3,11 +3,13 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#btnPowerOff').click(function () {
-			$.post('widget_loader.php', { widget_php: 'power', po: true }, null);
+			if (confirm('Are you sure you want to shutdown?'))
+				$.post('widget_loader.php', { widget_php: 'power', po: true }, null);
 		});
 		
 		$('#btnPowerReset').click(function () {
-			$.post('widget_loader.php', { widget_php: 'power', pr: true }, null);
+			if (confirm('Are you sure you want to reboot?'))
+				$.post('widget_loader.php', { widget_php: 'power', pr: true }, null);
 		});
 	});
 </script>
