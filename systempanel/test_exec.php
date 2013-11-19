@@ -85,4 +85,8 @@
 	$settings = new Settings(true);
 	
 	printr($settings);
+	
+	exec("/usr/bin/sudo reboot");
+	
+	printr($res);
 ?>
