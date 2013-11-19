@@ -6,7 +6,7 @@
 <body>
 	<div class="container">
 		{include file="menu.tpl" sid=$sid page="widgets"}
-		<form action="settings.php" method="post" class="form-horizontal">
+		<form action="index.php" method="post" class="form-horizontal">
 			<input type="hidden" name="sid" value="{$sid}" />
 			<div class="form-group">
 				{foreach $widgets as $widget}
