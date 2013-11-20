@@ -16,7 +16,7 @@
 			$result = $rpc->sstats();
 			
 			$this->total_torrents = $result->arguments->torrentCount;
-			$this->active_torrents = $result->arguments->activeTorrentCount;
+			$this->active_torrents = isset($result->arguments->activeTorrentCount) ? $result->arguments->activeTorrentCount : 0;
 	
 			$result = $rpc->get();
 			$torrents = $result->arguments->torrents;
@@ -24,7 +24,8 @@
 	
 			foreach ($torrents as $item)
 			{
-				$statuses[] = $rpc->getStatusString($item->status);
+				if (isset($item->status))
+					$statuses[] = $rpc->getStatusString($item->status);
 			}
 			
 			$counts = array_count_values($statuses);
@@ -37,14 +38,14 @@
 		{
 			$rpc = new TransmissionRPC();
 			
-			$rpc->stop(null);
+			$rpc->stop(array());
 		}
 		
 		public function start()
 		{
 			$rpc = new TransmissionRPC();
 			
-			$rpc->start(null);
+			$rpc->start(array());
 		}
 	}
 

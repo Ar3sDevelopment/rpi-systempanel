@@ -5,7 +5,16 @@
 		print_r($obj);
 		echo "</pre>";
 	}
+	
+	require('../framework/TransmissionRPC.class.php');
 
-	printr($_SERVER);
-	printr(get_browser($_SERVER['HTTP_USER_AGENT']));
+	$rpc = new TransmissionRPC();
+	
+	$result = $rpc->sstats();
+	
+	printr($result);
+
+	$result = $rpc->get(array(), array("status"));
+	
+	printr($result);
 ?>

@@ -28,7 +28,7 @@
 		}
 		
 		public function load() {
-			exec("/sbin/ifconfig -s", $nics);
+			exec("/sbin/ifconfig -s -a", $nics);
 			unset($nics[0]);
 			foreach ($nics as $nic)
 			{
