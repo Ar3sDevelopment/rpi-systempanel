@@ -75,7 +75,7 @@
 				die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 			}
 			
-			$query = "SELECT * FROM users WHERE sid = ?";
+			$query = "SELECT u.* FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now()";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $sid);
@@ -104,7 +104,7 @@
 				die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 			}
 			
-			$query = "SELECT name, description, name = (SELECT id_hash FROM users WHERE sid = ?) selected FROM hash";
+			$query = "SELECT name, description, name = (SELECT u.id_hash FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now()) selected FROM hash";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $sid);
@@ -136,7 +136,7 @@
 				die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 			}
 			
-			$query = "SELECT u.id, u.username, u.password, h.name hash FROM users u INNER JOIN hash h ON u.id_hash = h.name WHERE username = ?";
+			$query = "SELECT u.id, u.username, u.password, h.name hash FROM user u INNER JOIN hash h ON u.id_hash = h.name WHERE username = ?";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $username);
@@ -161,7 +161,7 @@
 			return $uid;
 		}
 		
-		public static function update_sid($sid, $uid)
+		public static function update_sid($sid, $device, $uid)
 		{
 			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel");
 			
@@ -170,12 +170,41 @@
 				die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 			}
 			
-			$query = "UPDATE users SET sid = ? WHERE id = ?";
+			$query = "SELECT COUNT(*) session_count FROM session WHERE sid = ? or device = ?";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
-			$stmt->bind_param("ss", $sid, $uid); 
+			$stmt->bind_param("ss", $sid, $device); 
+			$stmt->execute();
+			
+			$insert = true;
+			
+			if ($result = $stmt->get_result())
+			{
+				$obj = $result->fetch_object();
+				
+				if ($obj->session_count) $insert = false;
+			}
+			
+			$stmt->close();
+			
+			if ($insert)
+			{
+				$query = "INSERT INTO session (sid, expiredate, device, id_user) VALUES (?, ?, ?, ?)";
+			}
+			else
+			{
+				$query = "UPDATE session SET sid = ?, expiredate = ? where device = ? and id_user = ?";
+			}
+			
+			$date = new DateTime();
+			
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("ssss", $sid, $date->add(new DateInterval('P7D'))->format(DateTime::ISO8601), $device, $uid); 
 			$stmt->execute();
 			$stmt->close();
+			
+			
 			$mysqli->close();	
 		}
 		
@@ -193,7 +222,7 @@
 				die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 			}
 			
-			$query = "SELECT * FROM user_widget uw INNER JOIN widget w ON uw.id_widget = w.id WHERE uw.id_user = (SELECT u.id FROM users u INNER JOIN hash h ON u.id_hash = h.name WHERE sid = ?) ORDER BY uw.position";
+			$query = "SELECT * FROM user_widget uw INNER JOIN widget w ON uw.id_widget = w.id WHERE uw.id_user = (SELECT u.id FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now()) ORDER BY uw.position";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $sid);
@@ -236,7 +265,7 @@
 				die("Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
 			}
 			
-			$query = "UPDATE users SET username = ?, password = ?, id_hash = ? WHERE sid = ?";
+			$query = "UPDATE user SET username = ?, password = ?, id_hash = ? WHERE id = (SELECT s.id_user FROM session s WHERE sid = ?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("ssss", $username, $password, $hash, $sid); 

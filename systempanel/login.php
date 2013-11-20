@@ -12,7 +12,7 @@
 		if ($uid != -1)
 		{
 			$sid = session_id();
-			Settings::update_sid($sid, $uid);
+			Settings::update_sid($sid, $_SERVER['REMOTE_ADDR'], $uid);
 			
 			header("Location: index.php?sid=$sid");
 		}
