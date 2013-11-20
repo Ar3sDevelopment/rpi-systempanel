@@ -32,7 +32,27 @@
 			$this->seeding_torrents = isset($counts["Seeding"]) ? $counts["Seeding"] : 0;
 			$this->downloading_torrents = isset($counts["Downloading"]) ? $counts["Downloading"] : 0;
 		}
+		
+		public function stop()
+		{
+			$rpc = new TransmissionRPC();
+			
+			$rpc->stop(null);
+		}
+		
+		public function start()
+		{
+			$rpc = new TransmissionRPC();
+			
+			$rpc->start(null);
+		}
 	}
 
 	$widget = new TransmissionWidget();
+	
+	if (isset($_POST['sta'])) {
+		$widget->start();
+	} else if (isset($_POST['sto'])) {
+		$widget->stop();
+	}
 ?>

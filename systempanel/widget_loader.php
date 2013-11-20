@@ -20,6 +20,8 @@
 		
 		$smarty = new Smarty_Widget();
 		
+		$smarty->assign('sid', $sid);
+		
 		echo $widget->html($smarty);
 	}
 ?>
