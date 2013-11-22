@@ -44,6 +44,15 @@
 										<input type="text" class="form-control" name="widget-templatefile[{$c}]" placeholder="Template File" value="{$widget->templatefile}" />
 									</div>
 								</div>
+								<div class="form-group">
+									<div class="col-sm-offset-4 col-sm-8">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" name="widget-requireadmin[{$c}]" {if $widget->requireadmin}checked="checked"{/if}> Require Admin
+											</label>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

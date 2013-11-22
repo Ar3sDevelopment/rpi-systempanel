@@ -12,6 +12,7 @@
 		public $updatetime;
 		public $position;
 		public $columns;
+		public $requireadmin;
 		
 		public function __construct()
 		{
@@ -19,6 +20,7 @@
 			$this->enabled = true;
 			$this->updatetime = 1000;
 			$this->columns = 6;
+			$this->requireadmin = false;
 		}
 	}
 ?>
