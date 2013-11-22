@@ -16,7 +16,7 @@
 		
 		private function init_mysqli()
 		{
-			$mysqli = mysqli($db_host, $db_user, $db_pass, $db_name);
+			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel"); //mysqli($this->db_host, $this->db_user, $this->db_pass, $this->db_name);
 			
 			if ($mysqli->connect_errno)
 			{
@@ -52,7 +52,7 @@
 			return $widgets;
 		}
 		
-		public static function save_widgets($widgets)
+		public function save_widgets($widgets)
 		{
 			$mysqli = $this->init_mysqli();
 			
@@ -76,7 +76,7 @@
 			}
 		}
 		
-		public static function get_user_info($sid)
+		public function get_user_info($sid)
 		{
 			$mysqli = $this->init_mysqli();
 			
@@ -99,7 +99,7 @@
 			return null;
 		}
 		
-		public static function get_hash_methods($sid)
+		public function get_hash_methods($sid)
 		{
 			$hashes = array();
 			$mysqli = $this->init_mysqli();
@@ -126,12 +126,12 @@
 			return $hashes;
 		}
 		
-		public static function check_login($username, $password)
+		public function check_login($username, $password)
 		{
 			$uid = -1;
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT u.id, u.username, u.password, h.name hash FROM user u INNER JOIN hash h ON u.id_hash = h.name WHERE username = ?";
+			$query = "SELECT u.id, u.username, u.password, h.name hash FROM user u INNER JOIN hash h ON u.id_hash = h.name WHERE u.username = ?";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $username);
@@ -156,7 +156,7 @@
 			return $uid;
 		}
 		
-		public static function update_sid($sid, $device, $uid)
+		public function update_sid($sid, $device, $uid)
 		{
 			$mysqli = $this->init_mysqli();
 			
@@ -194,11 +194,10 @@
 			$stmt->execute();
 			$stmt->close();
 			
-			
 			$mysqli->close();	
 		}
 		
-		private function load($sid)
+		public function load($sid)
 		{
 			$mysqli = $this->init_mysqli();
 			
@@ -208,10 +207,10 @@
 			$stmt->bind_param("s", $sid);
 			$stmt->execute();
 
+			$widgets = array();
+
 			if ($result = $stmt->get_result())
-			{
-				$this->widgets = array();
-				
+			{				
 				while ($obj = $result->fetch_object())
 				{
 					$widget = new Widget();
@@ -226,7 +225,7 @@
 					$widget->templatefile = $obj->templatefile;
 					$widget->phpfile = $obj->phpfile;
 					
-					$this->widgets[] = $widget;
+					$widgets[] = $widget;
 				}
 				
 				$result->close();
@@ -234,6 +233,8 @@
 			
 			$stmt->close();
 			$mysqli->close();
+			
+			return $widgets;
 		}
 		
 		public function save($sid, $username, $password, $hash, $new_widgets)

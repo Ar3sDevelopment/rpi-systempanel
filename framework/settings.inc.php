@@ -40,7 +40,7 @@
 		public static function update_sid($sid, $device, $uid)
 		{
 			$db = new Database();
-			return $db->check_login($sid, $device, $uid);
+			return $db->update_sid($sid, $device, $uid);
 		}
 		
 		public function __construct($sid)
@@ -51,7 +51,7 @@
 		private function load($sid)
 		{
 			$db = new Database();
-			return $db->load($sid);
+			$this->widgets = $db->load($sid);
 		}
 		
 		public function save($sid, $username, $password, $hash, $new_widgets)
