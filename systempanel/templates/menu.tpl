@@ -6,6 +6,7 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
+		<a class="navbar-brand" href="index.php?sid={$sid}"><img src="images/rpi.png" /></a>
 	</div>
 	<div id="menu-navbar-collapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">

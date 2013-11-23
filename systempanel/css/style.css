@@ -15,6 +15,18 @@ body
 
 .panel-heading .btn-link
 {
-	color: #fff;
+	/*color: #fff;*/
+	color: rgb(70, 136, 71);
 	padding: 0px 3px;
+}
+
+.navbar-brand
+{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.navbar-brand img
+{
+	height: 40px;
 }

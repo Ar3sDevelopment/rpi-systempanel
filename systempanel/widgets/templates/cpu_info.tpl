@@ -31,3 +31,57 @@
 	<div class="col-xs-6">Temperature</div>
 	<div class="col-xs-6" id="cpu_temperature">{$widget->cpu_temperature}&deg;C</div>
 </div>
+<div class="row">
+	<div id="cpu_load_gauge" class="col-md-8"></div>
+	<div id="cpu_temp_gauge" class="col-md-4"></div>
+</div>
+<script type="text/javascript">
+$(document).ready(function () {
+	var labels = { visible: true, position: 'inside' };
+	$('#cpu_load_gauge').jqxGauge({
+		ranges: [
+			{ startValue: 0, endValue: 50, style: { fill: '#e2e2e2', stroke: '#e2e2e2' }, startDistance: '5%', endDistance: '5%', endWidth: 13, startWidth: 13 },
+			{ startValue: 50, endValue: 70, style: { fill: '#f6de54', stroke: '#f6de54' }, startDistance: '5%', endDistance: '5%', endWidth: 13, startWidth: 13 },
+			{ startValue: 70, endValue: 85, style: { fill: '#db5016', stroke: '#db5016' }, startDistance: '5%', endDistance: '5%', endWidth: 13, startWidth: 13 },
+			{ startValue: 85, endValue: 100, style: { fill: '#d02841', stroke: '#d02841' }, startDistance: '5%', endDistance: '5%', endWidth: 13, startWidth: 13 }
+		],
+		width: 200,
+		height: 200,
+		cap: { radius: 0.04 },
+		caption: { offset: [0, 0], value: 'CPU Load', position: 'bottom' },
+		value: 0,
+		max: 100,
+		style: { stroke: '#ffffff', 'stroke-width': '1px', fill: '#ffffff' },
+		animationDuration: 1500,
+		colorScheme: 'scheme09',
+		labels: labels,
+		ticksMinor: { interval: 5, size: '5%' },
+		ticksMajor: { interval: 10, size: '10%' }
+	});
+	
+	$('#cpu_load_gauge').jqxGauge('setValue', {$widget->cpuload});
+	
+	var majorTicks = { size: '10%', interval: 10 };
+	var minorTicks = { size: '5%', interval: 2.5, style: { 'stroke-width': 1, stroke: '#aaaaaa'} };
+	var labels = { interval: 20, position: 'near' };
+	$('#cpu_temp_gauge').jqxLinearGauge({
+		width: 100,
+		height: 200,
+		orientation: 'vertical',
+		labels: labels,
+		ticksMajor: majorTicks,
+		ticksMinor: minorTicks,
+		min: 0,
+		max: 80,
+		value: 0,
+		pointer: { size: '6%' },
+		colorScheme: 'scheme09',
+		ranges: [
+			{ startValue: 0, endValue: 40, style: { fill: '#FFF157', stroke: '#FFF157'} },
+			{ startValue: 40, endValue: 60, style: { fill: '#FFA200', stroke: '#FFA200'} },
+			{ startValue: 60, endValue: 80, style: { fill: '#FF4800', stroke: '#FF4800'}}
+		]
+	});
+	$('#cpu_temp_gauge').jqxLinearGauge('value', {$widget->cpu_temperature});
+});
+</script>

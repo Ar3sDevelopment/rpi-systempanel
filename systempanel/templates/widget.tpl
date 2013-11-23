@@ -1,4 +1,4 @@
-<div class="panel panel-primary" id="{$widget->id}">
+<div class="panel panel-success" id="{$widget->id}">
 	<div class="panel-heading">
 		<button type="button" class="btn btn-link" data-toggle="hide" data-target="#{$widget->id} .panel-body">{$widget->title}</button>
 		{if $widget->updatetime > 0}

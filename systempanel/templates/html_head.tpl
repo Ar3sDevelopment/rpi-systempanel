@@ -12,6 +12,11 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqxcore.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqxdata.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqxchart.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqxgauge.js"></script>
+<link rel="stylesheet" href="js/jqwidgets/styles/jqx.bootstrap.css" type="text/css" />
 <script type="text/javascript" src="js/system.js"></script>
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
