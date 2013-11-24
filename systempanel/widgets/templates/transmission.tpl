@@ -22,6 +22,11 @@
 	<div class="col-xs-6">&nbsp;</div>
 </div>
 <script type="text/javascript">
+	function callbackTransmissionFunc(data)
+	{
+		$('#{$widget_info->id} .panel-body').html(data);
+	}
+
 	$(document).ready(function () {
 		$('#btnTransPlay').click(function () {
 			$.post('widget_loader.php', { widget_php: 'transmission', sid: '{$sid}', sta: true }, null);
@@ -30,5 +35,9 @@
 		$('#btnTransStop').click(function () {
 			$.post('widget_loader.php', { widget_php: 'transmission', sid: '{$sid}', sto: true }, null);
 		});
+		
+		setTimeout(function () {
+			updateWidgetHtml('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackTransmissionFunc, null);
+		}, {$widget_info->updatetime});
 	});
 </script>

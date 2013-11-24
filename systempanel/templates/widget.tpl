@@ -12,48 +12,17 @@
 {if $widget->updatetime > 0}
 	<script type="text/javascript">
 		$(document).ready(function () {
-			updateWidget{$widget->id}Repeat();
+			downloadWidget('{$widget->id}', '{$widget->phpfile}', '{$sid}');
 			
-			$('#{$widget->id}').click(function () {
-				updateWidget{$widget->id}();
+			$('#{$widget->id} .refreshWidget').click(function () {
+				downloadWidget('{$widget->id}', '{$widget->phpfile}', '{$sid}');
 			});
 		});
-		
-		function updateWidget{$widget->id}Repeat() {
-			$.post('widget_loader.php', { 'widget_php': '{$widget->phpfile}', 'sid': '{$sid}' }, function (data) {
-				$('#{$widget->id} .panel-body').html(data);
-				if (data.length > 0)
-				{
-					if ($('[data-only="true"]').length <= 0)
-						$('#{$widget->id}').parent().show();
-				}
-				else
-					$('#{$widget->id}').parent().hide();
-					
-				setTimeout(function () { updateWidget{$widget->id}Repeat(); }, {$widget->updatetime});
-			});
-		}
-		
-		function updateWidget{$widget->id}() {
-			$.post('widget_loader.php', { 'widget_php': '{$widget->phpfile}', 'sid': '{$sid}' }, function (data) {
-				$('#{$widget->id} .panel-body').html(data);
-				if ($('[data-only="true"]').length <= 0)
-					$('#{$widget->id}').parent().show();
-			});
-		}
 	</script>
 {else}
 	<script type="text/javascript">
 		$(document).ready(function () {
-			updateWidget{$widget->id}();
+			downloadWidget('{$widget->id}', '{$widget->phpfile}', '{$sid}');
 		});
-		
-		function updateWidget{$widget->id}() {
-			$.post('widget_loader.php', { 'widget_php': '{$widget->phpfile}', 'sid': '{$sid}' }, function (data) {
-				$('#{$widget->id} .panel-body').html(data);
-				if ($('[data-only="true"]').length <= 0)
-					$('#{$widget->id}').parent().show();
-			});
-		}
 	</script>
 {/if}

@@ -49,3 +49,15 @@
 	</div>
 </div>
 {/for}
+<script type="text/javascript">
+	function callbackDiskFunc(data)
+	{
+		$('#{$widget_info->id} .panel-body').html(data);
+	}
+
+	$(document).ready(function () {
+		setTimeout(function () {
+			updateWidgetHtml('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackDiskFunc, null);
+		}, {$widget_info->updatetime});
+	});
+</script>

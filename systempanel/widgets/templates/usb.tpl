@@ -23,3 +23,15 @@
 	</div>
 </div>
 {/for}
+<script type="text/javascript">
+	function callbackUSBFunc(data)
+	{
+		$('#{$widget_info->id} .panel-body').html(data);
+	}
+
+	$(document).ready(function () {
+		setTimeout(function () {
+			updateWidgetHtml('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackUSBFunc, null);
+		}, {$widget_info->updatetime});
+	});
+</script>

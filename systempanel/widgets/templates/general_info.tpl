@@ -18,3 +18,23 @@
 	<div class="col-xs-6">Uptime</div>
 	<div class="col-xs-6" id="uptime">{$widget->uptime}</div>
 </div>
+<script type="text/javascript">
+	function callbackSysInfoFunc(data)
+	{
+		$('#host').html(data.host);
+		$('#time').html(data.current_time);
+		$('#kernel').html(data.system + ' ' + data.kernel);
+		$('#firmware').html(data.firmware);
+		$('#uptime').html(data.uptime);
+		setTimeout(timeoutSysInfoFunc, {$widget_info->updatetime});
+	}
+	
+	function timeoutSysInfoFunc()
+	{
+		updateWidgetJson('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackSysInfoFunc, null);
+	}
+	
+	$(document).ready(function () {
+		setTimeout(timeoutSysInfoFunc, {$widget_info->updatetime});
+	});
+</script>

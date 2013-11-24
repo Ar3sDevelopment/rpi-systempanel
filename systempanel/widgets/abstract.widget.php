@@ -14,7 +14,7 @@
 		
 		public function json()
 		{
-			json_encode($this);
+			return json_encode($this);
 		}
 		
 		public function html($smarty)

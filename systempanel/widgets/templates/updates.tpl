@@ -10,3 +10,15 @@
 	</div>
 </div>
 {/if}
+<script type="text/javascript">
+	function callbackUpdatesFunc(data)
+	{
+		$('#{$widget_info->id} .panel-body').html(data);
+	}
+
+	$(document).ready(function () {
+		setTimeout(function () {
+			updateWidgetHtml('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackUpdatesFunc, null);
+		}, {$widget_info->updatetime});
+	});
+</script>
