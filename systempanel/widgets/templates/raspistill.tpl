@@ -12,15 +12,3 @@
 	</pre>
 	{/if}
 {/if}
-<script type="text/javascript">
-	function callbackCameraFunc(data)
-	{
-		$('#{$widget_info->id} .panel-body').html(data);
-	}
-
-	$(document).ready(function () {
-		setTimeout(function () {
-			updateWidgetHtml('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackCameraFunc, null);
-		}, {$widget_info->updatetime});
-	});
-</script>

@@ -1,22 +1,23 @@
 <?php
+	require_once("db.conf.inc.php");
 	class Database
 	{
-		private $db_host;
-		private $db_name;
-		private $db_user;
-		private $db_pass;
+		private $host;
+		private $name;
+		private $user;
+		private $pass;
 		
 		public function __construct()
 		{
-			$db_host = "localhost";
-			$db_name = "system_panel";
-			$db_user = "system";
-			$db_pass = "#Sy57eM#";
+			$host = $db_host;
+			$name = $db_name;
+			$user = $db_user;
+			$pass = $db_pass;
 		}
 		
 		private function init_mysqli()
 		{
-			$mysqli = new mysqli("localhost", "system", "#Sy57eM#", "system_panel"); //mysqli($this->db_host, $this->db_user, $this->db_pass, $this->db_name);
+			$mysqli = new mysqli($this->host, $this->user, $this->pass, $this->name);
 			
 			if ($mysqli->connect_errno)
 			{
