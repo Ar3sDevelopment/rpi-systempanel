@@ -2,7 +2,7 @@
 	<div class="panel-heading">
 		<button type="button" class="btn btn-link" data-toggle="hide" data-target="#{$widget->id} .panel-body">{$widget->title}</button>
 		{if $widget->updatetime > 0}
-			<button type="button" class="btn btn-link pull-right" class="refreshWidget"><span class="glyphicon glyphicon-refresh"></span></a></button>
+			<button type="button" class="btn btn-link pull-right refreshWidget"><span class="glyphicon glyphicon-refresh"></span></a></button>
 		{/if}
 		<button type="button" class="btn btn-link pull-right" data-toggle="collapse" data-target="#{$widget->id} .panel-body">Collapse</button>
 	</div>
@@ -14,7 +14,7 @@
 		$(document).ready(function () {
 			downloadWidget('{$widget->id}', '{$widget->phpfile}', '{$sid}');
 			
-			$('#{$widget->id} .refreshWidget').click(function () {
+			$('#{$widget->id} .panel-heading .refreshWidget').click(function () {
 				downloadWidget('{$widget->id}', '{$widget->phpfile}', '{$sid}');
 			});
 		});

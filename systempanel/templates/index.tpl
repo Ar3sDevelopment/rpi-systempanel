@@ -4,6 +4,7 @@
 	{include file="html_head.tpl" title="System Info Panel"}
 </head>
 <body>
+	<div class="visible-xs visible-sm" style="height: 20px;">&nbsp;</div>
 	<div class="container">
 		{include file="menu.tpl" sid=$sid page="home"}
 		{$c = 0}

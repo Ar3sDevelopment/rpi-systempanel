@@ -1,3 +1,9 @@
+@media (max-width: 1024px), handheld {
+  .navbar {
+    padding-top: 15px;
+  }
+}
+
 body
 {
 	padding-top: 70px;
