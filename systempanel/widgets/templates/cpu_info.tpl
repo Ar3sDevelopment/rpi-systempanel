@@ -32,8 +32,12 @@
 	<div class="col-xs-6" id="cpu_temperature">{$widget->cpu_temperature}&deg;C</div>
 </div>
 <div class="row">
-	<div id="cpu_load_gauge" class="col-xs-8"></div>
-	<div id="cpu_temp_gauge" class="col-xs-4"></div>
+	<div class="col-xs-6">
+		<div id="cpu_load_gauge"></div>
+	</div>
+	<div class="col-xs-6">
+		<div id="cpu_temp_gauge"></div>
+	</div>
 </div>
 <script type="text/javascript">
 	function callbackCPUFunc(data)
@@ -66,7 +70,7 @@
 				{ startValue: 70, endValue: 85, style: { fill: '#db5016', stroke: '#db5016' }, startDistance: '5%', endDistance: '5%', endWidth: 13, startWidth: 13 },
 				{ startValue: 85, endValue: 100, style: { fill: '#d02841', stroke: '#d02841' }, startDistance: '5%', endDistance: '5%', endWidth: 13, startWidth: 13 }
 			],
-			width: 200,
+			width: '100%',
 			height: 200,
 			cap: { radius: 0.04 },
 			caption: { offset: [0, 0], value: 'CPU Load', position: 'bottom' },

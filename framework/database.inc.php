@@ -9,10 +9,12 @@
 		
 		public function __construct()
 		{
-			$host = $db_host;
-			$name = $db_name;
-			$user = $db_user;
-			$pass = $db_pass;
+			global $db_host, $db_name, $db_user, $db_pass;
+			
+			$this->host = $db_host;
+			$this->name = $db_name;
+			$this->user = $db_user;
+			$this->pass = $db_pass;
 		}
 		
 		private function init_mysqli()
