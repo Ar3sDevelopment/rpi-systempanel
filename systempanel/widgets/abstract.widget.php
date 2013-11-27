@@ -1,8 +1,4 @@
 <?php
-	require_once('../framework/settings.inc.php');
-
-	$settings = new Settings($sid);
-
 	abstract class AbstractWidget
 	{
 		public $template_file;
