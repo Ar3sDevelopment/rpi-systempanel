@@ -1,6 +1,6 @@
 <?php
 	require_once('abstract.widget.php');
-	require('../framework/TransmissionRPC.class.php');
+	require('TransmissionRPC.class.php');
 
 	class TransmissionWidget extends AbstractWidget
 	{

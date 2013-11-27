@@ -81,13 +81,13 @@
 		(4, 1, 4, 'usb_info', 3, b'1', b'0'),
 		(5, 1, 5, 'network', 4, b'1', b'0'),
 		(6, 1, 6, 'memory_info', 5, b'1', b'1'),
-		(7, 1, 7, 'updates', 10, b'1', b'0'),
-		(8, 1, 8, 'disks', 11, b'1', b'0'),
-		(9, 1, 9, 'processes', 12, b'1', b'0'),
-		(12, 1, 10, 'power', 9, b'1', b'1'),
-		(13, 1, 11, 'transmission', 8, b'1', b'1'),
+		(7, 1, 7, 'updates', 8, b'1', b'0'),
+		(8, 1, 8, 'disks', 9, b'1', b'0'),
+		(9, 1, 9, 'processes', 10, b'1', b'0'),
+		(12, 1, 10, 'power', 7, b'1', b'1'),
+		(13, 1, 11, 'transmission', 6, b'1', b'1'),
 		(14, 1, 12, 'cpu_graph', 6, b'1', b'1'),
-		(15, 1, 13, 'temp_graph', 7, b'1', b'1');
+		(15, 1, 13, 'temp_graph', 6, b'1', b'1');
 		
 		CREATE TABLE `widget` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -113,7 +113,7 @@
 		(10, 2, 0, 'Power', 'power', 'power.tpl', b'1'),
 		(11, 4, 1000, 'Transmission', 'transmission', 'transmission.tpl', b'0'),
 		(12, 4, 1000, 'CPU Load', 'cpu_graph', 'cpu_graph.tpl', b'0'),
-		(13, 2, 1000, 'CPU Temperature', 'temp_graph', 'temp_graph.tpl', b'0');
+		(13, 4, 1000, 'CPU Temperature', 'temp_graph', 'temp_graph.tpl', b'0');
 		
 		ALTER TABLE `user`
 		  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_hash`) REFERENCES `hash` (`name`) ON UPDATE CASCADE;
