@@ -113,7 +113,7 @@
 		(10, 2, 0, 'Power', 'power', 'power.tpl', b'1'),
 		(11, 4, 1000, 'Transmission', 'transmission', 'transmission.tpl', b'0'),
 		(12, 4, 1000, 'CPU Load', 'cpu_graph', 'cpu_graph.tpl', b'0'),
-		(13, 4, 1000, 'CPU Temperature', 'temp_graph', 'temp_graph.tpl', b'0');
+		(13, 4, 1000, 'Temperature', 'temp_graph', 'temp_graph.tpl', b'0');
 		
 		ALTER TABLE `user`
 		  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id_hash`) REFERENCES `hash` (`name`) ON UPDATE CASCADE;

@@ -36,3 +36,32 @@ body
 {
 	height: 40px;
 }
+
+.btn-link[data-toggle="collapse"]
+{
+	text-decoration: none;
+}
+
+.panel-heading .collapsed .glyphicon-chevron-down
+{
+	text-decoration: none;
+	display: inline;
+}
+
+.panel-heading .collapsed .glyphicon-chevron-up
+{
+	text-decoration: none;
+	display: none;
+}
+
+.panel-heading :not(.collapsed) .glyphicon-chevron-down
+{
+	text-decoration: none;
+	display: none;
+}
+
+.panel-heading :not(.collapsed) .glyphicon-chevron-up
+{
+	text-decoration: none;
+	display: inline;
+}

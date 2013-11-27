@@ -2,9 +2,11 @@
 	<div class="panel-heading">
 		<button type="button" class="btn btn-link" data-toggle="hide" data-target="#{$widget->id} .panel-body">{$widget->title}</button>
 		{if $widget->updatetime > 0}
-			<button type="button" class="btn btn-link pull-right refreshWidget"><span class="glyphicon glyphicon-refresh"></span></a></button>
+			<button type="button" class="btn btn-link pull-right refreshWidget"><span class="glyphicon glyphicon-refresh"></span></button>
 		{/if}
-		<button type="button" class="btn btn-link pull-right" data-toggle="collapse" data-target="#{$widget->id} .panel-body">Collapse</button>
+		<button type="button" class="btn btn-link pull-right" data-toggle="collapse" data-target="#{$widget->id} .panel-body">
+			<span class="glyphicon glyphicon-chevron-up"></span><span class="glyphicon glyphicon-chevron-down"></span>
+		</button>
 	</div>
 	<div class="panel-body collapse in">
 	</div>
