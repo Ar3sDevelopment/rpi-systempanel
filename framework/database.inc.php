@@ -204,7 +204,7 @@
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT * FROM user_widget uw INNER JOIN widget w ON uw.id_widget = w.id WHERE uw.id_user = (SELECT u.id FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now()) ORDER BY uw.position";
+			$query = "SELECT * FROM user_widget uw INNER JOIN widget w ON uw.id_widget = w.id WHERE uw.id_user = (SELECT DISTINCT u.id FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now()) ORDER BY uw.position";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $sid);
