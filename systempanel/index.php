@@ -1,5 +1,5 @@
 <?php
-	if (!@include_once("../framework/db.conf.inc.php"))
+	if (!file_exists("../framework/db.conf.inc.php"))
 	{
 		header('Location: install.php');
 	}
