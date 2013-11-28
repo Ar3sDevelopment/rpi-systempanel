@@ -37,7 +37,7 @@
 		CREATE TABLE `session` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
 		  `id_user` int(11) NOT NULL,
-		  `sid` varchar(100) NOT NULL,
+		  `sid` varchar(100) NULL,
 		  `expiredate` datetime DEFAULT NULL,
 		  `device` varchar(100) NOT NULL,
 		  PRIMARY KEY (`id`),

@@ -11,6 +11,8 @@
 		$uid = Settings::check_login($username, $password);
 		if ($uid != -1)
 		{
+			session_regenerate_id(true);
+			
 			$sid = session_id();
 			Settings::update_sid($sid, $_SERVER['REMOTE_ADDR'], $uid);
 			

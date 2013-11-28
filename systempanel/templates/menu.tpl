@@ -12,7 +12,7 @@
 		<ul class="nav navbar-nav">
 			<li{if $page == "home"} class="active"{/if}><a href="index.php?sid={$sid}">Home</a></li>
 			<li{if $page == "settings"} class="active"{/if}><a href="settings.php?sid={$sid}">Settings</a></li>
-			<li><a href="logout.php">Logout</a></li>
+			<li><a href="logout.php?sid={$sid}">Logout</a></li>
 		</ul>
 	</div>
 </nav>

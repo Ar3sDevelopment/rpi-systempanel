@@ -1,4 +1,9 @@
 <?php
+	if (!@include_once("../framework/db.conf.inc.php"))
+	{
+		header('Location: install.php');
+	}
+
 	session_start();
 
 	if (!isset($_GET['sid']))
