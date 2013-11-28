@@ -163,10 +163,10 @@
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT COUNT(*) session_count FROM session WHERE sid = ? or device = ?";
+			$query = "SELECT COUNT(*) session_count FROM session WHERE (sid = ? or device = ?) and id_user = ?";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
-			$stmt->bind_param("ss", $sid, $device); 
+			$stmt->bind_param("ssi", $sid, $device, $uid);
 			$stmt->execute();
 			
 			$insert = true;
