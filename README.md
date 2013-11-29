@@ -1,9 +1,12 @@
 #Raspberry Pi System Panel#
-A PHP System Information Panel, developed on Raspberry Pi with support for Raspistill.
+A PHP System Information Panel with custom widgets, developed for my Raspberry Pi with support for Raspistill but supports Linux too *(not Raspistill)*.
 
 ##Preview##
-![Preview](https://www.dropbox.com/s/3o4jo655eijskg2/Foto%2029-11-13%2011%2041%2050%20%281%29.png)<br />
-![Preview iOS](https://www.dropbox.com/s/ao7ec9ooh08sfvi/Foto%2029-11-13%2011%2041%2050.png)<br />
+###Desktop Preview###
+![Preview](https://dl.dropboxusercontent.com/u/16581748/desktop.png)<br />
+###Mobile Preview###
+![Preview iOS](https://dl.dropboxusercontent.com/u/16581748/mobile.png)<br />
+
 *Soon will be released a demo version*
 
 ##Mobile Ready##
@@ -18,8 +21,8 @@ Widgets must extends AbstractWidget class (abstract.widget.php) and before closi
 #Installation#
 * Download all files to a directory available to webserver (Apache2 and Nginx are tested)
 * Prepare an empty database on MySQL (it's the only DBMS supported for now)
-* Access to the application (if install.php is not the first page, go to it) and set Database information and the first user access (it will be administrator)
-* The panel is ready
+* Access to the application **systempanel** *(if install.php is not the first page, go to it)* and set Database information and the panel login information (he will have administrator rights)
+* The panel is ready to log you in
 
 *Settings page is work in progress*
 
