@@ -15,8 +15,8 @@ The Panel is mobile ready with support for iOS web apps bookmarked to Home Scree
 * Access to the application (if install.php is not the first page, go to it) and set Database information and the first user access (it will be administrator)
 * The panel is ready
 
-*Settings panel is work in progress*
+*Settings page is work in progress*
 
 #IMPORTANT#
 The panel requires Smarty v3 installed and in the PHP include path.<br />
-*This feature will be dismissed on next milestone*
+*Smarty folder will be added on next milestone*
