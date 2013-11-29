@@ -10,7 +10,7 @@ A PHP System Information Panel, developed on Raspberry Pi with support for Raspi
 The Panel is mobile ready with support for iOS web apps bookmarked to Home Screen thanks to Bootstrap v3.
 
 ##Widgets##
-*Widgets soon can be developed or customized following some simple guidelines and will be moved to their directory*
+*Widgets soon can be developed or customized following some simple guidelines and will be moved to their directory*<br />
 If you want to try you can watch and edit the panelwidgets folder. The panel has its own widgets folder but this will change soon.
 Widgets must extends AbstractWidget class (abstract.widget.php) and before closing php tag you must create an instance assigned to $widget.
 *The instance is required for now*
