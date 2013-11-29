@@ -1,7 +1,4 @@
 <?php
-	//Pushover API Key: aS5FfA2vhhdix5ZSjWKnziFcHdWMJi
-	//Pushover User Key: uWxmaLmeSZB8G6VQXYYVz5rKJuY87v 
-
 	session_start();
 
 	if (!isset($_GET['sid']) && !isset($_POST['sid']))
