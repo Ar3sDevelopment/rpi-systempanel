@@ -15,6 +15,8 @@
 		
 		exec("/usr/bin/sudo chmod 775 ../framework/db.conf.inc.php");
 		
+		sleep(1);
+		
 		require_once('../framework/db.conf.inc.php');
 		
 		$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
@@ -157,7 +159,9 @@
 		$stmt->execute();
 		$stmt->close();
 		
-		$mysqli->close();	
+		$mysqli->close();
+		
+		header('Location: index.php');
 	}
 	else
 	{
