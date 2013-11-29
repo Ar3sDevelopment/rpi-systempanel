@@ -2,8 +2,8 @@
 A PHP System Information Panel, developed on Raspberry Pi with support for Raspistill.
 
 ##Preview##
-![Preview](https://dl.dropboxusercontent.com/u/16581748/Foto%2029-11-13%2011%2041%2050%20(1).png)<br />
-![Preview iOS](https://dl.dropboxusercontent.com/u/16581748/Foto%2029-11-13%2011%2041%2050.png)<br />
+![Preview](https://dl.dropboxusercontent.com/u/16581748/desktop.png)<br />
+![Preview iOS](https://dl.dropboxusercontent.com/u/16581748/mobile.png)<br />
 *Soon will be released a demo version*
 
 ##Mobile Ready##
