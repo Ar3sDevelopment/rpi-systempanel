@@ -8,9 +8,7 @@
 	$settings = new Settings($sid);
 	
 	if (isset($_POST['widget_php']))
-	{
-		require_once('widgets/' . $_POST['widget_php'] . '.widget.php');
-		
+	{	
 		$selWidget;
 		
 		foreach ($settings->widgets as $widget_info)
@@ -18,9 +16,14 @@
 			if ($widget_info->phpfile == $_POST['widget_php'])
 			{
 				$selWidget = $widget_info;
-				$widget->template_file = $widget_info->templatefile;
 			}
 		}
+		
+		require_once('../panelwidgets/' . $selWidget->folder . '/' . $selWidget->phpfile . '.widget.php');
+		
+		$full_class_name = $selWidget->class_name . 'Widget';
+		$widget = new $full_class_name;
+		$widget->template_file = $selWidget->templatefile;
 		
 		$smarty = new Smarty_Widget();
 		

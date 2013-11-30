@@ -1,5 +1,5 @@
 <?php
-	require_once('../abstract.widget.php');
+	require_once('../panelwidgets/abstract.widget.php');
 
 	class Process
 	{
@@ -49,6 +49,4 @@ root         2  0.0  0.0      0     0 ?        S    nov02   0:00 [kthreadd]
 			}
 		}
 	}
-	
-	$widget = new ProcessWidget();
 ?>

@@ -1,7 +1,7 @@
 <?php
-	require_once('../abstract.widget.php');
+	require_once('../panelwidgets/abstract.widget.php');
 
-	class RaspstillWidget extends AbstractWidget
+	class RaspistillWidget extends AbstractWidget
 	{
 		public $result;
 		
@@ -10,6 +10,4 @@
 			sleep(1);
 		}
 	}
-	
-	$widget = new RaspstillWidget();
 ?>

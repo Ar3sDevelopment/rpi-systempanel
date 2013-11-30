@@ -1,5 +1,5 @@
 <?php
-	require_once('../abstract.widget.php');
+	require_once('../panelwidgets/abstract.widget.php');
 
 	class USB
 	{
@@ -40,6 +40,4 @@ Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp.
 			}
 		}
 	}
-	
-	$widget = new USBWidget();
 ?>

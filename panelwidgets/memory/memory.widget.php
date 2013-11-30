@@ -1,5 +1,5 @@
 <?php
-	require_once('../abstract.widget.php');
+	require_once('../panelwidgets/abstract.widget.php');
 
 	class MemoryWidget extends AbstractWidget
 	{
@@ -70,6 +70,4 @@
 			$this->cache_mem = number_format($this->cache_mem);
 		}
 	}
-
-	$widget = new MemoryWidget();
 ?>

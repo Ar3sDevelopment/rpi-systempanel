@@ -2,7 +2,7 @@
 	session_start();
 	
 	require_once('../framework/settings.inc.php');
-	require_once('../framework/Smarty.class.php');
+	require_once('../framework/Smarty/Smarty.class.php');
 
 	if (isset($_POST['login']))
 	{

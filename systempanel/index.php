@@ -17,7 +17,7 @@
 		
 		if (empty($session_id) || Settings::get_user_info($sid) == null) header('Location: login.php');
 		
-		require_once('../framework/Smarty.class.php');
+		require_once('../framework/Smarty/Smarty.class.php');
 		require_once('../framework/widget.inc.php');
 		
 		$settings = new Settings($sid);

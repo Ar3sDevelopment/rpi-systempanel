@@ -1,5 +1,5 @@
 <?php
-	require_once('../abstract.widget.php');
+	require_once('../panelwidgets/abstract.widget.php');
 
 	class ProcessorWidget extends AbstractWidget
 	{
@@ -55,6 +55,4 @@
 			$this->nodes = $nodes;
 		}
 	}
-	
-	$widget = new ProcessorWidget();
 ?>

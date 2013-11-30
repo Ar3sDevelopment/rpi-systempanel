@@ -227,6 +227,8 @@
 					$widget->position = $obj->position;
 					$widget->templatefile = $obj->templatefile;
 					$widget->phpfile = $obj->phpfile;
+					$widget->folder = $obj->folder;
+					$widget->class_name = $obj->class_name;
 					
 					$widgets[] = $widget;
 				}

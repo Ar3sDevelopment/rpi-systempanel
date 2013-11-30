@@ -1,5 +1,5 @@
 <?php
-	require_once('Smarty/Smarty.class.php');
+	require_once('../framework/Smarty/Smarty.class.php');
 
 	class Widget
 	{
@@ -13,6 +13,9 @@
 		public $position;
 		public $columns;
 		public $requireadmin;
+		public $version;
+		public $folder;
+		public $class_name;
 		
 		public function __construct()
 		{

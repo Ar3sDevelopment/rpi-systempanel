@@ -1,5 +1,5 @@
 <?php
-	require_once('../abstract.widget.php');
+	require_once('../panelwidgets/abstract.widget.php');
 
 	class SystemWidget extends AbstractWidget
 	{
@@ -27,6 +27,4 @@
 			$this->uptime = ($days <= 0 ? $days . "d " : "") .  $hours . "h " .  $minutes . "m";
 		}
 	}
-	
-	$widget = new SystemWidget();
 ?>

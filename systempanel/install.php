@@ -166,7 +166,7 @@
 	}
 	else
 	{
-		require_once('../framework/Smarty.class.php');
+		require_once('../framework/Smarty/Smarty.class.php');
 		
 		$smarty = new Smarty();
 		

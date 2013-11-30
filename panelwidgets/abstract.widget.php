@@ -26,6 +26,4 @@
 		
 		abstract public function load();
 	}
-	
-	$widget = null;
 ?>

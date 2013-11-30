@@ -1,5 +1,5 @@
 <?php
-	require_once('../abstract.widget.php');
+	require_once('../panelwidgets/abstract.widget.php');
 
 	class CpuGraphWidget extends AbstractWidget
 	{
@@ -31,6 +31,4 @@
 			$this->cpuload = round($this->cpuload, 1);
 		}
 	}
-	
-	$widget = new CpuGraphWidget();
 ?>
