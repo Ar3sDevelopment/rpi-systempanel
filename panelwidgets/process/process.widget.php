@@ -48,5 +48,9 @@ root         2  0.0  0.0      0     0 ?        S    nov02   0:00 [kthreadd]
 				$this->procs[] = new Process($procinfo);
 			}
 		}
+		
+		public function manage_post($post)
+		{
+		}
 	}
 ?>

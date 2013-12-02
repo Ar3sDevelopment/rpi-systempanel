@@ -54,5 +54,9 @@
 			$this->sockets = $sockets + 1;
 			$this->nodes = $nodes;
 		}
+
+		public function manage_post($post)
+		{
+		}
 	}
 ?>

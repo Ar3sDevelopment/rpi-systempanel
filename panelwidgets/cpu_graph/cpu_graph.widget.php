@@ -30,5 +30,9 @@
 			
 			$this->cpuload = round($this->cpuload, 1);
 		}
+		
+		public function manage_post($post)
+		{
+		}
 	}
 ?>

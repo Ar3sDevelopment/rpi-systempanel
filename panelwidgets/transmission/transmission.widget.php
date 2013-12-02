@@ -47,13 +47,14 @@
 			
 			$rpc->start(array());
 		}
-	}
-
-	$widget = new TransmissionWidget();
-	
-	if (isset($_POST['sta'])) {
-		$widget->start();
-	} else if (isset($_POST['sto'])) {
-		$widget->stop();
+		
+		public function manage_post($post)
+		{
+			if (isset($_POST['sta'])) {
+				$widget->start();
+			} else if (isset($_POST['sto'])) {
+				$widget->stop();
+			}
+		}
 	}
 ?>

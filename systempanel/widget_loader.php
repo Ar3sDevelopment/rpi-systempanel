@@ -25,7 +25,9 @@
 		$widget = new $full_class_name;
 		$widget->template_file = $selWidget->templatefile;
 		
-		$smarty = new Smarty_Widget();
+		$selWidget->manage_post($_POST);
+		
+		$smarty = new Smarty_Widget($selWidget->folder);
 		
 		$smarty->assign('widget_info', $selWidget);
 		$smarty->assign('sid', $sid);

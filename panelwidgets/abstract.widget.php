@@ -25,5 +25,6 @@
 		}
 		
 		abstract public function load();
+		abstract public function manage_post($post);
 	}
 ?>

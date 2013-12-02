@@ -63,5 +63,9 @@
 				unset($ifnic);
 			}
 		}
+		
+		public function manage_post($post)
+		{
+		}
 	}
 ?>

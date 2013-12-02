@@ -69,5 +69,9 @@
 			$this->buffer_mem = number_format($this->buffer_mem);
 			$this->cache_mem = number_format($this->cache_mem);
 		}
+
+		public function manage_post($post)
+		{
+		}
 	}
 ?>

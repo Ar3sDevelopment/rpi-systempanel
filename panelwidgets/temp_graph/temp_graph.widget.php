@@ -9,5 +9,9 @@
 		{	
 			$this->cpu_temperature = round(exec("cat /sys/class/thermal/thermal_zone0/temp") / 1000, 1);
 		}
+		
+		public function manage_post($post)
+		{
+		}
 	}
 ?>

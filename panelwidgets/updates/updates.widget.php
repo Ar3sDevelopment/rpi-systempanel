@@ -3,7 +3,8 @@
 
 	class UpdatesWidget extends AbstractWidget
 	{
-		public function load() {
+		public function load()
+		{
 			if (!apc_fetch('updates'))
 			{
 				$this->updates = array();
@@ -24,6 +25,10 @@
 			{
 				$this->updates = apc_fetch('updates');
 			}
+		}
+		
+		public function manage_post($post)
+		{
 		}
 	}
 ?>

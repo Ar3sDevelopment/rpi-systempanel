@@ -39,5 +39,9 @@ Bus 001 Device 003: ID 0424:ec00 Standard Microsystems Corp.
 				$this->devices[] = new USB($usbinfo);
 			}
 		}
+		
+		public function manage_post($post)
+		{
+		}
 	}
 ?>

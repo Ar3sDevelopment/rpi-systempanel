@@ -5,14 +5,14 @@ require_once('../framework/widget.inc.php');
 
 class Smarty_Widget extends Smarty
 {
-	function __construct()
+	function __construct($folder)
 	{
 		parent::__construct();
 		
-		$this->setTemplateDir('widgets/templates/');
-		$this->setCompileDir('widgets/templates_c/');
-		$this->setConfigDir('widgets/configs/');
-		$this->setCacheDir('widgets/cache/');
+		$this->setTemplateDir("../panelwidgets/$folder/templates/");
+		$this->setCompileDir("../panelwidgets/$folder/templates_c/");
+		$this->setConfigDir("../panelwidgets/$folder/configs/");
+		$this->setCacheDir("../panelwidgets/$folder/cache/");
 	}
 }
 ?>

@@ -26,5 +26,9 @@
 			
 			$this->uptime = ($days <= 0 ? $days . "d " : "") .  $hours . "h " .  $minutes . "m";
 		}
+		
+		public function manage_post($post)
+		{
+		}
 	}
 ?>

@@ -16,17 +16,18 @@
 		{
 			exec('/usr/bin/sudo reboot');
 		}
-	}
-	
-	$widget = new PowerWidget();
-	
-	if (isset($_POST['po']) && $_POST['po'])
-	{
-		$widget->poweroff();
-	}
-	
-	if (isset($_POST['pr']) && $_POST['pr'])
-	{
-		$widget->reboot();
+		
+		public function manage_post($post)
+		{
+			if (isset($post['po']) && $post['po'])
+			{
+				$widget->poweroff();
+			}
+			
+			if (isset($post['pr']) && $post['pr'])
+			{
+				$widget->reboot();
+			}
+		}
 	}
 ?>

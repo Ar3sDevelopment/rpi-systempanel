@@ -39,5 +39,9 @@
 				$this->disks[] = new Disk($diskinfo);
 			}
 		}
+		
+		public function manage_post($post)
+		{
+		}
 	}
 ?>
