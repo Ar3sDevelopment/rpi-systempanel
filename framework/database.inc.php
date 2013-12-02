@@ -29,14 +29,15 @@
 			return $mysqli;
 		}
 		
-		public function get_widgets()
+		public function get_widgets($sid)
 		{
 			$hashes = array();
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT * FROM widget";
+			$query = "SELECT * FROM widget WHERE requireadmin = 0 OR (requireadmin = 1 AND (select u.admin FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ?) = 1)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
+			$stmt->bind_param("s", $sid);
 			$stmt->execute();
 			
 			if ($result = $stmt->get_result())
@@ -68,11 +69,11 @@
 				$stmt = $mysqli->stmt_init();
 				$stmt->prepare($query);
 				$stmt->bind_param("iisssi", $new_widget->columns,
-												$new_widget->updatettime,
-												$new_widget->title,
-												$new_widget->phpfile,
-												$new_widget->templatefile,
-												$widget->id);
+											$new_widget->updatettime,
+											$new_widget->title,
+											$new_widget->phpfile,
+											$new_widget->templatefile,
+											$widget->id);
 
 				$stmt->execute();
 				$stmt->close();
@@ -204,7 +205,7 @@
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT * FROM user_widget uw INNER JOIN widget w ON uw.id_widget = w.id WHERE uw.id_user = (SELECT DISTINCT u.id FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now()) ORDER BY uw.position";
+			$query = "SELECT uw.*, w.* FROM user_widget uw INNER JOIN widget w ON uw.id_widget = w.id INNER JOIN user u ON uw.id_user = u.id INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now() and (w.requireadmin = 0 or (u.admin = 1 and w.requireadmin = 1))  ORDER BY uw.position";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $sid);

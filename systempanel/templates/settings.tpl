@@ -8,26 +8,28 @@
 		{include file="menu.tpl" sid=$sid page="settings"}
 		<form action="settings.php" method="post" class="form-horizontal">
 			<input type="hidden" name="sid" value="{$sid}" />
-			<div class="form-group">
-				<label for="username" class="col-sm-2 control-label">Email</label>
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{$user->username}" />
+			<div class="well">
+				<div class="form-group">
+					<label for="username" class="col-sm-2 control-label">Email</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{$user->username}" />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="password" class="col-sm-2 control-label">Password</label>
-				<div class="col-sm-10">
-					<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+				<div class="form-group">
+					<label for="password" class="col-sm-2 control-label">Password</label>
+					<div class="col-sm-10">
+						<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+					</div>
 				</div>
-			</div>
-			<div class="form-group">
-				<label for="hashmethod" class="col-sm-2 control-label">Hash Method</label>
-				<div class="col-sm-10">
-					<select class="form-control" id="hashmethod" name="hashmethod">
-						{foreach $hashes as $hash}
-							<option value="{$hash->name}"{if $hash->selected} selected="selected" {/if}>{$hash->description}</option>
-						{/foreach}
-					</select>
+				<div class="form-group">
+					<label for="hashmethod" class="col-sm-2 control-label">Hash Method</label>
+					<div class="col-sm-10">
+						<select class="form-control" id="hashmethod" name="hashmethod">
+							{foreach $hashes as $hash}
+								<option value="{$hash->name}"{if $hash->selected} selected="selected" {/if}>{$hash->description}</option>
+							{/foreach}
+						</select>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">

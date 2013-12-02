@@ -16,7 +16,7 @@
 	
 	$settings = new Settings($sid);
 	
-	$widgets = Settings::get_widgets();
+	$widgets = Settings::get_widgets($sid);
 	
 	if (isset($_POST['save']))
 	{
@@ -39,5 +39,6 @@
 	
 	$smarty->assign('sid', $sid);
 	$smarty->assign('widgets', $widgets);
+	
 	$smarty->display('index.tpl');
 ?>

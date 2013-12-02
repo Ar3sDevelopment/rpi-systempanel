@@ -7,10 +7,10 @@
 		private $path;
 		public $widgets;
 		
-		public static function get_widgets()
+		public static function get_widgets($sid)
 		{
 			$db = new Database();
-			return $db->get_widgets();
+			return $db->get_widgets($sid);
 		}
 		
 		public static function save_widgets($widgets)
