@@ -23,6 +23,30 @@
 		return $w1->position < $w2->position ? -1 : 1;
 	}
 	
+	if (isset($_POST['visibility']))
+	{				
+		$widget_id = $_POST["widget-id"];
+		
+		$settings->toggleWidgetVisibility($sid, $widget_id, $_POST['visibility']);
+		
+		header('Content-Type: application/json; charset=utf-8');
+		
+		echo json_encode((object) array('visible' => (bool)$_POST['visibility']));
+		return;
+	}
+	
+	if (isset($_POST['enable']))
+	{
+		$widget_id = $_POST["widget-id"];
+		
+		$settings->toggleWidgetState($sid, $widget_id, $_POST['enable']);
+		
+		header('Content-Type: application/json; charset=utf-8');
+		
+		echo json_encode((object) array('enabled' => (bool)$_POST['enable']));
+		return;
+	}
+	
 	if (isset($_POST['save']))
 	{
 		$username =  $_POST['username'];
@@ -36,8 +60,6 @@
 			
 			$widget->id = $_POST["widget-id"][$c];
 			$widget->position = $_POST["widget-position"][$c];
-			$widget->visible = isset($_POST["widget-visible"][$c]) ? 1 : 0;
-			$widget->enabled = isset($_POST["widget-enabled"][$c]) ? 1 : 0;
 			
 			$widgets[] = $widget;
 		}

@@ -201,6 +201,34 @@
 			$mysqli->close();	
 		}
 		
+		public function toggleWidgetVisibility($sid, $widget_id, $visibility)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "UPDATE user_widget uw SET uw.visible = ? WHERE uw.id_user = (SELECT s.id_user FROM session s WHERE sid = ?) AND uw.id_html = ?";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("iss", $visibility, $sid, $widget_id); 
+			$stmt->execute();
+			$stmt->close();
+			
+			$mysqli->close();
+		}
+		
+		public function toggleWidgetState($sid, $widget_id, $enabled)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "UPDATE user_widget uw SET uw.enabled = ? WHERE uw.id_user = (SELECT s.id_user FROM session s WHERE sid = ?) AND uw.id_html = ?";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("iss", $enabled, $sid, $widget_id);
+			$stmt->execute();
+			$stmt->close();
+			
+			$mysqli->close();
+		}
+		
 		public function load($sid)
 		{
 			$mysqli = $this->init_mysqli();

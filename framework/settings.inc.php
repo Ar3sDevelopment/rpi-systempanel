@@ -43,6 +43,18 @@
 			return $db->update_sid($sid, $device, $uid);
 		}
 		
+		public function toggleWidgetVisibility($sid, $widget_id, $visibility)
+		{
+			$db = new Database();
+			return $db->toggleWidgetVisibility($sid, $widget_id, $visibility);
+		}
+		
+		public function toggleWidgetState($sid, $widget_id, $enabled)
+		{
+			$db = new Database();
+			return $db->toggleWidgetState($sid, $widget_id, $enabled);
+		}
+		
 		public function __construct($sid)
 		{
 			$this->load($sid);

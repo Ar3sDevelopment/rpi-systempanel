@@ -11,13 +11,7 @@
 		public $command;
 		
 		public function __construct($procinfo)
-		{
-			/*
-			USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root         1  0.0  0.1   2140   608 ?        Ss   nov02   0:30 init [2]  
-root         2  0.0  0.0      0     0 ?        S    nov02   0:00 [kthreadd]
-			 */
-			
+		{			
 			$split = preg_split("/\s+/", $procinfo, 12);
 			if (count($split) > 11)
 				list($user, $pid, $cpu_percent, $mem_percent, $vsz, $rss, $tty, $stat,  $start, $time, $command, $args) = $split;
