@@ -24,7 +24,7 @@
 		
 		$smarty = new Smarty();
 		
-		$smarty->assign('widgets', $settings->widgets);
+		$smarty->assign('widgets', $settings->user->widgets);
 		$smarty->assign('sid', $sid);
 		
 		$smarty->display('index.tpl');	

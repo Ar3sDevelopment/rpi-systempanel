@@ -47,24 +47,24 @@
 		return;
 	}
 	
-	if (isset($_POST['save']))
+	if (isset($_POST['save_user']))
 	{
 		$username =  $_POST['username'];
 		$hashmethod = $_POST['hashmethod'];
 		$password = hash($hashmethod, $_POST['password']);
 		
-		$widgets = array();
-		for ($c = 0; $c < count($settings->widgets); $c++)
-		{
-			$widget = $settings->widgets[$c];
+		$settings->save_user($sid, $username, $password, $hashmethod);
+	}
+	
+	if (isset($_POST['save_widget']))
+	{
+		$widget = new UserWidget();
+				
+		$widget->id = $_POST["widget_id"];	
+		$widget->id_html = $_POST["widget_id_html"];
+		$widget->position = $_POST["widget_position"];
 			
-			$widget->id = $_POST["widget-id"][$c];
-			$widget->position = $_POST["widget-position"][$c];
-			
-			$widgets[] = $widget;
-		}
-		
-		$settings->save($sid, $username, $password, $hashmethod, $widgets);
+		$settings->save_user_widget($sid, $widget);
 	}
 	
 	$smarty = new Smarty();

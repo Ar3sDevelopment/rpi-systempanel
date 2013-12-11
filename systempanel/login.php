@@ -9,6 +9,7 @@
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		$uid = Settings::check_login($username, $password);
+		
 		if ($uid != -1)
 		{
 			session_regenerate_id(true);

@@ -11,11 +11,12 @@
 	{	
 		$selWidget;
 		
-		foreach ($settings->widgets as $widget_info)
-		{
-			if ($widget_info->phpfile == $_POST['widget_php'])
+		foreach ($settings->user->widgets as $widget_info)
+		{	
+			if ($widget_info->widget->phpfile == $_POST['widget_php'])
 			{
-				$selWidget = $widget_info;
+				$selWidget = $widget_info->widget;
+				break;
 			}
 		}
 		
@@ -25,7 +26,7 @@
 		$widget = new $full_class_name;
 		$widget->template_file = $selWidget->templatefile;
 		
-		$selWidget->manage_post($_POST);
+		$widget->manage_post($_POST);
 		
 		$smarty = new Smarty_Widget($selWidget->folder);
 		

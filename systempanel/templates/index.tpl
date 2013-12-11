@@ -13,13 +13,13 @@
 		{while $c < count($widgets)}
 			{if $widgets[$c]->enabled}
 				{if !$widgets[$c]->visible}
-					<div class="col-md-{$widgets[$c]->columns}" style="display: none;">
+					<div class="col-md-{$widgets[$c]->widget->columns}" style="display: none;">
 				{else}
-					<div class="col-md-{$widgets[$c]->columns}">
+					<div class="col-md-{$widgets[$c]->widget->columns}">
 				{/if}
 				{include file="widget.tpl" widget=$widgets[$c] sid=$sid}
 				</div>
-				{$columns = $columns + {$widgets[$c]->columns}}
+				{$columns = $columns + {$widgets[$c]->widget->columns}}
 				{if $columns == 12}
 					{$columns = 0}
 					</div>

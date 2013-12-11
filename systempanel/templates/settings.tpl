@@ -31,13 +31,33 @@
 					}
 				});
 			});
+			
+			//TODO: Think about making AJAX Form jQuery plugin
+			$('form[data-type="ajax"]').submit(function(event) {
+			    event.preventDefault();
+			
+				var $this = $(this);
+			    var values = $this.serialize();
+			
+			    $.ajax({
+			        url: $this.prop('action'),
+			        type: $this.prop('method'),
+			        data: values,
+			        success: function() {
+			        	alert('Done');
+			        },
+			        error:function() {
+			            alert("Error");
+			        }
+			    });
+			});
 		});
 	</script>
 </head>
 <body>
 	<div class="container">
 		{include file="menu.tpl" sid=$sid page="settings"}
-		<form action="settings.php" method="post" class="form-horizontal">
+		<form action="settings.php" data-type="ajax" method="post" class="form-horizontal">
 			<input type="hidden" name="sid" value="{$sid}" />
 			<div class="row">
 				<div class="well">
@@ -66,23 +86,34 @@
 				</div>
 			</div>
 			<div class="form-group">
-				{$c = 0}
-				{$columns = 0}
 				<div class="row">
-				{while $c < count($settings->widgets)}
-					{$widget=$settings->widgets[$c]}
-					<div class="col-md-{$widget->columns}">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" name="save_user" id="save_user" class="btn btn-primary">Save</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="form-group">
+			{$c = 0}
+			{$columns = 0}
+			<div class="row">
+			{while $c < count($settings->user->widgets)}
+				{$widget=$settings->widgets[$c]}
+				<div class="col-md-{$widget->widget->columns}">
+					<form action="settings.php" method="POST" data-type="ajax" class="form-horizontal">
+						<input type="hidden" name="sid" value="{$sid}" />
+						<input type="hidden" name="widget_id" value="{$widget->id}" />
 						<div class="well">
 							<div class="form-group">
 								<label for="widget-id" class="col-sm-4 control-label">ID</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" name="widget-id[{$c}]" placeholder="ID" value="{$widget->id}" />
+									<input type="text" class="form-control" name="widget_id_html" placeholder="ID HTML" value="{$widget->id_html}" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="widget-position" class="col-sm-4 control-label">Position</label>
 								<div class="col-sm-8">
-									<input type="text" class="form-control" name="widget-position[{$c}]" placeholder="Position" value="{$widget->position}" />
+									<input type="text" class="form-control" name="widget_position" placeholder="Position" value="{$widget->position}" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -104,23 +135,23 @@
 								</div>
 							</div>
 						</div>
+					</form>
+				</div>
+				{$columns = $columns + {$widget->widget->columns}}
+				{if $columns == 12}
+					{$columns = 0}
 					</div>
-					{$columns = $columns + {$widget->columns}}
-					{if $columns == 12}
-						{$columns = 0}
-						</div>
-						<div class="row">
-					{/if}
-					{$c = $c + 1}
-				{/while}
-				</div>
+					<div class="row">
+				{/if}
+				{$c = $c + 1}
+			{/while}
 			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" name="save" id="save" class="btn btn-primary">Save</button>
-				</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" name="save" id="save" class="btn btn-primary">Save</button>
 			</div>
-		</form>
+		</div>
 	</div>
 </body>
 </html>

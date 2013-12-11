@@ -1,11 +1,13 @@
 <?php
 	require_once('database.inc.php');
 	require_once('widget.inc.php');
+	require_once('user_widget.inc.php');
+	require_once('user.inc.php');
 
 	class Settings
 	{
+		public $user;
 		private $path;
-		public $widgets;
 		
 		public static function get_widgets($sid)
 		{
@@ -63,13 +65,20 @@
 		private function load($sid)
 		{
 			$db = new Database();
-			$this->widgets = $db->load($sid);
+			$this->user = new User();
+			$this->user->widgets = $db->load($sid);
 		}
 		
-		public function save($sid, $username, $password, $hash, $new_widgets)
+		public function save_user($sid, $username, $password, $hash)
 		{
 			$db = new Database();
-			return $db->save($sid, $username, $password, $hash, $new_widgets);
+			return $db->save_user($sid, $username, $password, $hash);
+		}
+		
+		public function save_user_widget($sid, $widget)
+		{
+			$db = new Database();
+			return $db->save_widget($sid, $widget);
 		}
 	}
 ?>

@@ -34,7 +34,7 @@
 			$hashes = array();
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT * FROM widget WHERE requireadmin = 0 OR (requireadmin = 1 AND (select u.admin FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ?) = 1)";
+			$query = "CALL GetWidgets(?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $sid);
@@ -65,7 +65,7 @@
 				$widget = $widgets[$c];
 				$new_widget = $new_widgets[$c];
 				
-				$query = "UPDATE widget SET columns = ?, updatettime = ?, title = ?, phpfile = ?, templatefile = ? WHERE id = ?";
+				$query = "CALL SaveWidget(?, ?, ?, ?, ?, ?)";
 				$stmt = $mysqli->stmt_init();
 				$stmt->prepare($query);
 				$stmt->bind_param("iisssi", $new_widget->columns,
@@ -73,7 +73,7 @@
 											$new_widget->title,
 											$new_widget->phpfile,
 											$new_widget->templatefile,
-											$widget->id);
+											$widget->id_html);
 
 				$stmt->execute();
 				$stmt->close();
@@ -84,7 +84,7 @@
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT u.* FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now()";
+			$query = "CALL GetUserInfo(?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $sid);
@@ -108,7 +108,7 @@
 			$hashes = array();
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT name, description, name = (SELECT u.id_hash FROM user u INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now()) selected FROM hash";
+			$query = "CALL GetHashes(?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $sid);
@@ -135,7 +135,7 @@
 			$uid = -1;
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT u.id, u.username, u.password, h.name hash FROM user u INNER JOIN hash h ON u.id_hash = h.name WHERE u.username = ?";
+			$query = "CALL CheckLogin(?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $username);
@@ -164,37 +164,10 @@
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT COUNT(*) session_count FROM session WHERE (sid = ? or device = ?) and id_user = ?";
+			$query = "CALL UpdateSid(?, ?, ?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("ssi", $sid, $device, $uid);
-			$stmt->execute();
-			
-			$insert = true;
-			
-			if ($result = $stmt->get_result())
-			{
-				$obj = $result->fetch_object();
-				
-				if ($obj->session_count) $insert = false;
-			}
-			
-			$stmt->close();
-			
-			if ($insert)
-			{
-				$query = "INSERT INTO session (sid, expiredate, device, id_user) VALUES (?, ?, ?, ?)";
-			}
-			else
-			{
-				$query = "UPDATE session SET sid = ?, expiredate = ? where device = ? and id_user = ?";
-			}
-			
-			$date = new DateTime();
-			
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("ssss", $sid, $date->add(new DateInterval('P7D'))->format(DateTime::ISO8601), $device, $uid); 
 			$stmt->execute();
 			$stmt->close();
 			
@@ -205,10 +178,10 @@
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "UPDATE user_widget uw SET uw.visible = ? WHERE uw.id_user = (SELECT s.id_user FROM session s WHERE sid = ?) AND uw.id_html = ?";
+			$query = "CALL ToggleWidgetVisibility(?, ?, ?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
-			$stmt->bind_param("iss", $visibility, $sid, $widget_id); 
+			$stmt->bind_param("isi", $visibility, $sid, $widget_id); 
 			$stmt->execute();
 			$stmt->close();
 			
@@ -219,10 +192,10 @@
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "UPDATE user_widget uw SET uw.enabled = ? WHERE uw.id_user = (SELECT s.id_user FROM session s WHERE sid = ?) AND uw.id_html = ?";
+			$query = "CALL ToggleWidgetState(?, ?, ?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
-			$stmt->bind_param("iss", $enabled, $sid, $widget_id);
+			$stmt->bind_param("isi", $enabled, $sid, $widget_id);
 			$stmt->execute();
 			$stmt->close();
 			
@@ -233,7 +206,7 @@
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "SELECT uw.*, w.* FROM user_widget uw INNER JOIN widget w ON uw.id_widget = w.id INNER JOIN user u ON uw.id_user = u.id INNER JOIN session s ON u.id = s.id_user WHERE s.sid = ? and expiredate >= now() and (w.requireadmin = 0 or (u.admin = 1 and w.requireadmin = 1))  ORDER BY uw.position";
+			$query = "CALL LoadSettings(?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("s", $sid);
@@ -245,21 +218,25 @@
 			{				
 				while ($obj = $result->fetch_object())
 				{
-					$widget = new Widget();
+					$user_widget = new UserWidget();
+					$user_widget->widget = new Widget();
 				
-					$widget->id = $obj->id_html;
-					$widget->title = $obj->title;
-					$widget->updatetime = $obj->updatetime;
-					$widget->enabled = $obj->enabled;
-					$widget->visible = $obj->visible;
-					$widget->columns = $obj->columns;
-					$widget->position = $obj->position;
-					$widget->templatefile = $obj->templatefile;
-					$widget->phpfile = $obj->phpfile;
-					$widget->folder = $obj->folder;
-					$widget->class_name = $obj->class_name;
+					$user_widget->id = $obj->uwid;
+					$user_widget->id_widget = $obj->wid;
+					$user_widget->id_html = $obj->id_html;
+					$user_widget->enabled = $obj->enabled;
+					$user_widget->visible = $obj->visible;
+					$user_widget->position = $obj->position;
+					$user_widget->widget->id = $obj->wid;
+					$user_widget->widget->title = $obj->title;
+					$user_widget->widget->updatetime = $obj->updatetime;
+					$user_widget->widget->columns = $obj->columns;
+					$user_widget->widget->templatefile = $obj->templatefile;
+					$user_widget->widget->phpfile = $obj->phpfile;
+					$user_widget->widget->folder = $obj->folder;
+					$user_widget->widget->class_name = $obj->class_name;
 					
-					$widgets[] = $widget;
+					$widgets[] = $user_widget;
 				}
 				
 				$result->close();
@@ -271,38 +248,36 @@
 			return $widgets;
 		}
 		
-		public function save($sid, $username, $password, $hash, $new_widgets)
+		public function save_user($sid, $username, $password, $hash)
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "UPDATE user SET username = ?, password = ?, id_hash = ? WHERE id = (SELECT s.id_user FROM session s WHERE sid = ?)";
+			$query = "CALL SaveUser(?, ?, ?, ?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("ssss", $username, $password, $hash, $sid); 
 			$stmt->execute();
 			$stmt->close();
 			
-			for ($c = 0; $c < count($this->widgets); $c++)
-			{
-				$widget = $this->widgets[$c];
-				$new_widget = $new_widgets[$c];
-				
-				$query = "UPDATE user_widget SET position = ?, id_html = ?, visible = ?, enabled = ? WHERE id_html = ?";
-				$stmt = $mysqli->stmt_init();
-				$stmt->prepare($query);
-				$stmt->bind_param("isiis", $new_widget->position,
-												$new_widget->id,
-												$new_widget->visible,
-												$new_widget->enabled,
-												$widget->id);
+			$mysqli->close();
+		}
+		
+		public function save_user_widget($sid, $widget)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL SaveUserWidget(?, ?, ?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("isss", $widget->position,
+											$widget->id_html,
+											$widget->id,
+											$sid);
 
-				$stmt->execute();
-				$stmt->close();
-			}
+			$stmt->execute();
+			$stmt->close();
 			
 			$mysqli->close();
-
-			$this->load($sid);
 		}
 	}
 ?>
