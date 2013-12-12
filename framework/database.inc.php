@@ -279,5 +279,33 @@
 			
 			$mysqli->close();
 		}
+		
+		public function get_widget_from_user_widget($sid, $uwid)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL GetWidgetFromUserWidget(?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("is", $uwid, $sid);
+			$stmt->execute();
+			$stmt->close();
+			
+			$mysqli->close();
+		}
+		
+		public function insert_widget($sid, $title, $folder, $phpfile, $classname, $templatefile, $columns, $updatetime, $requireadmin, $version)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL InsertWidget(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("sssssiiiis", $title, $folder, $phpfile, $classname, $templatefile, $columns, $updatetime, $requireadmin, $version, $sid);
+			$stmt->execute();
+			$stmt->close();
+			
+			$mysqli->close();
+		}
 	}
 ?>

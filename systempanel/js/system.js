@@ -20,27 +20,27 @@ function initPanelCollapse()
 	});
 }
 
-function downloadWidget(widget_id, widget_phpfile, sid)
+function downloadWidget(widget_id_html, widget_id, sid)
 {
-	$.post('widget_loader.php', { 'widget_php': widget_phpfile, 'sid': sid }, function (data) {
-		$('#' + widget_id + ' .panel-body').html(data);
-		if ($('#' + widget_id + '[data-only="true"]').length <= 0)
-			$('#' + widget_id).parent().show();
+	$.post('widget_loader.php', { 'widget_id': widget_id, 'sid': sid }, function (data) {
+		$('#' + widget_id_html + ' .panel-body').html(data);
+		if ($('#' + widget_id_html + '[data-only="true"]').length <= 0)
+			$('#' + widget_id_html).parent().show();
 	});
 }
 
-function updateWidgetJson(widget_id, widget_phpfile, sid, callback, postData)
+function updateWidgetJson(widget_id, sid, callback, postData)
 {
-	var defData = { 'widget_php': widget_phpfile, 'sid': sid, 'json': true };
+	var defData = { 'widget_id': widget_id, 'sid': sid, 'json': true };
 	$.extend(defData, postData);
 	$.post('widget_loader.php', defData, function (data) {
 		callback(data);
 	});
 }
 
-function updateWidgetHtml(widget_id, widget_phpfile, sid, callback, postData)
+function updateWidgetHtml(widget_id, sid, callback, postData)
 {
-	var defData = { 'widget_php': widget_phpfile, 'sid': sid };
+	var defData = { 'widget_id': widget_id, 'sid': sid };
 	$.extend(defData, postData);
 	$.post('widget_loader.php', defData, function (data) {
 		callback(data);

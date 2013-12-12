@@ -14,17 +14,17 @@
 {if $widget->widget->updatetime > 0}
 	<script type="text/javascript">
 		$(document).ready(function () {
-			downloadWidget('{$widget->id_html}', '{$widget->widget->phpfile}', '{$sid}');
+			downloadWidget('{$widget->id_html}', {$widget->id}, '{$sid}');
 			
 			$('#{$widget->id_html} .panel-heading .refreshWidget').click(function () {
-				downloadWidget('{$widget->id_html}', '{$widget->widget->phpfile}', '{$sid}');
+				downloadWidget('{$widget->id_html}', {$widget->id}, '{$sid}');
 			});
 		});
 	</script>
 {else}
 	<script type="text/javascript">
 		$(document).ready(function () {
-			downloadWidget('{$widget->id_html}', '{$widget->widget->phpfile}', '{$sid}');
+			downloadWidget('{$widget->id_html}', {$widget->id}, '{$sid}');
 		});
 	</script>
 {/if}

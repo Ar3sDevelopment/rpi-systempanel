@@ -27,7 +27,7 @@
 	{				
 		$widget_id = $_POST["widget-id"];
 		
-		$settings->toggleWidgetVisibility($sid, $widget_id, $_POST['visibility']);
+		Settings::toggleWidgetVisibility($sid, $widget_id, $_POST['visibility']);
 		
 		header('Content-Type: application/json; charset=utf-8');
 		
@@ -39,7 +39,7 @@
 	{
 		$widget_id = $_POST["widget-id"];
 		
-		$settings->toggleWidgetState($sid, $widget_id, $_POST['enable']);
+		Settings::toggleWidgetState($sid, $widget_id, $_POST['enable']);
 		
 		header('Content-Type: application/json; charset=utf-8');
 		
@@ -53,7 +53,7 @@
 		$hashmethod = $_POST['hashmethod'];
 		$password = hash($hashmethod, $_POST['password']);
 		
-		$settings->save_user($sid, $username, $password, $hashmethod);
+		Settings::save_user($sid, $username, $password, $hashmethod);
 	}
 	
 	if (isset($_POST['save_widget']))
@@ -64,7 +64,7 @@
 		$widget->id_html = $_POST["widget_id_html"];
 		$widget->position = $_POST["widget_position"];
 			
-		$settings->save_user_widget($sid, $widget);
+		Settings::save_user_widget($sid, $widget);
 	}
 	
 	$smarty = new Smarty();

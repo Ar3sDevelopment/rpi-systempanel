@@ -45,13 +45,13 @@
 			return $db->update_sid($sid, $device, $uid);
 		}
 		
-		public function toggleWidgetVisibility($sid, $widget_id, $visibility)
+		public static function toggleWidgetVisibility($sid, $widget_id, $visibility)
 		{
 			$db = new Database();
 			return $db->toggleWidgetVisibility($sid, $widget_id, $visibility);
 		}
 		
-		public function toggleWidgetState($sid, $widget_id, $enabled)
+		public static function toggleWidgetState($sid, $widget_id, $enabled)
 		{
 			$db = new Database();
 			return $db->toggleWidgetState($sid, $widget_id, $enabled);
@@ -69,16 +69,28 @@
 			$this->user->widgets = $db->load($sid);
 		}
 		
-		public function save_user($sid, $username, $password, $hash)
+		public static function save_user($sid, $username, $password, $hash)
 		{
 			$db = new Database();
 			return $db->save_user($sid, $username, $password, $hash);
 		}
 		
-		public function save_user_widget($sid, $widget)
+		public static function save_user_widget($sid, $widget)
 		{
 			$db = new Database();
 			return $db->save_widget($sid, $widget);
+		}
+		
+		public static function get_widget_from_user_widget($sid, $uwid)
+		{
+			$db = new Database();
+			return get_widget_from_user_widget($sid, $uwid);
+		}
+		
+		public static function insert_widget($sid, $title, $folder, $phpfile, $classname, $templatefile, $columns, $updatetime, $requireadmin, $version)
+		{
+			$db = new Database();
+			return insert_widget($sid, $title, $folder, $phpfile, $classname, $templatefile, $columns, $updatetime, $requireadmin, $version);
 		}
 	}
 ?>
