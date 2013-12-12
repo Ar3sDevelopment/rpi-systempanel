@@ -15,7 +15,8 @@
 		{	
 			if ($widget_info->id == $_POST['widget_id'])
 			{
-				$selWidget = $widget_info->widget;
+				$selUserWidget = $widget_info;
+				$selWidget = $selUserWidget->widget;
 				break;
 			}
 		}
@@ -29,6 +30,7 @@
 		
 		$smarty = new Smarty_Widget($selWidget->folder);
 		
+		$smarty->assign('user_widget_info', $selUserWidget);
 		$smarty->assign('widget_info', $selWidget);
 		$smarty->assign('sid', $sid);
 		
