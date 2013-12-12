@@ -19,7 +19,7 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#{$user_widget_info->id_html} .btnTransPlay').click(function () {
+		$('#{$user_widget_info->id_html} .btnSendCmd').click(function () {
 			$.post('widget_loader.php', { widget_id: {$user_widget_info->id}, sid: '{$sid}', cmd: $('#{$user_widget_info->id_html} input[name="cmd"]').val() }, function (data) {
 				$('#{$user_widget_info->id_html} .terminal-output pre').text(data);
 			});
