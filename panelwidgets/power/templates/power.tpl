@@ -4,12 +4,12 @@
 	$(document).ready(function () {
 		$('#btnPowerOff').click(function () {
 			if (confirm('Are you sure you want to shutdown?'))
-				$.post('widget_loader.php', { widget_php: 'power', sid: '{$sid}', po: true }, null);
+				$.post('widget_loader.php', { widget_id: {$user_widget_info->id}, sid: '{$sid}', po: true }, null);
 		});
 		
 		$('#btnPowerReset').click(function () {
 			if (confirm('Are you sure you want to reboot?'))
-				$.post('widget_loader.php', { widget_php: 'power', sid: '{$sid}', pr: true }, null);
+				$.post('widget_loader.php', { widget_id: {$user_widget_info->id}, sid: '{$sid}', pr: true }, null);
 		});
 	});
 </script>

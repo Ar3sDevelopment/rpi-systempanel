@@ -12,7 +12,7 @@
 	
 	function timeoutTempGraphFunc()
 	{
-		updateWidgetJson('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackTempGraphFunc, null);
+		updateWidgetJson('{$user_widget_info->id}', '{$sid}', callbackTempGraphFunc, null);
 	}
 	
 	$(document).ready(function () {

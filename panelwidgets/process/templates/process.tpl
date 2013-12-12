@@ -57,7 +57,7 @@
 
 	$(document).ready(function () {
 		setTimeout(function () {
-			updateWidgetHtml('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackProcessFunc, null);
+			updateWidgetHtml('{$user_widget_info->id}', '{$sid}', callbackProcessFunc, null);
 		}, {$widget_info->updatetime});
 	});
 </script>

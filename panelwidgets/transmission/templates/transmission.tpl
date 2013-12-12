@@ -33,11 +33,11 @@
 		});
 		
 		$('#{$user_widget_info->id_html} .btnTransStop').click(function () {
-			$.post('widget_loader.php', { widget_php: {$user_widget_info->id}, sid: '{$sid}', sto: true }, null);
+			$.post('widget_loader.php', { widget_id: {$user_widget_info->id}, sid: '{$sid}', sto: true }, null);
 		});
 		
 		setTimeout(function () {
-			updateWidgetHtml('{$user_widget_info->id_html}', {$user_widget_info->id}, '{$sid}', callbackTransmissionFunc, null);
+			updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackTransmissionFunc, null);
 		}, {$widget_info->updatetime});
 	});
 </script>
