@@ -62,7 +62,7 @@
 
 	$(document).ready(function () {
 		setTimeout(function () {
-			updateWidgetHtml('{$user_widget_info->id}', '{$sid}', callbackNetworkFunc, null);
+			updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackNetworkFunc, null);
 		}, {$widget_info->updatetime});
 	});
 </script>

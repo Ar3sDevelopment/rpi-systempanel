@@ -12,7 +12,7 @@
 	
 	function timeoutCPUGraphFunc()
 	{
-		updateWidgetJson('{$user_widget_info->id}', '{$sid}', callbackCPUGraphFunc, null);
+		updateWidgetJson({$user_widget_info->id}, '{$sid}', callbackCPUGraphFunc, null);
 	}
 	
 	$(document).ready(function () {

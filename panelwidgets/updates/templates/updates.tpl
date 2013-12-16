@@ -13,12 +13,12 @@
 <script type="text/javascript">
 	function callbackUpdatesFunc(data)
 	{
-		$('#{$widget_info->id} .panel-body').html(data);
+		$('#{$user_widget_info->id_html} .panel-body').html(data);
 	}
 
 	$(document).ready(function () {
 		setTimeout(function () {
-			updateWidgetHtml('{$user_widget_info->id}', '{$sid}', callbackUpdatesFunc, null);
+			updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackUpdatesFunc, null);
 		}, {$widget_info->updatetime});
 	});
 </script>

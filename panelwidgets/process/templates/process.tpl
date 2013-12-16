@@ -52,12 +52,12 @@
 <script type="text/javascript">
 	function callbackProcessFunc(data)
 	{
-		$('#{$widget_info->id} .panel-body').html(data);
+		$('#{$user_widget_info->id_html} .panel-body').html(data);
 	}
 
 	$(document).ready(function () {
 		setTimeout(function () {
-			updateWidgetHtml('{$user_widget_info->id}', '{$sid}', callbackProcessFunc, null);
+			updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackProcessFunc, null);
 		}, {$widget_info->updatetime});
 	});
 </script>

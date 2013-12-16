@@ -26,12 +26,12 @@
 <script type="text/javascript">
 	function callbackUSBFunc(data)
 	{
-		$('#{$widget_info->id} .panel-body').html(data);
+		$('#{$user_widget_info->id_html} .panel-body').html(data);
 	}
 
 	$(document).ready(function () {
 		setTimeout(function () {
-			updateWidgetHtml('{$user_widget_info->id}', '{$sid}', callbackUSBFunc, null);
+			updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackUSBFunc, null);
 		}, {$widget_info->updatetime});
 	});
 </script>

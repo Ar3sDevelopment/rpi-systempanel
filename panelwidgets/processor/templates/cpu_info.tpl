@@ -48,7 +48,7 @@
 	
 	function timeoutCPUFunc()
 	{
-		updateWidgetJson('{$user_widget_info->id}', '{$sid}', callbackCPUFunc, null);
+		updateWidgetJson({$user_widget_info->id}, '{$sid}', callbackCPUFunc, null);
 	}
 	
 	$(document).ready(function () {
