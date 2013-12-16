@@ -15,8 +15,7 @@ The Panel is mobile ready with support for iOS web apps bookmarked to Home Scree
 ##Widgets##
 *Widgets soon can be developed or customized following some simple guidelines and will be moved to their directory*<br />
 If you want to try you can watch and edit the panelwidgets folder. The panel has its own widgets folder but this will change soon.
-Widgets must extends AbstractWidget class (abstract.widget.php) and before closing php tag you must create an instance assigned to $widget.
-*The instance is required for now*
+Widgets must extends AbstractWidget class (abstract.widget.php).
 
 #Installation#
 * Download all files to a directory available to webserver (Apache2 and Nginx are tested)
@@ -28,4 +27,3 @@ Widgets must extends AbstractWidget class (abstract.widget.php) and before closi
 
 ##Important##
 The panel requires Smarty v3 installed and in the PHP include path.<br />
-*Smarty folder will be added on next milestone*
