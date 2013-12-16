@@ -12,6 +12,7 @@
 		
 		public function manage_post($post)
 		{
+			return 0;
 		}
 	}
 ?>

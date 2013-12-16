@@ -18,8 +18,8 @@
 				$cpu_stat_1 = explode(" ", $output1[$i+1]);
 				$cpu_stat_2 = explode(" ", $output2[$i+1]);
 
-				$info1 = array("user"=>$cpu_stat_1[1], "nice"=>$cpu_stat_1[2], "system"=>$cpu_stat_1[3], "idle"=>$cpu_stat_1[4]);
-				$info2 = array("user"=>$cpu_stat_2[1], "nice"=>$cpu_stat_2[2], "system"=>$cpu_stat_2[3], "idle"=>$cpu_stat_2[4]);
+				$info1 = array("user" => $cpu_stat_1[1], "nice" => $cpu_stat_1[2], "system" => $cpu_stat_1[3], "idle" => $cpu_stat_1[4]);
+				$info2 = array("user" => $cpu_stat_2[1], "nice" => $cpu_stat_2[2], "system" => $cpu_stat_2[3], "idle" => $cpu_stat_2[4]);
 				$idlesum = $info2["idle"] - $info1["idle"] + $info2["system"] - $info1["system"];
 				$sum1 = array_sum($info1);
 				$sum2 = array_sum($info2);
@@ -33,6 +33,7 @@
 		
 		public function manage_post($post)
 		{
+			return 0;
 		}
 	}
 ?>
