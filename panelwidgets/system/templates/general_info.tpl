@@ -31,7 +31,7 @@
 	
 	function timeoutSysInfoFunc()
 	{
-		updateWidgetJson('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackSysInfoFunc, null);
+		updateWidgetJson('{$user_widget_info->id}', '{$sid}', callbackSysInfoFunc, null);
 	}
 	
 	$(document).ready(function () {

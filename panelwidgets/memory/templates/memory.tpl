@@ -107,7 +107,7 @@
 	
 	function timeoutRAMFunc()
 	{
-		updateWidgetJson('{$widget_info->id}', '{$widget_info->phpfile}', '{$sid}', callbackRAMFunc, null);
+		updateWidgetJson('{$user_widget_info->id}', '{$sid}', callbackRAMFunc, null);
 	}
 	
 	$(document).ready(function () {
