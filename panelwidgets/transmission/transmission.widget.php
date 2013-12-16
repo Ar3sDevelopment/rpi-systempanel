@@ -15,17 +15,21 @@
 	
 			$result = $rpc->sstats();
 			
-			$this->total_torrents = $result->arguments->torrentCount;
+			$this->total_torrents = isset($result->arguments->torrentCount) ? $result->arguments->torrentCount : 0;
 			$this->active_torrents = isset($result->arguments->activeTorrentCount) ? $result->arguments->activeTorrentCount : 0;
 	
 			$result = $rpc->get();
-			$torrents = $result->arguments->torrents;
+			$torrents = isset($result->arguments->torrents) ? $result->arguments->torrents : array();
 			$statuses = array();
-	
-			foreach ($torrents as $item)
+			
+			if ($torrents != null && count($torrents) > 0)
 			{
-				if (isset($item->status))
-					$statuses[] = $rpc->getStatusString($item->status);
+				foreach ($torrents as $item)
+				{
+					if (isset($item->status))
+						$statuses[] = $rpc->getStatusString($item->status);
+				}
+				
 			}
 			
 			$counts = array_count_values($statuses);
@@ -51,10 +55,16 @@
 		public function manage_post($post)
 		{
 			if (isset($_POST['sta'])) {
-				$widget->start();
+				$this->start();
+				
+				return 1;
 			} else if (isset($_POST['sto'])) {
-				$widget->stop();
+				$this->stop();
+				
+				return 1;
 			}
+			
+			return 0;
 		}
 	}
 ?>

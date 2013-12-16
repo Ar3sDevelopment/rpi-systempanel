@@ -21,13 +21,18 @@
 		{
 			if (isset($post['po']) && $post['po'])
 			{
-				$widget->poweroff();
+				$this->poweroff();
+				
+				return 1;
+			}
+			else if (isset($post['pr']) && $post['pr'])
+			{
+				$this->reboot();
+				
+				return 1;
 			}
 			
-			if (isset($post['pr']) && $post['pr'])
-			{
-				$widget->reboot();
-			}
+			return 0;
 		}
 	}
 ?>

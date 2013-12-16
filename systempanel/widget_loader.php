@@ -12,7 +12,7 @@
 		$selWidget;
 		
 		foreach ($settings->user->widgets as $widget_info)
-		{	
+		{
 			if ($widget_info->id == $_POST['widget_id'])
 			{
 				$selUserWidget = $widget_info;
@@ -26,22 +26,24 @@
 		$full_class_name = $selWidget->class_name . 'Widget';
 		$widget = new $full_class_name;
 		$widget->template_file = $selWidget->templatefile;
-		$widget->manage_post($_POST);
-		
-		$smarty = new Smarty_Widget($selWidget->folder);
-		
-		$smarty->assign('user_widget_info', $selUserWidget);
-		$smarty->assign('widget_info', $selWidget);
-		$smarty->assign('sid', $sid);
-		
-		if ($json)
+
+		if ($widget->manage_post($_POST) == 0)
 		{
-			header('Content-Type: application/json; charset=utf-8');
-			echo $widget->json();
-		}
-		else
-		{
-			$widget->html($smarty);
+			$smarty = new Smarty_Widget($selWidget->folder);
+			
+			$smarty->assign('user_widget_info', $selUserWidget);
+			$smarty->assign('widget_info', $selWidget);
+			$smarty->assign('sid', $sid);
+			
+			if ($json)
+			{
+				header('Content-Type: application/json; charset=utf-8');
+				echo $widget->json();
+			}
+			else
+			{
+				$widget->html($smarty);
+			}
 		}
 	}
 ?>
