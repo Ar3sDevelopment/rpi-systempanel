@@ -26,4 +26,5 @@ Widgets must extends AbstractWidget class (abstract.widget.php).
 *Settings page is work in progress*
 
 ##Important##
-The panel requires Smarty v3 installed and in the PHP include path.<br />
+**Introduced Stored Procedures but not in the install.php yet so you have to restore it from the sql you find in the root.
+I'm working on an updater for keeping data between versions and updating stored procedures too.**
