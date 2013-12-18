@@ -56,28 +56,26 @@
 			return $widgets;
 		}
 		
-		public function save_widgets($widgets)
+		public function save_widget($sid, $widget)
 		{
 			$mysqli = $this->init_mysqli();
 			
-			for ($c = 0; $c < count($widgets); $c++)
-			{
-				$widget = $widgets[$c];
-				$new_widget = $new_widgets[$c];
-				
-				$query = "CALL SaveWidget(?, ?, ?, ?, ?, ?)";
-				$stmt = $mysqli->stmt_init();
-				$stmt->prepare($query);
-				$stmt->bind_param("iisssi", $new_widget->columns,
-											$new_widget->updatettime,
-											$new_widget->title,
-											$new_widget->phpfile,
-											$new_widget->templatefile,
-											$widget->id_html);
+			$query = "CALL SaveWidget(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("iisssssiii", $widget->columns,
+										$widget->updatettime,
+										$widget->title,
+										$widget->phpfile,
+										$widget->templatefile,
+										$widget->folder,
+										$widget->class_name,
+										$widget->version,
+										$widget->requireadmin,
+										$widget->id);
 
-				$stmt->execute();
-				$stmt->close();
-			}
+			$stmt->execute();
+			$stmt->close();
 		}
 		
 		public function get_user_info($sid)
@@ -269,7 +267,7 @@
 			$query = "CALL SaveUserWidget(?, ?, ?, ?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
-			$stmt->bind_param("isss", $widget->position,
+			$stmt->bind_param("isis", $widget->position,
 											$widget->id_html,
 											$widget->id,
 											$sid);

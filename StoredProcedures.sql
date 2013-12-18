@@ -188,16 +188,31 @@ BEGIN
 			);
 END ;;
 
-CREATE PROCEDURE `SaveWidget`(widget_columns INT, widget_updatetime INT, widget_title VARCHAR(250), widget_phpfile VARCHAR(250), widget_templatefile VARCHAR(250), widget_id INT)
+CREATE PROCEDURE `SaveWidget`(
+	widget_columns INT,
+	widget_updatetime INT,
+	widget_title VARCHAR(250),
+	widget_phpfile VARCHAR(250),
+	widget_templatefile VARCHAR(250),
+	widget_folder VARCHAR(250),
+	widget_class_name VARCHAR(250),
+	widget_version VARCHAR(250),
+	widget_require_admin BIT,
+	widget_id INT
+)
 BEGIN
 	UPDATE
 		widget
 	SET
 		`columns` = widget_columns,
-		updatettime = widget_updatettime,
+		updatetime = widget_updatetime,
 		title = widget_title,
 		phpfile = widget_phpfile,
-		templatefile = widget_templatefile
+		templatefile = widget_templatefile,
+		requireadmin = widget_require_admin,
+		folder = widget_folder,
+		class_name = widget_class_name,
+		version = widget_version
 	WHERE id = widget_id;
 END ;;
 

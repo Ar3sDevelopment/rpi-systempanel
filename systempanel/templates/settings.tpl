@@ -83,12 +83,13 @@
 							</select>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="row">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" name="save_user" id="save_user" class="btn btn-primary">Save</button>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-sm-offset-2 col-sm-10">
+								<input type="hidden" name="save_user" value="1" />
+								<button type="submit" class="btn btn-primary">Save</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -98,7 +99,7 @@
 			{$columns = 0}
 			<div class="row">
 			{while $c < count($settings->user->widgets)}
-				{$widget=$settings->widgets[$c]}
+				{$widget=$settings->user->widgets[$c]}
 				<div class="col-md-{$widget->widget->columns}">
 					<form action="settings.php" method="POST" data-type="ajax" class="form-horizontal">
 						<input type="hidden" name="sid" value="{$sid}" />
@@ -134,6 +135,12 @@
 									</button>
 								</div>
 							</div>
+							<div class="form-group">
+								<div class="col-sm-offset-4 col-sm-8">
+									<input type="hidden" name="save_widget" value="1" />
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
+							</div>
 						</div>
 					</form>
 				</div>
@@ -145,11 +152,6 @@
 				{/if}
 				{$c = $c + 1}
 			{/while}
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button type="submit" name="save" id="save" class="btn btn-primary">Save</button>
 			</div>
 		</div>
 	</div>

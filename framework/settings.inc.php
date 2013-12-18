@@ -15,10 +15,10 @@
 			return $db->get_widgets($sid);
 		}
 		
-		public static function save_widgets($widgets)
+		public static function save_widget($sid, $widget)
 		{
 			$db = new Database();
-			return $db->save_widgets($widgets);
+			return $db->save_widget($sid, $widget);
 		}
 		
 		public static function get_user_info($sid)
@@ -78,7 +78,7 @@
 		public static function save_user_widget($sid, $widget)
 		{
 			$db = new Database();
-			return $db->save_widget($sid, $widget);
+			return $db->save_user_widget($sid, $widget);
 		}
 		
 		public static function get_widget_from_user_widget($sid, $uwid)

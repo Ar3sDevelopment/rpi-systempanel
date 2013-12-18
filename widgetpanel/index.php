@@ -18,21 +18,22 @@
 	
 	$widgets = Settings::get_widgets($sid);
 	
-	if (isset($_POST['save']))
+	if (isset($_POST['save_widget']))
 	{
-		for ($c = 0; $c < count($widgets); $c++)
-		{
-			$widget = $widgets[$c];
-			
-			$widget->id = $_POST["widget-id"][$c];
-			$widget->title = $_POST["widget-title"][$c];
-			$widget->columns = $_POST["widget-columns"][$c];
-			$widget->updatetime = $_POST["widget-updatetime"][$c];
-			$widget->phpfile = $_POST["widget-phpfile"][$c];
-			$widget->templatefile = $_POST["widget-templatefile"][$c];
-		}
+		$widget = new Widget();
+		$widget->id = $_POST["widget-id"];
+		$widget->title = $_POST["widget-title"];
+		$widget->columns = $_POST["widget-columns"];
+		$widget->updatetime = $_POST["widget-updatetime"];
+		$widget->phpfile = $_POST["widget-phpfile"];
+		$widget->templatefile = $_POST["widget-templatefile"];
+		$widget->folder = $_POST["widget-folder"];
+		$widget->class_name = $_POST["widget-class-name"];
+		$widget->templatefile = $_POST["widget-templatefile"];
+		$widget->version = $_POST["widget-version"];
+		$widget->requireadmin = (isset($_POST["widget-requireadmin"]) ? 1 : 0);
 		
-		Settings::save_widgets($widgets);
+		Settings::save_widget($sid, $widget);
 	}
 	
 	$smarty = new Smarty();

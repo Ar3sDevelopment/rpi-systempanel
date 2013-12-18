@@ -57,12 +57,16 @@
 	}
 	
 	if (isset($_POST['save_widget']))
-	{
+	{	
 		$widget = new UserWidget();
+		
+		print_r($_POST);
 				
 		$widget->id = $_POST["widget_id"];	
 		$widget->id_html = $_POST["widget_id_html"];
 		$widget->position = $_POST["widget_position"];
+		
+		print_r($widget);
 			
 		Settings::save_user_widget($sid, $widget);
 	}
