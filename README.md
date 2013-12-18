@@ -28,3 +28,6 @@ Widgets must extends AbstractWidget class (abstract.widget.php).
 ##Important##
 **Introduced Stored Procedures but not in the install.php yet so you have to restore it from the sql you find in the root.
 I'm working on an updater for keeping data between versions and updating stored procedures too.**
+The new widget Terminal can be added by these query:
+*INSERT  IGNORE INTO `widget` VALUES (14,6,0,'Terminal','terminal','terminal.tpl','',1,'terminal','Terminal');
+INSERT  IGNORE INTO `user_widget` VALUES (26,1,14,'terminal',13,'','',1);*
