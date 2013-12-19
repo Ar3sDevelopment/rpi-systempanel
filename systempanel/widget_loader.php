@@ -28,13 +28,7 @@
 		$widget->template_file = $selWidget->templatefile;
 
 		if ($widget->manage_post($_POST) == 0)
-		{
-			$smarty = new Smarty_Widget($selWidget->folder);
-			
-			$smarty->assign('user_widget_info', $selUserWidget);
-			$smarty->assign('widget_info', $selWidget);
-			$smarty->assign('sid', $sid);
-			
+		{			
 			if ($json)
 			{
 				header('Content-Type: application/json; charset=utf-8');
@@ -42,6 +36,12 @@
 			}
 			else
 			{
+				$smarty = new Smarty_Widget($selWidget->folder);
+			
+				$smarty->assign('user_widget_info', $selUserWidget);
+				$smarty->assign('widget_info', $selWidget);
+				$smarty->assign('sid', $sid);
+				
 				$widget->html($smarty);
 			}
 		}
