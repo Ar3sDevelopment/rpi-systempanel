@@ -18,3 +18,14 @@ body
 	color: #fff;
 	padding: 0px 3px;
 }
+
+.navbar-brand
+{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.navbar-brand img
+{
+	height: 40px;
+}

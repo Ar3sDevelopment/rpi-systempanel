@@ -47,10 +47,5 @@
 		{
 			return 0;
 		}
-		
-		public function json()
-		{
-			return json_encode($this->procs);
-		}
 	}
 ?>

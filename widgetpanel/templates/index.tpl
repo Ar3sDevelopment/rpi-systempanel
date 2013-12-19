@@ -27,7 +27,7 @@
 </head>
 <body>
 	<div class="container">
-		{include file="menu.tpl" sid=$sid page="widgets"}
+		{include file="menu.tpl" sid=$sid page="admin"}
 		{foreach $widgets as $widget}
 		<form action="index.php" data-type="ajax" method="post" class="form-horizontal">
 			<input type="hidden" name="sid" value="{$sid}" />
