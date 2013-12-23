@@ -56,6 +56,33 @@
 			return $widgets;
 		}
 		
+		public function get_widget_list($sid)
+		{
+			$hashes = array();
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL GetWidgetList(?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("s", $sid);
+			$stmt->execute();
+			
+			if ($result = $stmt->get_result())
+			{	
+				while ($obj = $result->fetch_object())
+				{
+					$widgets[] = $obj;
+				}
+
+				$result->close();
+			}
+			
+			$stmt->close();
+			$mysqli->close();
+			
+			return $widgets;
+		}
+		
 		public function save_widget($sid, $widget)
 		{
 			$mysqli = $this->init_mysqli();
@@ -73,6 +100,27 @@
 										$widget->version,
 										$widget->requireadmin,
 										$widget->id);
+
+			$stmt->execute();
+			$stmt->close();
+		}
+		
+		public function create_widget($sid, $widget)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL SaveWidget(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("iisssssii", $widget->columns,
+										$widget->updatettime,
+										$widget->title,
+										$widget->phpfile,
+										$widget->templatefile,
+										$widget->folder,
+										$widget->class_name,
+										$widget->version,
+										$widget->requireadmin);
 
 			$stmt->execute();
 			$stmt->close();
@@ -270,6 +318,24 @@
 			$stmt->bind_param("isis", $widget->position,
 											$widget->id_html,
 											$widget->id,
+											$sid);
+
+			$stmt->execute();
+			$stmt->close();
+			
+			$mysqli->close();
+		}
+		
+		public function create_user_widget($sid, $widget, $wid)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL CreateUserWidget(?, ?, ?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("iss", $widget->position,
+											$widget->id_html,
+											$wid,
 											$sid);
 
 			$stmt->execute();

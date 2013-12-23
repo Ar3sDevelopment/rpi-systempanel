@@ -32,25 +32,7 @@
 				});
 			});
 			
-			//TODO: Think about making AJAX Form jQuery plugin
-			$('form[data-type="ajax"]').submit(function(event) {
-			    event.preventDefault();
-			
-				var $this = $(this);
-			    var values = $this.serialize();
-			
-			    $.ajax({
-			        url: $this.prop('action'),
-			        type: $this.prop('method'),
-			        data: values,
-			        success: function() {
-			        	alert('Done');
-			        },
-			        error:function() {
-			            alert("Error");
-			        }
-			    });
-			});
+			initAjaxForms();
 		});
 	</script>
 </head>
@@ -60,99 +42,127 @@
 		<form action="settings.php" data-type="ajax" method="post" class="form-horizontal">
 			<input type="hidden" name="sid" value="{$sid}" />
 			<div class="row">
-				<div class="well">
-					<div class="form-group">
-						<label for="username" class="col-sm-2 control-label">Email</label>
-						<div class="col-sm-10">
-							<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{$user->username}" />
+				<div class="col-md-12">
+					<div class="well">
+						<div class="form-group">
+							<label for="username" class="col-sm-2 control-label">Email</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="{$user->username}" />
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="password" class="col-sm-2 control-label">Password</label>
-						<div class="col-sm-10">
-							<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+						<div class="form-group">
+							<label for="password" class="col-sm-2 control-label">Password</label>
+							<div class="col-sm-10">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<label for="hashmethod" class="col-sm-2 control-label">Hash Method</label>
-						<div class="col-sm-10">
-							<select class="form-control" id="hashmethod" name="hashmethod">
-								{foreach $hashes as $hash}
-									<option value="{$hash->name}"{if $hash->selected} selected="selected" {/if}>{$hash->description}</option>
-								{/foreach}
-							</select>
+						<div class="form-group">
+							<label for="hashmethod" class="col-sm-2 control-label">Hash Method</label>
+							<div class="col-sm-10">
+								<select class="form-control" id="hashmethod" name="hashmethod">
+									{foreach $hashes as $hash}
+										<option value="{$hash->name}"{if $hash->selected} selected="selected" {/if}>{$hash->description}</option>
+									{/foreach}
+								</select>
+							</div>
 						</div>
-					</div>
-					<div class="form-group">
-						<div class="row">
-							<div class="col-sm-offset-2 col-sm-10">
-								<input type="hidden" name="save_user" value="1" />
-								<button type="submit" class="btn btn-primary">Save</button>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-sm-offset-2 col-sm-10">
+									<input type="hidden" name="save_user" value="1" />
+									<button type="submit" class="btn btn-primary">Save</button>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
-		<div class="form-group">
-			{$c = 0}
-			{$columns = 0}
-			<div class="row">
-			{while $c < count($settings->user->widgets)}
-				{$widget=$settings->user->widgets[$c]}
-				<div class="col-md-{$widget->widget->columns}">
-					<form action="settings.php" method="POST" data-type="ajax" class="form-horizontal">
-						<input type="hidden" name="sid" value="{$sid}" />
-						<input type="hidden" name="widget_id" value="{$widget->id}" />
-						<div class="well">
-							<div class="form-group">
-								<label for="widget-id" class="col-sm-4 control-label">ID</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control" name="widget_id_html" placeholder="ID HTML" value="{$widget->id_html}" />
-								</div>
+		<div class="row">
+			<div class="col-md-12">
+				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#assignWidget">
+					Assign New Widget
+				</button>
+				<div class="modal fade" id="assignWidget" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+								<h4 class="modal-title" id="assignModalLabel">New Widget</h4>
 							</div>
-							<div class="form-group">
-								<label for="widget-position" class="col-sm-4 control-label">Position</label>
-								<div class="col-sm-8">
-									<input type="text" class="form-control" name="widget_position" placeholder="Position" value="{$widget->position}" />
+							<form action="settings.php" data-type="ajax" method="post" class="form-horizontal">
+								<div class="modal-body">
+									<input type="hidden" name="sid" value="{$sid}" />
+									<input type="hidden" name="assign_widget" value="1" />
+									<div class="row">
+										<div class="col-xs-12">
+											{include file="userwidget_fields.tpl" widget=$default_widget}
+											<div class="form-group">
+												<label for="wid" class="col-sm-4 control-label">Position</label>
+												<div class="col-sm-8">
+													<select name="wid" class="form-control">
+														{foreach $widget_list as $widget_item}
+															<option value="{$widget_item->id}">{$widget_item->title}</option>
+														{/foreach}
+													</select>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>								
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-default" data-dismiss="modal">Save changes</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-4 col-sm-8 text-right">
-									<button type="button" name="visibility" data-widget-id="{$widget->id}" data-val="{if $widget->visible}0{else}1{/if}" class="btn btn-default">
-										{if $widget->visible}
-											Hide
-										{else}
-											Show
-										{/if}
-									</button>
-									<button type="button" name="enable" data-widget-id="{$widget->id}" data-val="{if $widget->enabled}0{else}1{/if}" class="btn btn-default">
-										{if $widget->enabled}
-											Disable
-										{else}
-											Enable
-										{/if}
-									</button>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-4 col-sm-8">
-									<input type="hidden" name="save_widget" value="1" />
-									<button type="submit" class="btn btn-primary">Save</button>
-								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{$columns = 0}
+		<div class="row">
+		{foreach $settings->user->widgets as $widget}
+			<div class="col-md-{$widget->widget->columns}">
+				<form action="settings.php" method="POST" data-type="ajax" class="form-horizontal">
+					<input type="hidden" name="sid" value="{$sid}" />
+					<input type="hidden" name="widget_id" value="{$widget->id}" />
+					<div class="well">
+						{include file="userwidget_fields.tpl" widget=$widget}
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-8 text-right">
+								<button type="button" name="visibility" data-widget-id="{$widget->id}" data-val="{if $widget->visible}0{else}1{/if}" class="btn btn-default">
+									{if $widget->visible}
+										Hide
+									{else}
+										Show
+									{/if}
+								</button>
+								<button type="button" name="enable" data-widget-id="{$widget->id}" data-val="{if $widget->enabled}0{else}1{/if}" class="btn btn-default">
+									{if $widget->enabled}
+										Disable
+									{else}
+										Enable
+									{/if}
+								</button>
 							</div>
 						</div>
-					</form>
-				</div>
-				{$columns = $columns + {$widget->widget->columns}}
-				{if $columns == 12}
-					{$columns = 0}
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-8">
+								<input type="hidden" name="save_widget" value="1" />
+								<button type="submit" class="btn btn-primary">Save</button>
+							</div>
+						</div>
 					</div>
-					<div class="row">
-				{/if}
-				{$c = $c + 1}
-			{/while}
+				</form>
 			</div>
+			{$columns = $columns + {$widget->widget->columns}}
+			{if $columns == 12}
+				{$columns = 0}
+				</div>
+				<div class="row">
+			{/if}
+		{/foreach}
 		</div>
 	</div>
 </body>

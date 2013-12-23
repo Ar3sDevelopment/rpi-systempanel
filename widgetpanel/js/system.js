@@ -1,20 +1,20 @@
-$(document).ready(function () {
-	$('.panel-heading .btn-link[data-toggle="hide"]').click(function () {
-		if (!$(this).prop('data-only') || ($(this).prop('data-only') == 'false'))
-		{
-			$('.panel').parent().hide();
-			$($(this).prop('data-target')).parent().parent().show();
-			$(this).prop({ 'data-only': true });
-		}
-		else
-		{
-			$('.panel').parent().parent().show();
-			$(this).prop({ 'data-only': false });
-		}
-	});
+function initAjaxForms() {
+	$('form[data-type="ajax"]').submit(function(event) {
+	    event.preventDefault();
 	
-	$('a').click(function () {
-        window.location = $(this).prop("href");
-        return false;
+		var $this = $(this);
+	    var values = $this.serialize();
+	
+	    $.ajax({
+	        url: $this.prop('action'),
+	        type: $this.prop('method'),
+	        data: values,
+	        success: function() {
+	        	alert('Done');
+	        },
+	        error:function() {
+	            alert("Error");
+	        }
+	    });
 	});
-});
+}

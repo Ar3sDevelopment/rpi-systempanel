@@ -15,10 +15,22 @@
 			return $db->get_widgets($sid);
 		}
 		
+		public static function get_widget_list($sid)
+		{
+			$db = new Database();
+			return $db->get_widget_list($sid);
+		}
+		
 		public static function save_widget($sid, $widget)
 		{
 			$db = new Database();
 			return $db->save_widget($sid, $widget);
+		}
+		
+		public static function create_widget($sid, $widget)
+		{
+			$db = new Database();
+			return $db->create_widget($sid, $widget);
 		}
 		
 		public static function get_user_info($sid)
@@ -79,6 +91,12 @@
 		{
 			$db = new Database();
 			return $db->save_user_widget($sid, $widget);
+		}
+		
+		public static function create_user_widget($sid, $widget, $wid)
+		{
+			$db = new Database();
+			return $db->create_user_widget($sid, $widget, $wid);
 		}
 		
 		public static function get_widget_from_user_widget($sid, $uwid)

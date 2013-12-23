@@ -17,6 +17,7 @@
 			$this->updatetime = 1000;
 			$this->columns = 6;
 			$this->requireadmin = false;
+			$this->version = 1;
 		}
 	}
 ?>

@@ -18,6 +18,24 @@
 	
 	$widgets = Settings::get_widgets($sid);
 	
+	if (isset($_POST['create_widget']))
+	{
+		$widget = new Widget();
+		$widget->title = $_POST["widget-title"];
+		$widget->columns = $_POST["widget-columns"];
+		$widget->updatetime = $_POST["widget-updatetime"];
+		$widget->phpfile = $_POST["widget-phpfile"];
+		$widget->templatefile = $_POST["widget-templatefile"];
+		$widget->folder = $_POST["widget-folder"];
+		$widget->class_name = $_POST["widget-class-name"];
+		$widget->templatefile = $_POST["widget-templatefile"];
+		$widget->version = $_POST["widget-version"];
+		$widget->requireadmin = (isset($_POST["widget-requireadmin"]) ? 1 : 0);
+		
+		Settings::create_widget($sid, $widget);
+	}
+	
+	
 	if (isset($_POST['save_widget']))
 	{
 		$widget = new Widget();
@@ -40,6 +58,7 @@
 	
 	$smarty->assign('sid', $sid);
 	$smarty->assign('widgets', $widgets);
+	$smarty->assign('default_widget', new Widget());
 	
 	$smarty->display('index.tpl');
 ?>
