@@ -9,7 +9,6 @@
 		public $mount;
 		public $typex;
 		public $percent;
-		public $percent_part;
 		
 		public function __construct($diskinfo)
 		{
@@ -19,9 +18,9 @@
 			$this->size = $size;
 			$this->used = $used;
 			$this->avail = $avail;
-			$this->percent = $percent;
 			$this->mount = $mount;
-			$this->percent_part = str_replace( "%", "", $this->percent);
+			$this->percent_used = str_replace( "%", "", $percent);
+			$this->percent_avail = 100 - $this->percent_used;
 		}
 	}
 	
