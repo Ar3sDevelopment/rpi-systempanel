@@ -74,7 +74,7 @@
 	});
 	
 	function updateGrid() {
-		$("#{$user_widget_info->id_html} .process_grid").jqxGrid('updatebounddata', 'cells');
+		$("#{$user_widget_info->id_html} .disks_grid").jqxGrid('updatebounddata', 'cells');
 		
 		setTimeout(function () {
 			updateGrid();

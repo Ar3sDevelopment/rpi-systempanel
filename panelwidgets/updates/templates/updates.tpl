@@ -1,4 +1,56 @@
-{if count($widget->updates) > 0}
+<div class="updates_grid"></div>
+<script type="text/javascript">
+	$(document).ready(function () {
+        var source =
+        {
+            datatype: "json",
+            datafields: [
+                { name: 'description' }
+            ],
+            id: 'id',
+            url: 'widget_loader.php',
+            root: 'updates',
+            data: {
+            	widget_id: {$user_widget_info->id},
+            	sid: '{$sid}',
+            	json: true,
+            	featureClass: "P",
+                style: "full",
+                maxRows: 10
+			},
+			type: 'POST'
+        };
+        
+        var dataAdapter = new $.jqx.dataAdapter(source);
+        $("#{$user_widget_info->id_html} .updates_grid").jqxGrid(
+        {
+        	showdefaultloadelement: false,
+        	autoshowloadelement: false,
+            width: '100%',
+            source: dataAdapter,
+            theme: 'bootstrap',
+            columnsresize: true,
+            pageable: true,
+            autoheight: true,
+            columns: [
+              { text: 'Update', dataField: 'description' }
+            ]
+        });
+        
+        setTimeout(function () {
+			updateGrid();
+		}, {$widget_info->updatetime});
+	});
+	
+	function updateGrid() {
+		$("#{$user_widget_info->id_html} .updates_grid").jqxGrid('updatebounddata', 'cells');
+		
+		setTimeout(function () {
+			updateGrid();
+		}, {$widget_info->updatetime});
+	}
+</script>
+{*{if count($widget->updates) > 0}
 <div class="row">
 	<div class="col-xs-12">
 		<ul class="list-group">
@@ -21,4 +73,4 @@
 			updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackUpdatesFunc, null);
 		}, {$widget_info->updatetime});
 	});
-</script>
+</script>*}
