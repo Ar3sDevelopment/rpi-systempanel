@@ -80,9 +80,11 @@
 		</form>
 		<div class="row">
 			<div class="col-md-12">
-				<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#assignWidget">
-					Assign New Widget
-				</button>
+				<div class="well">
+					<button class="btn btn-primary" data-toggle="modal" data-target="#assignWidget">
+						Assign New Widget
+					</button>
+				</div>
 				<div class="modal fade" id="assignWidget" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">

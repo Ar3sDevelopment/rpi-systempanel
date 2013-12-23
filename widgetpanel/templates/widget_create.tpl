@@ -1,6 +1,14 @@
-<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#createWidget">
-	Create New Widget
-</button>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="well">
+			<div class="form-group">
+				<button class="btn btn-primary" data-toggle="modal" data-target="#createWidget">
+					Create New Widget
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="modal fade" id="createWidget" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">

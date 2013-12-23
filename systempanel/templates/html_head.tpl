@@ -12,22 +12,7 @@
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxcore.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxdata.js"></script> 
-<script type="text/javascript" src="js/jqwidgets/jqxbuttons.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxscrollbar.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxmenu.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxcheckbox.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxlistbox.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxdropdownlist.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxgrid.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxgrid.sort.js"></script> 
-<script type="text/javascript" src="js/jqwidgets/jqxgrid.pager.js"></script> 
-<script type="text/javascript" src="js/jqwidgets/jqxgrid.selection.js"></script> 
-<script type="text/javascript" src="js/jqwidgets/jqxgrid.edit.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxgrid.columnsresize.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxchart.js"></script>
-<script type="text/javascript" src="js/jqwidgets/jqxgauge.js"></script>
+<script type="text/javascript" src="js/jqwidgets/jqx-all.js"></script>
 <link rel="stylesheet" href="js/jqwidgets/styles/jqx.base.css" type="text/css" />
 <link rel="stylesheet" href="js/jqwidgets/styles/jqx.bootstrap.css" type="text/css" />
 <script type="text/javascript" src="js/system.js"></script>
