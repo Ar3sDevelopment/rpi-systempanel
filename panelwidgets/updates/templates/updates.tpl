@@ -5,7 +5,9 @@
         {
             datatype: "json",
             datafields: [
-                { name: 'description' }
+                { name: 'name' },
+                { name: 'old_version' },
+                { name: 'new_version' }
             ],
             id: 'id',
             url: 'widget_loader.php',
@@ -33,7 +35,9 @@
             pageable: true,
             autoheight: true,
             columns: [
-              { text: 'Update', dataField: 'description' }
+              { text: 'Package', dataField: 'name' },
+              { text: 'Old Version', dataField: 'old_version' },
+              { text: 'New Version', dataField: 'new_version' }
             ]
         });
         

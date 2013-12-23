@@ -5,10 +5,10 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-10">
+	<div class="col-xs-9 col-sm-10">
 		<input type="text" class="form-control" name="cmd" />
 	</div>
-	<div class="col-xs-2">
+	<div class="col-xs-3 col-sm-2">
 		<button type="button" class="btn btn-success btnSendCmd"><span class="glyphicon glyphicon-play"></span></button>
 	</div>
 </div>
