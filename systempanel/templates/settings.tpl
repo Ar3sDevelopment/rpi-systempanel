@@ -125,6 +125,12 @@
 		{$columns = 0}
 		<div class="row">
 		{foreach $settings->user->widgets as $widget}
+		{$columns = $columns + {$widget->widget->columns}}
+			{if $columns > 12}
+				{$columns = 0}
+				</div>
+				<div class="row">
+			{/if}
 			<div class="col-md-{$widget->widget->columns}">
 				<form action="settings.php" method="POST" data-type="ajax" class="form-horizontal">
 					<input type="hidden" name="sid" value="{$sid}" />
@@ -158,12 +164,6 @@
 					</div>
 				</form>
 			</div>
-			{$columns = $columns + {$widget->widget->columns}}
-			{if $columns == 12}
-				{$columns = 0}
-				</div>
-				<div class="row">
-			{/if}
 		{/foreach}
 		</div>
 	</div>

@@ -1,15 +1,15 @@
 function initPanelCollapse() {
 	$('.panel-heading .btn-link[data-toggle="hide"]').click(function () {
-		if (!$(this).prop('data-only') || ($(this).prop('data-only') == 'false'))
+		if (!$(this).data('only') || ($(this).data('only') == false))
 		{
 			$('.panel').parent().hide();
-			$($(this).prop('data-target')).parent().parent().show();
-			$(this).prop({ 'data-only': true });
+			$($(this).data('target')).parent().parent().show();
+			$(this).data('only', true);
 		}
 		else
 		{
-			$('.panel').parent().parent().show();
-			$(this).prop({ 'data-only': false });
+			$('.panel').parent().show();
+			$(this).data('only', false);
 		}
 	});
 	

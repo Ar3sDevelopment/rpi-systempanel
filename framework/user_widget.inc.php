@@ -7,7 +7,6 @@
 		public $position;
 		public $enabled;
 		public $visible;
-		public $version;
 		
 		public $widget;
 		public $user;

@@ -69,15 +69,15 @@
         });
         
         setTimeout(function () {
-			updateGrid();
+			updateDiskGrid();
 		}, {$widget_info->updatetime});
 	});
 	
-	function updateGrid() {
+	function updateDiskGrid() {
 		$("#{$user_widget_info->id_html} .disks_grid").jqxGrid('updatebounddata', 'cells');
 		
 		setTimeout(function () {
-			updateGrid();
+			updateDiskGrid();
 		}, {$widget_info->updatetime});
 	}
 </script>
