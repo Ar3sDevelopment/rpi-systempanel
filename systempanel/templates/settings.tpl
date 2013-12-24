@@ -127,7 +127,7 @@
 		{foreach $settings->user->widgets as $widget}
 		{$columns = $columns + {$widget->widget->columns}}
 			{if $columns > 12}
-				{$columns = 0}
+				{$columns = {$widget->widget->columns}}
 				</div>
 				<div class="row">
 			{/if}
