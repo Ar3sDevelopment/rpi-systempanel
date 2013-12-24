@@ -53,15 +53,15 @@
         });
         
         setTimeout(function () {
-			updateGrid();
+			updateProcessGrid();
 		}, {$widget_info->updatetime});
 	});
 	
-	function updateGrid() {
+	function updateProcessGrid() {
 		$("#{$user_widget_info->id_html} .process_grid").jqxGrid('updatebounddata', 'cells');
 		
 		setTimeout(function () {
-			updateGrid();
+			updateProcessGrid();
 		}, {$widget_info->updatetime});
 	}
 </script>
