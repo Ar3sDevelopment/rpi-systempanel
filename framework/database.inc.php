@@ -124,6 +124,41 @@
 
 			$stmt->execute();
 			$stmt->close();
+			
+			if (!file_exists("../panelwidgets/$widget->folder"))
+			{
+				mkdir("../panelwidgets/$widget->folder");
+			}
+			
+			if (!file_exists("../panelwidgets/$widget->folder/$widget->phpfile.widget.php"))
+			{
+				file_put_contents("../panelwidgets/$widget->folder/$widget->phpfile.widget.php", "<?php
+	require_once('../panelwidgets/abstract.widget.php');
+
+	class $widget->class_name extends AbstractWidget
+	{	
+		public function load() {
+			//TODO: Load widget here
+		}
+		
+		public function manage_post($post)
+		{
+			//TODO: Manage \$_POST here, return 0 for OK
+			return 0;
+		}
+	}
+?>");
+			}
+
+			if (!file_exists("../panelwidgets/$widget->folder/templates"))
+			{
+				mkdir("../panelwidgets/$widget->folder/templates");
+			}
+			
+			if (!file_exists("../panelwidgets/$widget->folder/templates"))
+			{
+				file_put_contents("", "../panelwidgets/$widget->folder/templates/$widget->templatefile");
+			}
 		}
 		
 		public function get_user_info($sid)
