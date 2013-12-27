@@ -34,9 +34,7 @@
 		
 		Settings::create_widget($sid, $widget);
 	}
-	
-	
-	if (isset($_POST['save_widget']))
+	else if (isset($_POST['save_widget']))
 	{
 		$widget = new Widget();
 		$widget->id = $_POST["widget-id"];
@@ -53,12 +51,14 @@
 		
 		Settings::save_widget($sid, $widget);
 	}
-	
-	$smarty = new Smarty();
-	
-	$smarty->assign('sid', $sid);
-	$smarty->assign('widgets', $widgets);
-	$smarty->assign('default_widget', new Widget());
-	
-	$smarty->display('index.tpl');
+	else
+	{
+		$smarty = new Smarty();
+		
+		$smarty->assign('sid', $sid);
+		$smarty->assign('widgets', $widgets);
+		$smarty->assign('default_widget', new Widget());
+		
+		$smarty->display('index.tpl');	
+	}
 ?>

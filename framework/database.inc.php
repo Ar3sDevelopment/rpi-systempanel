@@ -109,11 +109,11 @@
 		{
 			$mysqli = $this->init_mysqli();
 			
-			$query = "CALL SaveWidget(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			$query = "CALL CreateWidget(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("iisssssii", $widget->columns,
-										$widget->updatettime,
+										$widget->updatetime,
 										$widget->title,
 										$widget->phpfile,
 										$widget->templatefile,
@@ -121,6 +121,8 @@
 										$widget->class_name,
 										$widget->version,
 										$widget->requireadmin);
+
+			print_r($stmt);
 
 			$stmt->execute();
 			$stmt->close();
@@ -141,7 +143,7 @@
 			//TODO: Load widget here
 		}
 		
-		public function manage_post($post)
+		public function manage_post(\$post)
 		{
 			//TODO: Manage \$_POST here, return 0 for OK
 			return 0;
