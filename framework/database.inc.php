@@ -370,7 +370,7 @@
 			$query = "CALL CreateUserWidget(?, ?, ?, ?)";
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
-			$stmt->bind_param("iss", $widget->position,
+			$stmt->bind_param("isis", $widget->position,
 											$widget->id_html,
 											$wid,
 											$sid);

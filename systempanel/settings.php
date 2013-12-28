@@ -33,9 +33,7 @@
 	
 		echo json_encode((object) array('visible' => (bool)$_POST['visibility']));
 		return;
-	}
-	
-	if (isset($_POST['enable'])) {
+	} else if (isset($_POST['enable'])) {
 		$widget_id = $_POST["widget-id"];
 	
 		Settings::toggleWidgetState($sid, $widget_id, $_POST['enable']);
@@ -44,17 +42,15 @@
 	
 		echo json_encode((object) array('enabled' => (bool)$_POST['enable']));
 		return;
-	}
-	
-	if (isset($_POST['save_user'])) {
+	} else if (isset($_POST['save_user'])) {
 		$username = $_POST['username'];
 		$hashmethod = $_POST['hashmethod'];
 		$password = hash($hashmethod, $_POST['password']);
 	
 		Settings::save_user($sid, $username, $password, $hashmethod);
-	}
-	
-	if (isset($_POST['assign_widget'])) {
+	} else if (isset($_POST['assign_widget'])) {
+		print_r($_POST);
+		
 		$widget = new UserWidget();
 	
 		$widget->id_html = $_POST["widget_id_html"];
@@ -62,9 +58,7 @@
 		$wid = $_POST["wid"];
 	
 		Settings::create_user_widget($sid, $widget, $wid);
-	}
-	
-	if (isset($_POST['save_widget'])) {
+	} else if (isset($_POST['save_widget'])) {
 		$widget = new UserWidget();
 	
 		$widget -> id = $_POST["widget_id"];
@@ -72,19 +66,19 @@
 		$widget -> position = $_POST["widget_position"];
 	
 		Settings::save_user_widget($sid, $widget);
+	} else {
+		$smarty = new Smarty();
+		
+		$widget_list = Settings::get_widget_list($sid); 
+		$hashes = Settings::get_hash_methods($sid);
+		$user_info = Settings::get_user_info($sid);
+		
+		$smarty -> assign('sid', $sid);
+		$smarty -> assign('settings', $settings);
+		$smarty -> assign('user', $user_info);
+		$smarty -> assign('hashes', $hashes);
+		$smarty -> assign('widget_list', $widget_list);
+		$smarty -> assign('default_widget', new UserWidget());
+		$smarty -> display('settings.tpl');
 	}
-	
-	$smarty = new Smarty();
-	
-	$widget_list = Settings::get_widget_list($sid); 
-	$hashes = Settings::get_hash_methods($sid);
-	$user_info = Settings::get_user_info($sid);
-	
-	$smarty -> assign('sid', $sid);
-	$smarty -> assign('settings', $settings);
-	$smarty -> assign('user', $user_info);
-	$smarty -> assign('hashes', $hashes);
-	$smarty -> assign('widget_list', $widget_list);
-	$smarty -> assign('default_widget', new UserWidget());
-	$smarty -> display('settings.tpl');
 ?>

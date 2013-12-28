@@ -113,8 +113,8 @@
 									</div>
 								</div>								
 								<div class="modal-footer">
-									<button type="submit" class="btn btn-default" data-dismiss="modal">Save changes</button>
-									<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+									<button type="submit" class="btn btn-primary">Save changes</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 								</div>
 							</form>
 						</div>
