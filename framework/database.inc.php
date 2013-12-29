@@ -363,6 +363,23 @@
 			$mysqli->close();
 		}
 		
+		public function delete_user_widget($sid, $widget)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL DeleteUserWidget(?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("is", $widget->id, $sid);
+
+			$stmt->execute();
+			$stmt->close();
+			
+			$mysqli->close();
+			
+			$mysqli->close();
+		}
+		
 		public function create_user_widget($sid, $widget, $wid)
 		{
 			$mysqli = $this->init_mysqli();

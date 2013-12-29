@@ -34,6 +34,10 @@
 			
 			initAjaxForms();
 		});
+		
+		function changeAction(sender, action) {
+			$(sender).parent().children('input[name="widget_action"]').val(action);
+		}
 	</script>
 </head>
 <body>
@@ -81,44 +85,11 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="well">
-					<button class="btn btn-primary" data-toggle="modal" data-target="#assignWidget">
+					<button class="btn btn-primary" data-toggle="modal" data-target="#assignWidget" href="widget_create.php?sid={$sid}">
 						Assign New Widget
 					</button>
 				</div>
 				<div class="modal fade" id="assignWidget" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="assignModalLabel">New Widget</h4>
-							</div>
-							<form action="settings.php" data-type="ajax" method="post" class="form-horizontal">
-								<div class="modal-body">
-									<input type="hidden" name="sid" value="{$sid}" />
-									<input type="hidden" name="assign_widget" value="1" />
-									<div class="row">
-										<div class="col-xs-12">
-											{include file="userwidget_fields.tpl" widget=$default_widget}
-											<div class="form-group">
-												<label for="wid" class="col-sm-4 control-label">Position</label>
-												<div class="col-sm-8">
-													<select name="wid" class="form-control">
-														{foreach $widget_list as $widget_item}
-															<option value="{$widget_item->id}">{$widget_item->title}</option>
-														{/foreach}
-													</select>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>								
-								<div class="modal-footer">
-									<button type="submit" class="btn btn-primary">Save changes</button>
-									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								</div>
-							</form>
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -157,8 +128,9 @@
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-4 col-sm-8">
-								<input type="hidden" name="save_widget" value="1" />
-								<button type="submit" class="btn btn-primary">Save</button>
+								<input type="hidden" name="widget_action" value="save" />
+								<button type="submit" onclick="changeAction(this, 'save');" class="btn btn-primary">Save</button>
+								<button type="submit" onclick="changeAction(this, 'delete');" class="btn btn-danger">Delete</button>
 							</div>
 						</div>
 					</div>

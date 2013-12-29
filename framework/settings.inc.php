@@ -93,6 +93,12 @@
 			return $db->save_user_widget($sid, $widget);
 		}
 		
+		public static function delete_user_widget($sid, $widget)
+		{
+			$db = new Database();
+			return $db->delete_user_widget($sid, $widget);
+		}
+		
 		public static function create_user_widget($sid, $widget, $wid)
 		{
 			$db = new Database();

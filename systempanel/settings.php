@@ -58,27 +58,28 @@
 		$wid = $_POST["wid"];
 	
 		Settings::create_user_widget($sid, $widget, $wid);
-	} else if (isset($_POST['save_widget'])) {
+	} else if (isset($_POST['widget_action'])) {
 		$widget = new UserWidget();
 	
-		$widget -> id = $_POST["widget_id"];
-		$widget -> id_html = $_POST["widget_id_html"];
-		$widget -> position = $_POST["widget_position"];
+		$widget->id = $_POST["widget_id"];
+		$widget->id_html = $_POST["widget_id_html"];
+		$widget->position = $_POST["widget_position"];
 	
-		Settings::save_user_widget($sid, $widget);
+		if ($_POST['widget_action'] == 'save') {
+			Settings::save_user_widget($sid, $widget);
+		}else if ($_POST['widget_action'] == 'delete') {
+			Settings::delete_user_widget($sid, $widget);
+		}
 	} else {
 		$smarty = new Smarty();
-		
-		$widget_list = Settings::get_widget_list($sid); 
+		 
 		$hashes = Settings::get_hash_methods($sid);
 		$user_info = Settings::get_user_info($sid);
 		
-		$smarty -> assign('sid', $sid);
-		$smarty -> assign('settings', $settings);
-		$smarty -> assign('user', $user_info);
-		$smarty -> assign('hashes', $hashes);
-		$smarty -> assign('widget_list', $widget_list);
-		$smarty -> assign('default_widget', new UserWidget());
-		$smarty -> display('settings.tpl');
+		$smarty->assign('sid', $sid);
+		$smarty->assign('settings', $settings);
+		$smarty->assign('user', $user_info);
+		$smarty->assign('hashes', $hashes);
+		$smarty->display('settings.tpl');
 	}
 ?>
