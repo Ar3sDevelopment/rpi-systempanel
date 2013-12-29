@@ -34,7 +34,7 @@
 		
 		Settings::create_widget($sid, $widget);
 	}
-	else if (isset($_POST['save_widget']))
+	else if (isset($_POST['widget_action']))
 	{
 		$widget = new Widget();
 		$widget->id = $_POST["widget-id"];
@@ -49,7 +49,11 @@
 		$widget->version = $_POST["widget-version"];
 		$widget->requireadmin = (isset($_POST["widget-requireadmin"]) ? 1 : 0);
 		
-		Settings::save_widget($sid, $widget);
+		if ($_POST['widget_action'] == 'save') {
+			Settings::save_widget($sid, $widget);
+		} else if ($_POST['widget_action'] == 'delete') {
+			Settings::delete_widget($sid, $widget);
+		}
 	}
 	else
 	{

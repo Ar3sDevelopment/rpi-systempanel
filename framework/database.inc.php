@@ -105,6 +105,19 @@
 			$stmt->close();
 		}
 		
+		public function delete_widget($sid, $widget)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL DeleteWidget(?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("i", $widget->id);
+
+			$stmt->execute();
+			$stmt->close();
+		}
+		
 		public function create_widget($sid, $widget)
 		{
 			$mysqli = $this->init_mysqli();

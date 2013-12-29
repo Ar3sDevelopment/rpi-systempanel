@@ -6,6 +6,10 @@
 		$(document).ready(function () {
 			initAjaxForms();
 		});
+		
+		function changeAction(sender, action) {
+			$(sender).parent().children('input[name="widget_action"]').val(action);
+		}
 	</script>
 </head>
 <body>

@@ -27,6 +27,12 @@
 			return $db->save_widget($sid, $widget);
 		}
 		
+		public static function delete_widget($sid, $widget)
+		{
+			$db = new Database();
+			return $db->delete_widget($sid, $widget);
+		}
+		
 		public static function create_widget($sid, $widget)
 		{
 			$db = new Database();

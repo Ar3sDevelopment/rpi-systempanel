@@ -7,8 +7,9 @@
 				{include file="widget_fields.tpl" widget=$widget}
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
-						<input type="hidden" name="save_widget" value="1" />
-						<button type="submit" name="save" class="btn btn-primary">Save</button>
+						<input type="hidden" name="widget_action" value="save" />
+						<button type="submit" onclick="changeAction(this, 'save');" class="btn btn-primary">Save</button>
+						<button type="submit" onclick="changeAction(this, 'delete');" class="btn btn-danger">Delete</button>
 					</div>
 				</div>
 			</div>
