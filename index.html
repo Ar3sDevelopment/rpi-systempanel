@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Raspberry Pi PHP System Panel</title>
+    <title>Rpi-systempanel</title>
   </head>
 
   <body>
@@ -31,16 +31,66 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to Raspberry Pi PHP System Panel.</h3>
+        <h1>
+<a name="welcome-to-raspberry-pi-php-system-panel" class="anchor" href="#welcome-to-raspberry-pi-php-system-panel"><span class="octicon octicon-link"></span></a>Welcome to Raspberry Pi PHP System Panel.</h1>
+
+<p>A PHP System Information Panel with custom widgets, developed for my Raspberry Pi with support for Raspistill but supports Linux too <em>(not Raspistill)</em>.</p>
+
+<h2>
+<a name="preview" class="anchor" href="#preview"><span class="octicon octicon-link"></span></a>Preview</h2>
 
 <h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a name="desktop-preview" class="anchor" href="#desktop-preview"><span class="octicon octicon-link"></span></a>Desktop Preview</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/16581748/desktop.png" alt="Preview"><br></p>
+
+<h3>
+<a name="mobile-preview" class="anchor" href="#mobile-preview"><span class="octicon octicon-link"></span></a>Mobile Preview</h3>
+
+<p><img src="https://dl.dropboxusercontent.com/u/16581748/mobile.png" alt="Preview iOS"><br></p>
+
+<p><em>Soon will be released a demo version</em></p>
+
+<h2>
+<a name="mobile-ready" class="anchor" href="#mobile-ready"><span class="octicon octicon-link"></span></a>Mobile Ready</h2>
+
+<p>The Panel is mobile ready with support for iOS web apps bookmarked to Home Screen thanks to Bootstrap v3.</p>
+
+<h2>
+<a name="widgets" class="anchor" href="#widgets"><span class="octicon octicon-link"></span></a>Widgets</h2>
+
+<p><em>Widgets soon can be developed or customized following some simple guidelines and will be moved to their directory</em><br>
+If you want to try you can watch and edit the panelwidgets folder. The panel has its own widgets folder but this will change soon.
+Widgets must extends AbstractWidget class (abstract.widget.php).</p>
+
+<h1>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
+
+<ul>
+<li>Download all files to a directory available to webserver (Apache2 and Nginx are tested)</li>
+<li>Prepare an empty database on MySQL (it's the only DBMS supported for now)</li>
+<li>Access to the application <strong>systempanel</strong> <em>(if install.php is not the first page, go to it)</em> and set Database information and the panel login information (he will have administrator rights)</li>
+<li>The panel is ready to log you in</li>
+</ul><p><em>Settings page is work in progress</em></p>
+
+<h2>
+<a name="important" class="anchor" href="#important"><span class="octicon octicon-link"></span></a>Important</h2>
+
+<p><strong>Introduced Stored Procedures but not in the install.php yet so you have to restore it from the sql you find in the root.
+I'm working on an updater for keeping data between versions and updating stored procedures too.</strong>
+The new widget Terminal can be added by these query:
+<em>INSERT  IGNORE INTO <code>widget</code> VALUES (14,6,0,'Terminal','terminal','terminal.tpl','',1,'terminal','Terminal');
+INSERT  IGNORE INTO <code>user_widget</code> VALUES (26,1,14,'terminal',13,'','',1);</em></p>
+
+<h2>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h2>
+
 <p>Matteo Bruni (<a href="https://github.com/Ar3s" class="user-mention">@Ar3s</a>)</p>
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p></p>
+<h2>
+<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h2>
+
+<p>Send me a message on GitHub</p>
       </section>
     </div>
 
