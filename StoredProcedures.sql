@@ -1,5 +1,4 @@
 DELIMITER ;;
-
 CREATE PROCEDURE `CheckLogin`(login_username VARCHAR(250))
 BEGIN
 	SELECT
@@ -11,6 +10,91 @@ BEGIN
 		user u
 	WHERE
 		u.username = login_username;
+END ;;
+
+CREATE PROCEDURE `CreateUserWidget`(
+	widget_position INT,
+	widget_id_html VARCHAR(250),
+	wid INT,
+	user_sid VARCHAR(250)
+)
+BEGIN
+	INSERT INTO
+		user_widget (id_html, position, id_user, id_widget, enabled, visible, version)
+	VALUES (widget_id_html, widget_position, (
+		SELECT
+			s.id_user
+		FROM
+			session s
+		WHERE 
+			sid = user_sid
+		), wid, 1, 1, 1);
+END ;;
+
+CREATE PROCEDURE `CreateWidget`(
+	widget_columns INT,
+	widget_updatetime INT,
+	widget_title VARCHAR(250),
+	widget_phpfile VARCHAR(250),
+	widget_templatefile VARCHAR(250),
+	widget_folder VARCHAR(250),
+	widget_class_name VARCHAR(250),
+	widget_version INT,
+	widget_require_admin BIT
+)
+BEGIN
+	INSERT INTO
+		widget (
+			`columns`,
+			updatetime,
+			title,
+			phpfile,
+			templatefile,
+			requireadmin,
+			folder,
+			class_name,
+			version
+		)
+	VALUES (
+		widget_columns,
+		widget_updatetime,
+		widget_title,
+		widget_phpfile, 
+		widget_templatefile,
+		widget_require_admin,
+		widget_folder,
+		widget_class_name,
+		widget_version
+	);
+END ;;
+
+CREATE PROCEDURE `DeleteUserWidget`(
+	widget_id INT,
+	user_sid VARCHAR(250)
+)
+BEGIN
+	DELETE FROM
+		user_widget
+	WHERE
+		id = widget_id AND
+		id_user = (
+			SELECT
+				s.id_user
+			FROM
+				session s
+			WHERE 
+				sid = user_sid
+			);
+END ;;
+
+CREATE PROCEDURE `DeleteWidget`(
+	widget_id INT
+)
+BEGIN
+	DELETE FROM
+		widget
+	WHERE
+		id = widget_id;
 END ;;
 
 CREATE PROCEDURE `GetHashes`(user_sid VARCHAR(250))
@@ -69,6 +153,48 @@ BEGIN
 			s.id_user = u.id
 	WHERE
 		s.sid = user_sid AND uw.id = id_widget;
+END ;;
+
+CREATE PROCEDURE `GetWidgetList`(IN user_sid VARCHAR(250))
+BEGIN
+    SELECT
+		*
+	FROM
+		widget w
+	WHERE
+		(w.requireadmin = 0 OR
+		(
+			w.requireadmin = 1 AND
+			(
+				select
+					u.admin
+				FROM
+					`user` u
+				INNER JOIN
+					`session` s
+				ON
+					u.id = s.id_user
+				WHERE
+					s.sid = user_sid
+			) = 1
+		))AND
+		w.id NOT IN
+		(
+			SELECT
+				uw.id_widget
+			FROM
+				user_widget uw
+			INNER JOIN
+				`user` u
+			ON
+				uw.id_user = u.id
+			INNER JOIN
+				`session` s
+			ON
+				u.id = s.id_user
+			WHERE
+				s.sid = user_sid
+		);
 END ;;
 
 CREATE PROCEDURE `GetWidgets`(IN user_sid VARCHAR(250))
@@ -196,7 +322,7 @@ CREATE PROCEDURE `SaveWidget`(
 	widget_templatefile VARCHAR(250),
 	widget_folder VARCHAR(250),
 	widget_class_name VARCHAR(250),
-	widget_version VARCHAR(250),
+	widget_version INT,
 	widget_require_admin BIT,
 	widget_id INT
 )
