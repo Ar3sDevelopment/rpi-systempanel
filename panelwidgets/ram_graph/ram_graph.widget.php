@@ -12,7 +12,7 @@
 		
 		public function load()
 		{
-			$ram_usages = array();
+			$this->ram_usages = array();
 			$meminfo = file("/proc/meminfo");
 			for ($i = 0; $i < count($meminfo); $i++)
 			{
@@ -46,7 +46,7 @@
 				}
 				
 				if ($item != null) {
-					$ram_usages[] = $item;
+					$this->ram_usages[] = $item;
 				}
 			}
 		}
