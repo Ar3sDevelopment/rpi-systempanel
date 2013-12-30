@@ -1,20 +1,22 @@
-function initAjaxForms() {
-	$('form[data-type="ajax"]').submit(function(event) {
-	    event.preventDefault();
-	
-		var $this = $(this);
-	    var values = $this.serialize();
-	
-	    $.ajax({
-	        url: $this.prop('action'),
-	        type: $this.prop('method'),
-	        data: values,
-	        success: function() {
-	        	alert('Done');
-	        },
-	        error:function() {
-	            alert("Error");
-	        }
-	    });
-	});
-}
+(function ($) {
+	$.initAjaxForms = function() {
+		$('form[data-type="ajax"]').submit(function(event) {
+		    event.preventDefault();
+		
+			var $this = $(this);
+		    var values = $this.serialize();
+		    var url = $this.prop('action');
+		    var type = $this.prop('method');
+		    var successCallback = $this.data('success') || function() { };
+		    var errorCallback = $this.data('error') || function() { };
+		
+		    $.ajax({
+		        url: url,
+		        type: type,
+		        data: values,
+		        success: successCallback,
+		        error: errorCallback
+		    });
+		});
+	};
+}(jQuery));

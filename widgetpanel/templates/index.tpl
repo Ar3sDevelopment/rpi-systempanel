@@ -4,7 +4,7 @@
 	{include file="html_head.tpl" title="SIP Widgets"}
 	<script type="text/javascript">
 		$(document).ready(function () {
-			initAjaxForms();
+			$.initAjaxForms();
 		});
 		
 		function changeAction(sender, action) {

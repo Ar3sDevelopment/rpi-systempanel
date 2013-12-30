@@ -22,6 +22,6 @@
 <![endif]-->
 <script type="text/javascript">
 	$(document).ready(function () {
-		initPanelCollapse();
+		$.initPanelCollapse();
 	});
 </script>

@@ -8,7 +8,6 @@
 				$this = $(this);
 				var postData = { sid: '{$sid}', 'visibility': $this.data('val'), 'widget-id': $this.data('widget-id') };
 				$.post('settings.php', postData, function (data) {
-					console.log(data);
 					$this.data('val', data.visible ? 0 : 1);
 					if (data.visible) {
 						$this.text('Hide');
@@ -22,7 +21,6 @@
 				$this = $(this);
 				var postData = { sid: '{$sid}', 'enable': $this.data('val'), 'widget-id': $this.data('widget-id') };
 				$.post('settings.php', postData, function (data) {
-					console.log(data);
 					$this.data('val', data.enabled ? 0 : 1);
 					if (data.enabled) {
 						$this.text('Disable');
@@ -32,7 +30,7 @@
 				});
 			});
 			
-			initAjaxForms();
+			$.initAjaxForms();
 		});
 		
 		function changeAction(sender, action) {

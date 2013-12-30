@@ -37,7 +37,7 @@
 		});
 		
 		setTimeout(function () {
-			updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackTransmissionFunc, null);
+			$.updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackTransmissionFunc, null);
 		}, {$widget_info->updatetime});
 	});
 </script>

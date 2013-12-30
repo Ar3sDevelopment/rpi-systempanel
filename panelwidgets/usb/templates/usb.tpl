@@ -31,7 +31,7 @@
 
 	$(document).ready(function () {
 		setTimeout(function () {
-			updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackUSBFunc, null);
+			$.updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackUSBFunc, null);
 		}, {$widget_info->updatetime});
 	});
 </script>

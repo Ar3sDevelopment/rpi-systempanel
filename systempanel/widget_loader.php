@@ -3,7 +3,7 @@
 	require_once('smarty_widget.php');
 	
 	$sid = $_POST['sid'];
-	$json = isset($_POST['json']) ? $_POST['json'] : false;
+	$json = isset($_POST['json']) ? $_POST['json'] == 'true' : false;
 	
 	$settings = new Settings($sid);
 	
