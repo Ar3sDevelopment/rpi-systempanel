@@ -347,7 +347,6 @@
     background: -o-linear-gradient(top,  #2f7eb6 0%,#2271a9 100%); /* Opera 11.10+ */
     background: -ms-linear-gradient(top,  #2f7eb6 0%,#2271a9 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #2f7eb6 0%,#2271a9 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2f7eb6', endColorstr='#2271a9',GradientType=0 ); /* IE6-9 */
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -369,7 +368,6 @@
     background: -o-linear-gradient(top, #356aa0 0%,#356aa0 100%); /* Opera 11.10+ */
     background: -ms-linear-gradient(top, #356aa0 0%,#356aa0 100%); /* IE10+ */
     background: linear-gradient(to bottom, #356aa0 0%,#356aa0 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#356aa0', endColorstr='#356aa0',GradientType=0 ); /* IE6-9 */
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -476,7 +474,30 @@ input[type="text"].jqx-input-arctic:-ms-input-placeholder, input[type="text"].jq
     background: #0081c2;
 }
 
-
+.jqx-grid-cell-arctic.jqx-grid-cell-selected-arctic>.jqx-grid-group-expand-arctic,
+.jqx-grid-cell-arctic.jqx-grid-cell-hover-arctic>.jqx-grid-group-expand-arctic {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-arctic.jqx-grid-cell-selected-arctic>.jqx-grid-group-collapse-arctic,
+.jqx-grid-cell-arctic.jqx-grid-cell-hover-arctic>.jqx-grid-group-collapse-arctic {
+    background-image: url('images/icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-arctic.jqx-grid-cell-selected-arctic>.jqx-grid-group-collapse-rtl-arctic,
+.jqx-grid-cell-arctic.jqx-grid-cell-hover-arctic>.jqx-grid-group-collapse-rtl-arctic {
+    background-image: url('images/icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-arctic.jqx-grid-cell-selected-arctic>.jqx-grid-group-expand-rtl-arctic,
+.jqx-grid-cell-arctic.jqx-grid-cell-hover-arctic>.jqx-grid-group-expand-rtl-arctic {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
 .jqx-tabs-title-selected-top-arctic, .jqx-tabs-selection-tracker-top-arctic {
     border-color: #CCCCCC;
     border-bottom: 1px solid #fff;
@@ -503,4 +524,11 @@ input[type="text"].jqx-input-arctic:-ms-input-placeholder, input[type="text"].jq
    -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     box-shadow: none !important;
+}
+.jqx-window-collapse-button-arctic
+{
+    margin-top: 2px;
+}
+.jqx-window-collapse-button-collapsed-arctic {
+    margin-top: 0px;
 }

@@ -150,7 +150,7 @@
 				file_put_contents("../panelwidgets/$widget->folder/$widget->phpfile.widget.php", "<?php
 	require_once('../panelwidgets/abstract.widget.php');
 
-	class $widget->class_name extends AbstractWidget
+	class $widget->class_name" . "Widget extends AbstractWidget
 	{	
 		public function load() {
 			//TODO: Load widget here

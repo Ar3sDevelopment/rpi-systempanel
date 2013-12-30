@@ -106,7 +106,7 @@
     background-image: url('images/metro-icon-down-white.png');
  }
 .jqx-widget-metrodark .jqx-grid-cell-selected-metrodark, .jqx-grid-cell-selected-metrodark{ background-color:#007ACC !important; border-color: #007ACC !important; font-size: 12px;  color:#fff !important}
-.jqx-widget-metrodark .jqx-grid-cell-hover-metrodark, .jqx-grid-cell-hover-metrodark{ background-color:#1C97EA;}
+.jqx-widget-metrodark .jqx-grid-cell-hover-metrodark, .jqx-grid-cell-hover-metrodark{ background-color:#1C97EA; border-color: #1C97EA;}
  /*applied to the column's sort button when the sort order is ascending.*/
  .jqx-grid-column-sortascbutton-metrodark {
     background-image: url('images/metro-icon-up-white.png');
@@ -263,13 +263,51 @@
 }
 .jqx-icon-arrow-first-metrodark
 {
-    background-image: url('images/icon-first-white.png');
+    background-image: url('images/metro-icon-first-white.png');
     background-repeat: no-repeat;
     background-position: center;
 }
 .jqx-icon-arrow-last-metrodark
 {
-    background-image: url('images/icon-last-white.png');
+    background-image: url('images/metro-icon-last-white.png');
     background-repeat: no-repeat;
     background-position: center;
+}
+.jqx-grid-cell-metrodark.jqx-grid-cell-selected-metrodark>.jqx-grid-group-expand-metrodark,
+.jqx-grid-cell-metrodark.jqx-grid-cell-hover-metrodark>.jqx-grid-group-expand-metrodark {
+    background-image: url('images/metro-icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-metrodark.jqx-grid-cell-selected-metrodark>.jqx-grid-group-collapse-metrodark,
+.jqx-grid-cell-metrodark.jqx-grid-cell-hover-metrodark>.jqx-grid-group-collapse-metrodark {
+    background-image: url('images/metro-icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-metrodark.jqx-grid-cell-selected-metrodark>.jqx-grid-group-collapse-rtl-metrodark,
+.jqx-grid-cell-metrodark.jqx-grid-cell-hover-metrodark>.jqx-grid-group-collapse-rtl-metrodark {
+    background-image: url('images/metro-icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-metrodark.jqx-grid-cell-selected-metrodark>.jqx-grid-group-expand-rtl-metrodark,
+.jqx-grid-cell-metrodark.jqx-grid-cell-hover-metrodark>.jqx-grid-group-expand-rtl-metrodark {
+    background-image: url('images/metro-icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-tree-grid-expand-button-metrodark {
+    margin-top: 3px;
+}
+.jqx-icon-search-metrodark
+{
+    background-image: url(images/search_white.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-passwordinput-password-icon-metrodark, .jqx-passwordinput-password-icon-rtl-metrodark
+{
+    background-image: url(images/icon-showpassword-white.png) !important;
+    background-repeat: no-repeat !important;
 }

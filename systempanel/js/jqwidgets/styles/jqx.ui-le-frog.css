@@ -8,9 +8,9 @@
 .jqx-rc-l-ui-le-frog{border-bottom-left-radius:10px; border-top-left-radius:10px; moz-border-radius-bottomleft:10px; moz-border-radius-topleft:10px; webkit-border-bottom-left-radius:10px; webkit-border-top-left-radius:10px}
 .jqx-rc-all-ui-le-frog{border-radius:10px; moz-border-radius:10px; webkit-border-radius:10px}
 /*Grid*/
-.jqx-grid-column-sortascbutton-ui-le-frog{background-position:-96px -192px; background-image:url(images/le-frog/ui-icons_ffffff_256x240.png); margin-top:5px}
-.jqx-grid-column-sortdescbutton-ui-le-frog{margin-top:5px; background-position:-64px -192px; background-image:url(images/le-frog/ui-icons_ffffff_256x240.png)}
-.jqx-grid-column-menubutton-ui-le-frog{margin-top:5px; background-position:-64px -192px; background-image:url(images/le-frog/ui-icons_ffffff_256x240.png); border-width:0px}
+.jqx-grid-column-sortascbutton-ui-le-frog{background-position:-96px -192px; background-image:url(images/le-frog/ui-icons_ffffff_256x240.png); position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px;}
+.jqx-grid-column-sortdescbutton-ui-le-frog{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px;background-position:-64px -192px; background-image:url(images/le-frog/ui-icons_ffffff_256x240.png)}
+.jqx-grid-column-menubutton-ui-le-frog{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-64px -192px; background-image:url(images/le-frog/ui-icons_ffffff_256x240.png); border-width:0px}
 .jqx-grid-cell-ui-le-frog{background: #35650f; border-color: #72b42d; color: #fff;}
 /*Tree*/
 .jqx-tree-item-arrow-expand-ui-le-frog, .jqx-tree-item-arrow-expand-hover-ui-le-frog{background-position:-65px -16px; background-image:url(images/le-frog/ui-icons_ffffff_256x240.png)}
@@ -76,7 +76,7 @@
 
 .jqx-input-button-content-ui-le-frog{font-size:10px}
 .jqx-input-icon-ui-le-frog{margin-left:2px; margin-top:-1px}
-.jqx-checkbox-check-checked-ui-le-frog{margin-top:1px; background-position:-65px -147px; background-image:url(images/le-frog/ui-icons_ffffff_256x240.png)}
+.jqx-checkbox-check-checked-ui-le-frog{margin-top:0px; background-position:-65px -147px; background-image:url(images/le-frog/ui-icons_ffffff_256x240.png)}
 /*Progress Bar*/
 .jqx-progressbar-ui-le-frog .jqx-fill-state-pressed-ui-le-frog{background: #498b18; border-bottom: none;}
 .jqx-progressbar-value-vertical-ui-le-frog{background: #498b18; border-right: none; border-bottom: 1px solid #72b42d;}
@@ -156,6 +156,32 @@
 .jqx-icon-arrow-last-ui-le-frog
 {
     background-image: url('images/icon-last-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-ui-le-frog>.jqx-grid-group-expand-ui-le-frog {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-ui-le-frog>.jqx-grid-group-collapse-ui-le-frog {
+    background-image: url('images/icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-ui-le-frog>.jqx-grid-group-collapse-rtl-ui-le-frog {
+    background-image: url('images/icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-ui-le-frog>.jqx-grid-group-expand-rtl-ui-le-frog {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-search-ui-le-frog
+{
+    background-image: url(images/search_white.png);
     background-repeat: no-repeat;
     background-position: center;
 }

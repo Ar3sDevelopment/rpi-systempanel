@@ -570,3 +570,33 @@ input[type=text].jqx-input-blackberry, input[type=password].jqx-input-blackberry
 .jqx-slider-button-blackberry.jqx-fill-state-pressed-blackberry .jqx-icon-arrow-down-blackberry {
       background-image: url('images/icon-down-white.png');
 }
+.jqx-grid-cell-blackberry.jqx-grid-cell-selected-blackberry>.jqx-grid-group-expand-blackberry,
+.jqx-grid-cell-blackberry.jqx-grid-cell-hover-blackberry>.jqx-grid-group-expand-blackberry {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-blackberry.jqx-grid-cell-selected-blackberry>.jqx-grid-group-collapse-blackberry,
+.jqx-grid-cell-blackberry.jqx-grid-cell-hover-blackberry>.jqx-grid-group-collapse-blackberry {
+    background-image: url('images/icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-blackberry.jqx-grid-cell-selected-blackberry>.jqx-grid-group-collapse-rtl-blackberry,
+.jqx-grid-cell-blackberry.jqx-grid-cell-hover-blackberry>.jqx-grid-group-collapse-rtl-blackberry {
+    background-image: url('images/icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-blackberry.jqx-grid-cell-selected-blackberry>.jqx-grid-group-expand-rtl-blackberry,
+.jqx-grid-cell-blackberry.jqx-grid-cell-hover-blackberry>.jqx-grid-group-expand-rtl-blackberry {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-tree-grid-expand-button-blackberry, .jqx-tree-grid-collapse-button-blackberry {
+    margin-top: 3px;
+}
+.jqx-tree-grid-checkbox-blackberry {
+    margin-top: 1px;
+}

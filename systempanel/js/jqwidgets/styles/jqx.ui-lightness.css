@@ -7,9 +7,9 @@
 .jqx-rc-r-ui-lightness{border-bottom-right-radius:4px; border-top-right-radius:4px; moz-border-radius-bottomright:4px; moz-border-radius-topright:4px; webkit-border-bottom-right-radius:4px; webkit-border-top-right-radius:4px}
 .jqx-rc-l-ui-lightness{border-bottom-left-radius:4px; border-top-left-radius:4px; moz-border-radius-bottomleft:4px; moz-border-radius-topleft:4px; webkit-border-bottom-left-radius:4px; webkit-border-top-left-radius:4px}
 .jqx-rc-all-ui-lightness{border-radius:4px; moz-border-radius:4px; webkit-border-radius:4px}
-.jqx-grid-column-sortdescbutton-ui-lightness{background-position:0 -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png); margin-top:5px}
-.jqx-grid-column-sortascbutton-ui-lightness{margin-top:5px; background-position:-65px -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png)}
-.jqx-grid-column-menubutton-ui-lightness{margin-top:5px; background-position:-65px -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png); border-width:0px}
+.jqx-grid-column-sortdescbutton-ui-lightness{background-position:0 -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png); position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px;}
+.jqx-grid-column-sortascbutton-ui-lightness{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png)}
+.jqx-grid-column-menubutton-ui-lightness{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png); border-width:0px}
 .jqx-grid-ui-lightness .jqx-widget-header-ui-lightness{border-width:0px !important}
 .jqx-tree-item-arrow-expand-ui-lightness, .jqx-tree-item-arrow-expand-hover-ui-lightness{background-position:-65px -16px; background-image:url(images/lightness/ui-icons_222222_256x240.png)}
 .jqx-tree-item-arrow-collapse-ui-lightness, .jqx-tree-item-arrow-collapse-hover-ui-lightness{background-position:-32px -16px; background-image:url(images/lightness/ui-icons_222222_256x240.png)}
@@ -62,7 +62,7 @@
 .jqx-icon-close-hover-ui-lightness{background-image:url(images/lightness/ui-icons_222222_256x240.png); background-position:-80px -128px; cursor:pointer}
 
 .jqx-widget-ui-lightness{line-height: 17px; font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif; font-size:12px; font-style:normal; webkit-tap-highlight-color:rgba(0,0,0,0)}
-.jqx-widget-content-ui-lightness{font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif; background-color:#f8f8f8; background:background-image:-webkit-gradient(linear,0 0,0 100%,from(#f8f8f8),to(#eee));  background-image:-moz-linear-gradient(top,#f8f8f8,#eee);  background-image:-o-linear-gradient(top,#f8f8f8,#eee); border-color:#ddd; color:#333; font-size:12px}
+.jqx-widget-content-ui-lightness{font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif; background-color:#f8f8f8; background-image:-webkit-gradient(linear,0 0,0 100%,from(#f8f8f8),to(#eee));  background-image:-moz-linear-gradient(top,#f8f8f8,#eee);  background-image:-o-linear-gradient(top,#f8f8f8,#eee); border-color:#ddd; color:#333; font-size:12px}
 .jqx-widget-content-ui-lightness a{color:#333}
 .jqx-widget-header-ui-lightness{font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif; background:#f6a828 url(images/lightness/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x; border-color: #e78f08; color:#fff; font-size:12px}
 .jqx-widget-header-ui-lightness a{color:#fff}
@@ -75,7 +75,7 @@
 
 .jqx-input-button-content-ui-lightness{font-size:10px}
 .jqx-input-icon-ui-lightness{margin-left:2px; margin-top:-1px}
-.jqx-checkbox-check-checked-ui-lightness{margin-top:1px; background-position:-65px -147px; background-image:url(images/lightness/ui-icons_ef8c08_256x240.png)}
+.jqx-checkbox-check-checked-ui-lightness{margin-top:0px; background-position:-65px -147px; background-image:url(images/lightness/ui-icons_ef8c08_256x240.png)}
 .jqx-grid-cell-sort-ui-lightness, .jqx-grid-cell-filter-ui-lightness, .jqx-grid-cell-pinned-ui-lightness{background-color:#f8f8f8; color:#1c94c4}
 .jqx-splitter-collapse-button-horizontal-ui-lightness, .jqx-splitter-collapse-button-vertical-ui-lightness{ background:#ec8e0c;  border:1px solid #fdd02e}
 .jqx-dropdownlist-content-ui-lightness{ color:#333}

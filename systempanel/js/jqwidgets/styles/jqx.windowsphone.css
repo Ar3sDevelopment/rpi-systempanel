@@ -422,3 +422,42 @@ border-color:#008a00; color: #fff; background-color:#008a00;
     background-position: 50% 50%;
     background-repeat: no-repeat;
 }
+.jqx-grid-cell-windowsphone.jqx-grid-cell-selected-windowsphone>.jqx-grid-group-expand-windowsphone,
+.jqx-grid-cell-windowsphone.jqx-grid-cell-hover-windowsphone>.jqx-grid-group-expand-windowsphone {
+    background-image: url('images/metro-icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-windowsphone.jqx-grid-cell-selected-windowsphone>.jqx-grid-group-collapse-windowsphone,
+.jqx-grid-cell-windowsphone.jqx-grid-cell-hover-windowsphone>.jqx-grid-group-collapse-windowsphone {
+    background-image: url('images/metro-icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-windowsphone.jqx-grid-cell-selected-windowsphone>.jqx-grid-group-collapse-rtl-windowsphone,
+.jqx-grid-cell-windowsphone.jqx-grid-cell-hover-windowsphone>.jqx-grid-group-collapse-rtl-windowsphone {
+    background-image: url('images/metro-icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-windowsphone.jqx-grid-cell-selected-windowsphone>.jqx-grid-group-expand-rtl-windowsphone,
+.jqx-grid-cell-windowsphone.jqx-grid-cell-hover-windowsphone>.jqx-grid-group-expand-rtl-windowsphone {
+    background-image: url('images/metro-icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-tree-grid-expand-button-windowsphone {
+    margin-top: 5px;
+}
+.jqx-tree-grid-checkbox-windowsphone, .jqx-tree-grid-collapse-button-windowsphone {
+    margin-top: 3px;
+}
+.jqx-grid-table-windowsphone {
+    border-color: #000;
+}
+.jqx-icon-search-windowsphone
+{
+    background-image: url(images/search_white.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}

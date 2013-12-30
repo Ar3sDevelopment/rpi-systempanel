@@ -739,3 +739,12 @@ input[type=text].jqx-input-mobile, input[type=password].jqx-input-mobile {
     background-position: 50% 50%;
     background-repeat: no-repeat;
 }
+.jqx-tree-grid-indent-mobile, .jqx-tree-grid-collapse-button-mobile, .jqx-tree-grid-expand-button-mobile {
+    width: 20px;
+}
+.jqx-tree-grid-checkbox-mobile {
+    width: 16px; height: 16px;
+}
+.jqx-tree-grid-expand-button-mobile {
+    margin-top: 3px;
+}

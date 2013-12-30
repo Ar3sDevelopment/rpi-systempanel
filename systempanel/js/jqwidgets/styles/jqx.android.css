@@ -465,3 +465,23 @@ input[type=text].jqx-input-android, input[type=password].jqx-input-android{
     background-position: 50% 50%;
     background-repeat: no-repeat;
 }
+.jqx-tree-grid-expand-button-android {
+    margin-top: 4px;
+}
+.jqx-tree-grid-checkbox-android {
+    margin-top: 2px;
+}
+.jqx-grid-table-android {
+    border-color: #000;
+}
+.jqx-icon-search-android
+{
+    background-image: url(images/search_white.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-passwordinput-password-icon-android, .jqx-passwordinput-password-icon-rtl-android
+{
+    background-image: url(images/icon-showpassword-white.png) !important;
+    background-repeat: no-repeat !important;
+}

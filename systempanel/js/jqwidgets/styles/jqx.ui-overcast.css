@@ -8,9 +8,9 @@
 .jqx-rc-l-ui-overcast{border-bottom-left-radius:6px; border-top-left-radius:6px; moz-border-radius-bottomleft:6px; moz-border-radius-topleft:6px; webkit-border-bottom-left-radius:6px; webkit-border-top-left-radius:6px}
 .jqx-rc-all-ui-overcast{border-radius:6px; moz-border-radius:6px; webkit-border-radius:6px}
 /*Grid*/
-.jqx-grid-column-sortascbutton-ui-overcast{background-position:-96px -192px; background-image:url(images/overcast/ui-icons_454545_256x240.png); margin-top:6px}
-.jqx-grid-column-sortdescbutton-ui-overcast{margin-top:6px; background-position:-64px -192px; background-image:url(images/overcast/ui-icons_454545_256x240.png)}
-.jqx-grid-column-menubutton-ui-overcast{margin-top:6px; background-position:-64px -16px; background-image:url(images/overcast/ui-icons_454545_256x240.png); border-width:0px}
+.jqx-grid-column-sortascbutton-ui-overcast{background-position:-96px -192px; background-image:url(images/overcast/ui-icons_454545_256x240.png); position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px;}
+.jqx-grid-column-sortdescbutton-ui-overcast{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-64px -192px; background-image:url(images/overcast/ui-icons_454545_256x240.png)}
+.jqx-grid-column-menubutton-ui-overcast{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-64px -16px; background-image:url(images/overcast/ui-icons_454545_256x240.png); border-width:0px}
 /*Tree*/
 .jqx-tree-item-arrow-expand-ui-overcast, .jqx-tree-item-arrow-expand-hover-ui-overcast{background-position:-64px -16px; background-image:url(images/overcast/ui-icons_999999_256x240.png)}
 .jqx-tree-item-arrow-collapse-ui-overcast, .jqx-tree-item-arrow-collapse-hover-ui-overcast{background-position:-32px -16px; background-image:url(images/overcast/ui-icons_999999_256x240.png)}
@@ -75,7 +75,7 @@
 
 .jqx-input-button-content-ui-overcast{font-size:10px}
 .jqx-input-icon-ui-overcast{margin-left:2px; margin-top:-1px}
-.jqx-checkbox-check-checked-ui-overcast{margin-top:1px; background-position:-64px -147px; background-image:url(images/overcast/ui-icons_454545_256x240.png)}
+.jqx-checkbox-check-checked-ui-overcast{margin-top:0px; background-position:-64px -147px; background-image:url(images/overcast/ui-icons_454545_256x240.png)}
 /*Progress Bar*/
 .jqx-progressbar-ui-overcast .jqx-fill-state-pressed-ui-overcast{background: #dddddd; border-bottom: none;}
 .jqx-progressbar-value-vertical-ui-overcast{background: #dddddd; border-right: none; border-bottom: 1px solid #cccccc;}

@@ -10,9 +10,9 @@
 .jqx-widget-ui-darkness {
     color: inherit;
 }
-.jqx-grid-column-sortdescbutton-ui-darkness{background-position:0 -16px; background-image:url(images/darkness/ui-icons_ffffff_256x240.png); margin-top:5px}
-.jqx-grid-column-sortascbutton-ui-darkness{margin-top:5px; background-position:-65px -16px; background-image:url(images/darkness/ui-icons_ffffff_256x240.png)}
-.jqx-grid-column-menubutton-ui-darkness{margin-top:5px; background-position:-65px -16px; background-image:url(images/darkness/ui-icons_ffffff_256x240.png); border-width:0px}
+.jqx-grid-column-sortdescbutton-ui-darkness{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px;background-position:0 -16px; background-image:url(images/darkness/ui-icons_ffffff_256x240.png);}
+.jqx-grid-column-sortascbutton-ui-darkness{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -16px; background-image:url(images/darkness/ui-icons_ffffff_256x240.png)}
+.jqx-grid-column-menubutton-ui-darkness{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -16px; background-image:url(images/darkness/ui-icons_ffffff_256x240.png); border-width:0px}
 .jqx-grid-ui-darkness .jqx-widget-header-ui-darkness{border-width:0px !important}
 .jqx-tree-item-arrow-expand-ui-darkness, .jqx-tree-item-arrow-expand-hover-ui-darkness{background-position:-65px -16px; background-image:url(images/darkness/ui-icons_222222_256x240.png)}
 .jqx-tree-item-arrow-collapse-ui-darkness, .jqx-tree-item-arrow-collapse-hover-ui-darkness{background-position:-32px -16px; background-image:url(images/darkness/ui-icons_222222_256x240.png)}
@@ -82,7 +82,7 @@
 
 .jqx-input-button-content-ui-darkness{font-size:10px}
 .jqx-input-icon-ui-darkness{margin-left:2px; margin-top:-1px}
-.jqx-checkbox-check-checked-ui-darkness{margin-top:1px; background-position:-65px -147px; background-image:url(images/darkness/ui-icons_cccccc_256x240.png)}
+.jqx-checkbox-check-checked-ui-darkness{margin-top:0px; background-position:-65px -147px; background-image:url(images/darkness/ui-icons_cccccc_256x240.png)}
 .jqx-grid-cell-sort-ui-darkness, .jqx-grid-cell-filter-ui-darkness, .jqx-grid-cell-pinned-ui-darkness{background-color:#626262;}
 .jqx-grid-cell-alt-ui-darkness, .jqx-grid-cell-sort-alt-ui-darkness, .jqx-grid-cell-filter-alt-ui-darkness{background-color:#626262}
 .jqx-splitter-collapse-button-horizontal-ui-darkness, .jqx-splitter-collapse-button-vertical-ui-darkness{ background:#ec8e0c; border:1px solid #fdd02e}
@@ -130,6 +130,35 @@
 .jqx-icon-arrow-last-ui-darkness
 {
     background-image: url('images/icon-last-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-ui-darkness>.jqx-grid-group-expand-ui-darkness
+{
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-ui-darkness>.jqx-grid-group-collapse-ui-darkness
+{
+    background-image: url('images/icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-ui-darkness>.jqx-grid-group-collapse-rtl-ui-darkness
+{
+    background-image: url('images/icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-ui-darkness>.jqx-grid-group-expand-rtl-ui-darkness {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-search-ui-darkness
+{
+    background-image: url(images/search_white.png);
     background-repeat: no-repeat;
     background-position: center;
 }

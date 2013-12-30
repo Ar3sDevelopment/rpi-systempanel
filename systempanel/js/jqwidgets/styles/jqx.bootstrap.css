@@ -1017,3 +1017,27 @@ input[type="text"].jqx-input-bootstrap, input[type="text"].jqx-widget-content-bo
     border-radius: 100%;
     padding: 3px;
 }
+.jqx-grid-cell-bootstrap.jqx-grid-cell-selected-bootstrap>.jqx-grid-group-expand-bootstrap,
+.jqx-grid-cell-bootstrap.jqx-grid-cell-hover-bootstrap>.jqx-grid-group-expand-bootstrap {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-bootstrap.jqx-grid-cell-selected-bootstrap>.jqx-grid-group-collapse-bootstrap,
+.jqx-grid-cell-bootstrap.jqx-grid-cell-hover-bootstrap>.jqx-grid-group-collapse-bootstrap {
+    background-image: url('images/icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-bootstrap.jqx-grid-cell-selected-bootstrap>.jqx-grid-group-collapse-rtl-bootstrap,
+.jqx-grid-cell-bootstrap.jqx-grid-cell-hover-bootstrap>.jqx-grid-group-collapse-rtl-bootstrap {
+    background-image: url('images/icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-bootstrap.jqx-grid-cell-selected-bootstrap>.jqx-grid-group-expand-rtl-bootstrap,
+.jqx-grid-cell-bootstrap.jqx-grid-cell-hover-bootstrap>.jqx-grid-group-expand-rtl-bootstrap {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}

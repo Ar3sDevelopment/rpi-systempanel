@@ -40,3 +40,9 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.jqx-icon-search-darkblue
+{
+    background-image: url(images/search_white.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}

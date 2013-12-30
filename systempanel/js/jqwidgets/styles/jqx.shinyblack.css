@@ -51,3 +51,33 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.jqx-grid-cell-shinyblack.jqx-grid-cell-selected-shinyblack>.jqx-grid-group-expand-shinyblack,
+.jqx-grid-cell-shinyblack.jqx-grid-cell-hover-shinyblack>.jqx-grid-group-expand-shinyblack {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-shinyblack.jqx-grid-cell-selected-shinyblack>.jqx-grid-group-collapse-shinyblack,
+.jqx-grid-cell-shinyblack.jqx-grid-cell-hover-shinyblack>.jqx-grid-group-collapse-shinyblack {
+    background-image: url('images/icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-shinyblack.jqx-grid-cell-selected-shinyblack>.jqx-grid-group-collapse-rtl-shinyblack,
+.jqx-grid-cell-shinyblack.jqx-grid-cell-hover-shinyblack>.jqx-grid-group-collapse-rtl-shinyblack {
+    background-image: url('images/icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-shinyblack.jqx-grid-cell-selected-shinyblack>.jqx-grid-group-expand-rtl-shinyblack,
+.jqx-grid-cell-shinyblack.jqx-grid-cell-hover-shinyblack>.jqx-grid-group-expand-rtl-shinyblack {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-search-shinyblack
+{
+    background-image: url(images/search_white.png);
+    background-repeat: no-repeat;
+    background-position: center;
+}

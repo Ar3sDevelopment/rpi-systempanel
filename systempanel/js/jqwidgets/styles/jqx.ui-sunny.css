@@ -8,9 +8,9 @@
 .jqx-rc-l-ui-sunny{border-bottom-left-radius:8px; border-top-left-radius:8px; moz-border-radius-bottomleft:8px; moz-border-radius-topleft:8px; webkit-border-bottom-left-radius:8px; webkit-border-top-left-radius:8px}
 .jqx-rc-all-ui-sunny{border-radius:8px; moz-border-radius:8px; webkit-border-radius:8px}
 /*Grid*/
-.jqx-grid-column-sortascbutton-ui-sunny{background-position:-96px -192px; background-image:url(images/sunny/ui-icons_fadc7a_256x240.png); margin-top:5px}
-.jqx-grid-column-sortdescbutton-ui-sunny{margin-top:5px; background-position:-65px -192px; background-image:url(images/sunny/ui-icons_fadc7a_256x240.png)}
-.jqx-grid-column-menubutton-ui-sunny{margin-top:5px; background-position:-65px -192px; background-image:url(images/sunny/ui-icons_ffe180_256x240.png); border-width:0px}
+.jqx-grid-column-sortascbutton-ui-sunny{background-position:-96px -192px; background-image:url(images/sunny/ui-icons_fadc7a_256x240.png); position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px;}
+.jqx-grid-column-sortdescbutton-ui-sunny{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -192px; background-image:url(images/sunny/ui-icons_fadc7a_256x240.png)}
+.jqx-grid-column-menubutton-ui-sunny{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -192px; background-image:url(images/sunny/ui-icons_ffe180_256x240.png); border-width:0px}
 /*Tree*/
 .jqx-tree-item-arrow-expand-ui-sunny, .jqx-tree-item-arrow-expand-hover-ui-sunny{background-position:-65px -16px; background-image:url(images/sunny/ui-icons_3d3d3d_256x240.png)}
 .jqx-tree-item-arrow-collapse-ui-sunny, .jqx-tree-item-arrow-collapse-hover-ui-sunny{background-position:-32px -16px; background-image:url(images/sunny/ui-icons_3d3d3d_256x240.png)}
@@ -74,7 +74,7 @@
 
 .jqx-input-button-content-ui-sunny{font-size:10px}
 .jqx-input-icon-ui-sunny{margin-left:2px; margin-top:-1px}
-.jqx-checkbox-check-checked-ui-sunny{margin-top:1px; background-position:-65px -147px; background-image:url(images/sunny/ui-icons_3d3d3d_256x240.png)}
+.jqx-checkbox-check-checked-ui-sunny{margin-top:0px; background-position:-65px -147px; background-image:url(images/sunny/ui-icons_3d3d3d_256x240.png)}
 /*Progress Bar*/
 .jqx-progressbar-ui-sunny .jqx-fill-state-pressed-ui-sunny{background: #9f998a; border-bottom: none;}
 .jqx-progressbar-value-vertical-ui-sunny{background: #9f998a; border-right: none; border-bottom: 1px solid #8e846b;}
