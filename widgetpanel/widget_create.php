@@ -16,9 +16,9 @@
 	require_once ('../framework/widget.inc.php');
 	
 	$smarty = new Smarty();
-	$widget_list = Settings::get_widget_list($sid);
+
 	$smarty->assign('sid', $sid);
-	$smarty->assign('widget_list', $widget_list);
 	$smarty->assign('widget', new UserWidget());
+
 	$smarty->display('widget_create.tpl');
 ?>

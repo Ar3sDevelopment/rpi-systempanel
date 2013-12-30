@@ -42,7 +42,7 @@
 </head>
 <body>
 	<div class="container">
-		{include file="menu.tpl" sid=$sid page="settings"}
+		{include file="menu.tpl" sid=$sid page="settings" admin=$user->admin}
 		<form action="settings.php" data-type="ajax" method="post" class="form-horizontal">
 			<input type="hidden" name="sid" value="{$sid}" />
 			<div class="row">

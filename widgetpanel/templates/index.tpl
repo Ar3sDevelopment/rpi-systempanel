@@ -14,8 +14,20 @@
 </head>
 <body>
 	<div class="container">
-		{include file="menu.tpl" sid=$sid page="admin"}
-		{include file="widget_create.tpl" widget=$default_widget sid=$sid}
+		{include file="menu.tpl" sid=$sid page="admin" admin=$user->admin}
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="well">
+					<div class="form-group">
+						<button class="btn btn-primary" data-toggle="modal" data-target="#createWidget" href="widget_create.php?sid={$sid}">
+							Create New Widget
+						</button>
+						<div class="modal fade" id="createWidget" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		{foreach $widgets as $widget}
 			{include file="widget_edit.tpl" sid=$sid widget=$widget}
 		{/foreach}

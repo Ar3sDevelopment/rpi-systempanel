@@ -6,6 +6,7 @@
 
 	class Settings
 	{
+		public $logged;
 		public $user;
 		private $path;
 		
@@ -77,6 +78,7 @@
 		
 		public function __construct($sid)
 		{
+			$this->logged = false;
 			$this->load($sid);
 		}
 		
@@ -84,7 +86,16 @@
 		{
 			$db = new Database();
 			$this->user = new User();
-			$this->user->widgets = $db->load($sid);
+			$user = $db->get_user_info($sid);
+			
+			if ($user != null)
+			{
+				$this->logged = true;
+				$this->user->id_hash = $user->id_hash;
+				$this->user->username = $user->username;
+				$this->user->admin = $user->admin;
+				$this->user->widgets = $db->load($sid);
+			}
 		}
 		
 		public static function save_user($sid, $username, $password, $hash)
