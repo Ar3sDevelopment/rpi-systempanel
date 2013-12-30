@@ -10,10 +10,10 @@
 	</div>
 	<div id="menu-navbar-collapse" class="collapse navbar-collapse">
 		<ul class="nav navbar-nav">
-			<li{if $page == "home"} class="active"{/if}><a href="index.php?sid={$sid}">Home</a></li>
-			<li{if $page == "settings"} class="active"{/if}><a href="settings.php?sid={$sid}">Settings</a></li>
+			<li{if $page == "home"} class="active"{/if}><a href="../systempanel/index.php?sid={$sid}">Home</a></li>
+			<li{if $page == "settings"} class="active"{/if}><a href="../systempanel/settings.php?sid={$sid}">Settings</a></li>
 			{if $admin}
-			<li{if $page == "admin"} class="active"{/if}><a href="../widgetpanel/index.php?sid={$sid}">Admin</a></li>
+			<li{if $page == "admin"} class="active"{/if}><a href="index.php?sid={$sid}">Admin</a></li>
 			{/if}
 			<li><a href="logout.php?sid={$sid}">Logout</a></li>
 		</ul>

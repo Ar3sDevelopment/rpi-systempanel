@@ -91,7 +91,7 @@
 			$stmt = $mysqli->stmt_init();
 			$stmt->prepare($query);
 			$stmt->bind_param("iisssssiii", $widget->columns,
-										$widget->updatettime,
+										$widget->updatetime,
 										$widget->title,
 										$widget->phpfile,
 										$widget->templatefile,
