@@ -12,21 +12,21 @@
 		
 		public function load()
 		{
-			$ram_usages = array();
+			$total_mem = 0;
+			$free_mem = 0;
 			$meminfo = file("/proc/meminfo");
 			for ($i = 0; $i < count($meminfo); $i++)
 			{
 				list($item, $data) = preg_split("/:/", $meminfo[$i], 2);
 				$item = trim(chop($item));
 				$data = intval(preg_replace("/[^0-9]/", "", trim(chop($data))));
-				$item = new RamGraphItem();
 				switch($item)
 				{
 					case "MemTotal":
-						$item->ram_percent = $data;
+						$total_mem = $data;
 						break;
 					case "MemFree":
-						$item->ram_percent = $data;
+						$free_mem = $data;
 						break;
 					/*case "SwapTotal":
 						$this->total_swap = $data;
@@ -41,14 +41,14 @@
 						$this->cache_mem = $data;
 						break;*/
 					default:
-						$item = null;
 						break;
 				}
-				
-				if ($item != null) {
-					$ram_usages[] = $item;
-				}
 			}
+			
+			$used_mem = $total_mem - $free_mem;
+			$percent_free = round(($free_mem / $total_mem) * 100);
+			$percent_used = round(($used_mem / $total_mem) * 100);
+			$this->ram_usages = array($percent_used, $percent_free);
 		}
 
 		public function manage_post($post)

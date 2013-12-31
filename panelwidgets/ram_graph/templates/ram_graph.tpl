@@ -19,8 +19,7 @@
             	sid: '{$sid}',
             	json: true,
             	featureClass: "P",
-                style: "full",
-                maxRows: 10
+                style: "full"
 			},
 			type: 'POST'
         };
