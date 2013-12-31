@@ -1,4 +1,4 @@
-<form action="index.php" data-type="ajax" method="post" class="form-horizontal">
+<form action="index.php" data-type="ajax" method="post" class="form-horizontal" data-success="widgetSaved" data-error="widgetError">
 	<input type="hidden" name="sid" value="{$sid}" />
 	<div class="row">
 		<div class="col-xs-12">

@@ -36,6 +36,20 @@
 		function changeAction(sender, action) {
 			$(sender).parent().children('input[name="widget_action"]').val(action);
 		}
+		
+		function widgetSaved(caller) {
+			caller.prepend('<div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Widget Saved</strong></div>');
+			setTimeout(function () {
+				caller.children('.alert').alert('close');
+			}, 2000);
+		}
+		
+		function widgetError(caller) {
+			caller.prepend('<div class="alert alert-danger fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error Saving Widget</strong></div>');
+			setTimeout(function () {
+				caller.children('.alert').alert('close');
+			}, 2000);
+		}
 	</script>
 </head>
 <body>
@@ -101,7 +115,7 @@
 				<div class="row">
 			{/if}
 			<div class="col-md-{$widget->widget->columns}">
-				<form action="settings.php" method="POST" data-type="ajax" class="form-horizontal">
+				<form action="settings.php" method="POST" data-type="ajax" class="form-horizontal" data-success="widgetSaved" data-error="widgetError">
 					<input type="hidden" name="sid" value="{$sid}" />
 					<input type="hidden" name="widget_id" value="{$widget->id}" />
 					<div class="well">
