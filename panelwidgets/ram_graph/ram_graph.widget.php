@@ -4,6 +4,7 @@
 	class RamGraphItem
 	{
 		public $ram_percent;
+		public $ram_description;
 	}
 
 	class RamGraphWidget extends AbstractWidget
@@ -48,7 +49,13 @@
 			$used_mem = $total_mem - $free_mem;
 			$percent_free = round(($free_mem / $total_mem) * 100);
 			$percent_used = round(($used_mem / $total_mem) * 100);
-			$this->ram_usages = array($percent_used, $percent_free);
+			$item_free = new RamGraphItem();
+			$item_free->ram_percent = $percent_free;
+			$item_free->ram_description = 'Free';
+			$item_used = new RamGraphItem();
+			$item_used->ram_percent = $percent_used;
+			$item_used->ram_description = 'Used';
+			$this->ram_usages = array($item_used, $item_free);
 		}
 
 		public function manage_post($post)

@@ -1,72 +1,76 @@
 <div class="row">
 	<div class="col-xs-12">
-		<div id="ram_load_pie"></div>
+		<div id="ram_load_pie" style="width: 100%; height: 350px;"></div>
 	</div>
 </div>
 <script type="text/javascript">
+	
+	var source = [];
     $(document).ready(function () {
-        var source =
-        {
-            datatype: "json",
-            datafields: [
-                { name: 'ram_percent', type: 'float' }
-            ],
-            id: 'id',
-            url: 'widget_loader.php',
-            root: 'ram_usages',
-            data: {
-            	widget_id: {$user_widget_info->id},
-            	sid: '{$sid}',
-            	json: true,
-            	featureClass: "P",
-                style: "full"
-			},
-			type: 'POST'
-        };
-        
-        var dataAdapter = new $.jqx.dataAdapter(source);
         var settings = {
             title: "Ram Usage",
+            description: "",
             enableAnimations: true,
             showLegend: false,
             padding: { left: 5, top: 5, right: 5, bottom: 5 },
             titlePadding: { left: 0, top: 0, right: 0, bottom: 10 },
-            source: dataAdapter,
+            source: source,
             colorScheme: 'scheme02',
-            seriesGroups:
-            	[
-                    {
-                        type: 'pie',
-                        showLabels: true,
-                        series:
-                            [
-                                { 
-                                    dataField: 'ram_percent',
-                                    displayText: 'ram_percent',
-                                    labelRadius: 100,
-                                    initialAngle: 15,
-                                    radius: 130,
-                                    centerOffset: 0,
-                                    formatSettings: { sufix: '%', decimalPlaces: 1 }
-                                }
-                            ]
-                    }
-                ]
+            seriesGroups: [
+                {
+                    type: 'pie',
+                    showLabels: true,
+                    series: [
+                        { 
+                            dataField: 'ram_percent',
+                            displayText: 'ram_description',
+                            labelRadius: 100,
+                            initialAngle: 15,
+                            radius: 130,
+                            centerOffset: 0,
+                            formatSettings: { sufix: '%', decimalPlaces: 1 }
+                        }
+                    ]
+                }
+            ]
         };
         
         $('#ram_load_pie').jqxChart(settings);
         
-	    setTimeout(timeoutRAMGraphFunc, {$widget_info->updatetime});
+        setTimeout(function () {
+			updateRamPie();
+		}, 1000);
 	});
 	
-	function callbackRAMGraphFunc(data)
-	{
-		$('#cpu_load_gauge').jqxGauge('setValue', data.cpuload);
-		setTimeout(timeoutRAMGraphFunc, {$widget_info->updatetime});
-	}
-	
-	function timeoutRAMGraphFunc()
-	{
-		$.updateWidgetJson({$user_widget_info->id}, '{$sid}', callbackRAMGraphFunc, null);
+	function updateRamPie() {
+		var data = {
+        	sid: 'uhcnvs3v2778obv701rv260376',
+        	json: true,
+        	widget_id: 30
+		};
+		
+		$.ajax({
+			url: 'widget_loader.php',
+	        type: 'POST',
+	        data: data,
+	        success: function (data) {
+	        	if (source.length <= 0) {
+	        		source.push(data.ram_usages[0]);
+	        		source.push(data.ram_usages[1]);
+	        	} else {
+	        		if (source[0].ram_percent != data.ram_usages[0].ram_percent) {
+		        		source[0].ram_percent = data.ram_usages[0].ram_percent;
+		        		source[1].ram_percent = data.ram_usages[1].ram_percent;
+	        		}
+	        	}
+	        	
+	        	$("#ram_load_pie").jqxChart('update');
+	        },
+	        complete: function () {
+	        	setTimeout(function () {
+					updateRamPie();
+				}, 1000);
+	        }
+		});
 	}
 </script>
