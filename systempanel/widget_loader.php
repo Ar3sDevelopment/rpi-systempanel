@@ -8,41 +8,44 @@
 	$settings = new Settings($sid);
 	
 	if (isset($_POST['widget_id']))
-	{	
-		$selWidget;
+	{
+		$selUserWidget = null;	
+		$selWidget = null;
 		
 		foreach ($settings->user->widgets as $widget_info)
 		{
 			if ($widget_info->id == $_POST['widget_id'])
 			{
 				$selUserWidget = $widget_info;
-				$selWidget = $selUserWidget->widget;
 				break;
 			}
 		}
 		
-		require_once('../panelwidgets/' . $selWidget->folder . '/' . $selWidget->phpfile . '.widget.php');
-		
-		$full_class_name = $selWidget->class_name . 'Widget';
-		$widget = new $full_class_name;
-		$widget->template_file = $selWidget->templatefile;
-
-		if ($widget->manage_post($_POST) == 0)
-		{			
-			if ($json)
-			{
-				header('Content-Type: application/json; charset=utf-8');
-				echo $widget->json();
-			}
-			else
-			{
-				$smarty = new Smarty_Widget($selWidget->folder);
+		if ($selUserWidget != null)
+		{
+			require_once('../panelwidgets/' . $selUserWidget->widget->folder . '/' . $selUserWidget->widget->phpfile . '.widget.php');
 			
-				$smarty->assign('user_widget_info', $selUserWidget);
-				$smarty->assign('widget_info', $selWidget);
-				$smarty->assign('sid', $sid);
+			$full_class_name = $selUserWidget->widget->class_name . 'Widget';
+			$widget = new $full_class_name;
+			$widget->template_file = $selUserWidget->widget->templatefile;
+	
+			if ($widget->manage_post($_POST) == 0)
+			{			
+				if ($json)
+				{
+					header('Content-Type: application/json; charset=utf-8');
+					echo $widget->json();
+				}
+				else
+				{
+					$smarty = new Smarty_Widget($selUserWidget->widget->folder);
 				
-				$widget->html($smarty);
+					$smarty->assign('user_widget_info', $selUserWidget);
+					$smarty->assign('widget_info', $selUserWidget->widget);
+					$smarty->assign('sid', $sid);
+					
+					$widget->html($smarty);
+				}
 			}
 		}
 	}
