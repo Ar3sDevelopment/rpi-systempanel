@@ -30,7 +30,7 @@ function initPredefinedVariables(req, res, pre, cb) {
 	req.on('end', function () {
 		pre.post = dictionaryByEquals(body.split('&'));
 		cb();
-	})
+	});
 }
 
 var server = http.createServer(function (req, res) {
@@ -56,7 +56,7 @@ var server = http.createServer(function (req, res) {
 									user_widget.id_html = rows[0][c].id_html;
 									user_widget.enabled = rows[0][c].enabled;
 									user_widget.visible = rows[0][c].visible;
-									user_widget,position = rows[0][c].position;
+									user_widget.position = rows[0][c].position;
 									user_widget.widget = {};
 									user_widget.widget.id = rows[0][c].wid;
 									user_widget.widget.title = rows[0][c].title;
@@ -66,12 +66,13 @@ var server = http.createServer(function (req, res) {
 									user_widget.widget.phpfile = rows[0][c].phpfile;
 									user_widget.widget.folder = rows[0][c].folder;
 									user_widget.widget.class_name = rows[0][c].class_name;
-									console.log(user_widget);
 									break;
 								}
 							}
 							
-							if (user_widget != null) {
+							if (user_widget != null && user_widget !== undefined) {
+								var path = './' + user_widget.widget.folder + '/' + user_widget.widget.phpfile + '.js';
+								require(path);
 								res.writeHead(200, { 'Content-Type': 'text/plain' });
 								res.end('test');	
 							}
