@@ -33,6 +33,27 @@ function initPredefinedVariables(req, res, pre, cb) {
 	});
 }
 
+function createUserWidgetFromSQLRow(row, cb) {
+	user_widget = {};
+	user_widget.id = row.uwid;
+	user_widget.id_widget = row.wid;
+	user_widget.id_html = row.id_html;
+	user_widget.enabled = row.enabled;
+	user_widget.visible = row.visible;
+	user_widget.position = row.position;
+	user_widget.widget = {};
+	user_widget.widget.id = row.wid;
+	user_widget.widget.title = row.title;
+	user_widget.widget.updatetime = row.updatetime;
+	user_widget.widget.columns = row.columns;
+	user_widget.widget.templatefile = row.templatefile;
+	user_widget.widget.phpfile = row.phpfile;
+	user_widget.widget.folder = row.folder;
+	user_widget.widget.class_name = row.class_name;
+	
+	cb(user_widget);
+}
+
 var server = http.createServer(function (req, res) {
 	var pre = {};
 	initPredefinedVariables(req, res, pre, function () {
@@ -42,47 +63,41 @@ var server = http.createServer(function (req, res) {
 		var connection = mysql.createConnection(mysqlJSON);
 		
 		connection.query('CALL GetUserInfo(?)', [sid], function (err, rows) {
-			if (err === undefined || err == null) {
-				if (rows[0].length > 0) {
+			if (!err) {
+				if (rows[0].length) {
 					connection.query('CALL LoadSettings(?)', [sid], function (err, rows) {
-						if (err === undefined || err == null) {
+						if (!err) {
 							var user_widget = null;
 							
-							for (var c = 0; c < rows[0].length; c++) {
+							for (var c = 0; c < rows[0].length && !user_widget; c++) {
 								if (rows[0][c].uwid == pre.get["widget-id"]) {
-									user_widget = {};
-									user_widget.id = rows[0][c].uwid;
-									user_widget.id_widget = rows[0][c].wid;
-									user_widget.id_html = rows[0][c].id_html;
-									user_widget.enabled = rows[0][c].enabled;
-									user_widget.visible = rows[0][c].visible;
-									user_widget.position = rows[0][c].position;
-									user_widget.widget = {};
-									user_widget.widget.id = rows[0][c].wid;
-									user_widget.widget.title = rows[0][c].title;
-									user_widget.widget.updatetime = rows[0][c].updatetime;
-									user_widget.widget.columns = rows[0][c].columns;
-									user_widget.widget.templatefile = rows[0][c].templatefile;
-									user_widget.widget.phpfile = rows[0][c].phpfile;
-									user_widget.widget.folder = rows[0][c].folder;
-									user_widget.widget.class_name = rows[0][c].class_name;
-									break;
+									createUserWidgetFromSQLRow(rows[0][c], function (uw) {
+										user_widget = uw;
+									});
 								}
 							}
 							
-							if (user_widget != null && user_widget !== undefined) {
+							if (user_widget) {
 								var path = './' + user_widget.widget.folder + '/' + user_widget.widget.phpfile + '.js';
-								require(path);
-								res.writeHead(200, { 'Content-Type': 'text/plain' });
-								res.end('test');	
+								var loaded_widget = require(path);
+								if (json) {
+									loaded_widget.json(function (widget_json) {
+										res.writeHead(200, { 'Content-Type': 'application/json' });
+										res.end(widget_json);										
+									});
+								} else {
+									res.writeHead(200, { 'Content-Type': 'text/plain' });
+									res.end('test');
+								}	
+							} else {
+								res.writeHead(500, { 'Content-Type': 'text/plain' });
+								res.end('No user widget found');
 							}
 						}
 					});
 				}
 			}
 		});
-		
-		//file.serve(req, res);
 	});
 });
 
