@@ -1,3 +1,4 @@
+@!(data, user_widget, sid)
 <div class="row">
 	<div class="col-xs-12">
 		<div id="cpu_load_gauge"></div>
@@ -7,12 +8,12 @@
 	function callbackCPUGraphFunc(data)
 	{
 		$('#cpu_load_gauge').jqxGauge('setValue', data.cpuload);
-		setTimeout(timeoutCPUGraphFunc, {$widget_info->updatetime});
+		setTimeout(timeoutCPUGraphFunc, @user_widget.widget.updatetime);
 	}
 	
 	function timeoutCPUGraphFunc()
 	{
-		$.updateWidgetJson({$user_widget_info->id}, '{$sid}', callbackCPUGraphFunc, null);
+		$.updateWidgetJson(@user_widget.id, '@sid', callbackCPUGraphFunc, null);
 	}
 	
 	$(document).ready(function () {
@@ -38,8 +39,8 @@
 			ticksMajor: { interval: 10, size: '10%' }
 		});
 		
-		$('#cpu_load_gauge').jqxGauge('setValue', {$widget->cpuload});
+		$('#cpu_load_gauge').jqxGauge('setValue', @data.cpuload);
 	
-		setTimeout(timeoutCPUGraphFunc, {$widget_info->updatetime});
+		setTimeout(timeoutCPUGraphFunc, @user_widget.widget.updatetime);
 	});
 </script>
