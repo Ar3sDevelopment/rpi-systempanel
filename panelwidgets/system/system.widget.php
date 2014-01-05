@@ -12,7 +12,7 @@
 		
 		public function load()
 		{
-			$this->current_time = exec("date +'%d %b %Y<br />%T %Z'");
+			$this->current_time = exec("date +'%d %b %Y %T %Z'");
 			
 			list($this->system, $this->host, $this->kernel, $this->firmware) = preg_split("/\s/", exec("uname -a"), 5);
 			
