@@ -1,0 +1,11 @@
+@!(data, user_widget, sid)
+<img class="img-responsive" src="tmp/still.jpg?d=@(new Date().getTime())" />
+@if (data.result) {
+	@if (data.result.length) {
+	<pre>
+		@data.result.forEach(function (res) {
+			@res;
+		})
+	</pre>
+	}
+}
