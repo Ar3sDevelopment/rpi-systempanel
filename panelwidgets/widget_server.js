@@ -81,22 +81,29 @@ var server = http.createServer(function (req, res) {
 								var folder = './' + user_widget.widget.folder;
 								var path = folder + '/' + user_widget.widget.phpfile + '.js';
 								var loaded_widget = require(path);
-								loaded_widget.data(function (widget_data) {
-									if (json) {
-										res.writeHead(200, { 'Content-Type': 'application/json' });
-										res.end(JSON.stringify(widget_data));										
+								loaded_widget.manage_post(pre.post, function (result) {
+									if (result) {
+										res.writeHead(200, { 'Content-Type': 'text/plain' });
+										res.end();
 									} else {
-										Bliss = require('bliss');
-										bliss = new Bliss();
-										template = bliss.compileFile(folder + '/' + user_widget.widget.templatefile.replace('.tpl', ''));
-										output = template(widget_data, user_widget, sid);
-										res.writeHead(500, { 'Content-Type': 'text/html' });
-										res.end(output);
+										loaded_widget.data(function (widget_data) {
+											if (json) {
+												res.writeHead(200, { 'Content-Type': 'application/json' });
+												res.end(JSON.stringify(widget_data));										
+											} else {
+												Bliss = require('bliss');
+												bliss = new Bliss();
+												template = bliss.compileFile(folder + '/' + user_widget.widget.templatefile.replace('.tpl', ''));
+												output = template(widget_data, user_widget, sid);
+												res.writeHead(500, { 'Content-Type': 'text/html' });
+												res.end(output);
+											}
+										});
 									}
 								});
 							} else {
 								res.writeHead(500, { 'Content-Type': 'text/plain' });
-								res.end('No user widget found');
+								res.end();
 							}
 						}
 					});

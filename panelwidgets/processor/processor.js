@@ -73,6 +73,6 @@ exports.data = function (cb) {
 	});
 };
 
-exports.manage_post = function (cb) {
+exports.manage_post = function (post, cb) {
 	cb(0);
 };
