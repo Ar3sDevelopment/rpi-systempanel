@@ -78,17 +78,22 @@ var server = http.createServer(function (req, res) {
 							}
 							
 							if (user_widget) {
-								var path = './' + user_widget.widget.folder + '/' + user_widget.widget.phpfile + '.js';
+								var folder = './' + user_widget.widget.folder;
+								var path = folder + '/' + user_widget.widget.phpfile + '.js';
 								var loaded_widget = require(path);
-								if (json) {
-									loaded_widget.json(function (widget_json) {
+								loaded_widget.data(function (widget_data) {
+									if (json) {
 										res.writeHead(200, { 'Content-Type': 'application/json' });
-										res.end(widget_json);										
-									});
-								} else {
-									res.writeHead(200, { 'Content-Type': 'text/plain' });
-									res.end('test');
-								}	
+										res.end(JSON.stringify(widget_data));										
+									} else {
+										Bliss = require('bliss');
+										bliss = new Bliss();
+										template = bliss.compileFile(folder + '/' + user_widget.widget.templatefile.replace('.tpl', ''));
+										output = template(widget_data, user_widget, sid);
+										res.writeHead(500, { 'Content-Type': 'text/html' });
+										res.end(output);
+									}
+								});
 							} else {
 								res.writeHead(500, { 'Content-Type': 'text/plain' });
 								res.end('No user widget found');
