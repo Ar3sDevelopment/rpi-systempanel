@@ -1,3 +1,4 @@
+@!(data, user_widget, sid)
 <div class="disks_grid"></div>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -14,11 +15,11 @@
                 { name: 'percent_used', type: 'float' }
             ],
             id: 'id',
-            url: 'widget_loader.php',
+            url: 'widget',
             root: 'disks',
             data: {
-            	widget_id: {$user_widget_info->id},
-            	sid: '{$sid}',
+            	widget_id: @user_widget.id,
+            	sid: '@sid',
             	json: true,
             	featureClass: "P",
                 style: "full",
@@ -47,7 +48,7 @@
         };
         
         var dataAdapter = new $.jqx.dataAdapter(source);
-        $("#{$user_widget_info->id_html} .disks_grid").jqxGrid(
+        $("#@user_widget.id_html .disks_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
         	autoshowloadelement: false,
@@ -70,14 +71,14 @@
         
         setTimeout(function () {
 			updateDiskGrid();
-		}, {$widget_info->updatetime});
+		}, @user_widget.widget.updatetime);
 	});
 	
 	function updateDiskGrid() {
-		$("#{$user_widget_info->id_html} .disks_grid").jqxGrid('updatebounddata', 'cells');
+		$("#@user_widget.id_html .disks_grid").jqxGrid('updatebounddata', 'cells');
 		
 		setTimeout(function () {
 			updateDiskGrid();
-		}, {$widget_info->updatetime});
+		}, @user_widget.widget.updatetime);
 	}
 </script>
