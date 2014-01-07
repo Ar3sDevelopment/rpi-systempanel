@@ -1,7 +1,7 @@
 exports.data = function (cb) {
 	var util = require('util');
 	var exec = require('child_process').exec;
-	var res = { disks: [] };
+	var res = {};
 	var fs = require('fs');
 	
 	fs.readFile('/proc/meminfo', { encoding: 'utf8' }, function (err, data) {

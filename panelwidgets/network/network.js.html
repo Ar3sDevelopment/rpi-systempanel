@@ -1,3 +1,4 @@
+@!(data, user_widget, sid)
 <div class="network_grid"></div>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -16,7 +17,7 @@
             url: 'widget_loader.php',
             root: 'nics',
             data: {
-            	widget_id: {$user_widget_info->id},
+            	widget_id: @user_widget.id,
             	sid: '{$sid}',
             	json: true,
             	featureClass: "P",
@@ -27,7 +28,7 @@
         };
         
         var dataAdapter = new $.jqx.dataAdapter(source);
-        $("#{$user_widget_info->id_html} .network_grid").jqxGrid(
+        $("#@user_widget.id_html .network_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
         	autoshowloadelement: false,
@@ -49,14 +50,14 @@
         
         setTimeout(function () {
 			updateNetworkGrid();
-		}, {$widget_info->updatetime});
+		}, @user_widget.widget.updatetime);
 	});
 	
 	function updateNetworkGrid() {
-		$("#{$user_widget_info->id_html} .network_grid").jqxGrid('updatebounddata', 'cells');
+		$("#@user_widget.id_html .network_grid").jqxGrid('updatebounddata', 'cells');
 		
 		setTimeout(function () {
 			updateNetworkGrid();
-		}, {$widget_info->updatetime});
+		}, @user_widget.widget.updatetime);
 	}
 </script>
