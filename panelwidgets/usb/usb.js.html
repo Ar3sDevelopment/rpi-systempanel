@@ -1,37 +1,38 @@
-{for $i = 0 to count($widget->devices) - 1}
-{$usb = $widget->devices[$i]}
-<div class="row">
-	<div class="col-xs-12">
-		<div class="row">
-			<div class="col-xs-4">
-				{$usb->name}
-			</div>
-			<div class="col-xs-4">
-				BUS {$usb->bus}
-			</div>
-			<div class="col-xs-4">
-				Device {$usb->device}
-			</div>
-		</div>
-		{if ($i < count($widget->devices) - 1)}
-		<div class="row">
-			<div class="col-xs-12">
-				&nbsp;
-			</div>
-		</div>
-		{/if}
-	</div>
-</div>
-{/for}
+@!(data, user_widget, sid)
+@for (var c = 0; c < data.devices.length; c++) {
+    @{ var device = data.devices[c]; }
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-4">
+                    @device.name
+                </div>
+                <div class="col-xs-4">
+                    BUS @device.bus
+                </div>
+                <div class="col-xs-4">
+                    Device @device.device
+                </div>
+            </div>
+            @if (c < (data.devices.length - 1)) {
+            <div class="row">
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+}
 <script type="text/javascript">
 	function callbackUSBFunc(data)
-	{
-		$('#{$user_widget_info->id_html} .panel-body').html(data);
-	}
+    {
+        $('#@user_widget.id_html .panel-body').html(data);
+    }
 
-	$(document).ready(function () {
-		setTimeout(function () {
-			$.updateWidgetHtml({$user_widget_info->id}, '{$sid}', callbackUSBFunc, null);
-		}, {$widget_info->updatetime});
-	});
+    $(document).ready(function () {
+        setTimeout(function () {
+        $.updateWidgetHtml(@user_widget->id, '@sid', callbackUSBFunc, null);
+        }, @user_widget.widget.updatetime);
+    });
 </script>
