@@ -15,10 +15,9 @@ exports.data = function (cb) {
 exports.manage_post = function(post, cb) {
 	if (post.cmd) {
 		execute($_POST['cmd'], function (stdout) {
-			//TODO: Va visualizzato il risultato di stdout da qualche parte, probabilmente andrà cambiato il manage post con res e req
-			cb(1);
+			cb(1, stdout);
 		});
 	}
 			
-	cb(0);
+	cb(0, null);
 };

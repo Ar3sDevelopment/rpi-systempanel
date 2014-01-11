@@ -20,13 +20,13 @@ exports.data = function (cb) {
 exports.manage_post = function (post, cb) {
 	if (post.po) {
 		poweroff(function () {
-			cb(1);
+			cb(1, '');
 		});
 	} else if (post['pr']) {
 		reboot(function () {
-			cb(1);
+			cb(1, '');
 		});
 	} else {
-		cb(0);	
+		cb(0, null);
 	}
 };

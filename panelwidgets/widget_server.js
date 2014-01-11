@@ -81,10 +81,10 @@ var server = http.createServer(function (req, res) {
 								var folder = './' + user_widget.widget.folder;
 								var path = folder + '/' + user_widget.widget.phpfile + '.js';
 								var loaded_widget = require(path);
-								loaded_widget.manage_post(pre.post, function (result) {
+								loaded_widget.manage_post(pre.post, function (result, output) {
 									if (result) {
 										res.writeHead(200, { 'Content-Type': 'text/plain' });
-										res.end();
+										res.end(output);
 									} else {
 										loaded_widget.data(function (widget_data) {
 											if (json) {
