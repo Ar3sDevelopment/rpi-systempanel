@@ -29,18 +29,6 @@
 					case "MemFree":
 						$free_mem = $data;
 						break;
-					/*case "SwapTotal":
-						$this->total_swap = $data;
-						break;
-					case "SwapFree":
-						$this->free_swap = $data;
-						break;
-					case "Buffers":
-						$this->buffer_mem = $data;
-						break;
-					case "Cached":
-						$this->cache_mem = $data;
-						break;*/
 					default:
 						break;
 				}

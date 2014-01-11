@@ -38,7 +38,7 @@
 			exec("ps aux", $procsinfo);
 			unset($procsinfo[0]);
 			foreach ($procsinfo as $procinfo)
-			{	
+			{
 				$this->procs[] = new Process($procinfo);
 			}
 		}

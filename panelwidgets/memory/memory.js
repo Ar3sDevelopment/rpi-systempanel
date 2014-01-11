@@ -1,11 +1,13 @@
 exports.data = function (cb) {
 	var util = require('util');
 	var exec = require('child_process').exec;
-	var res = {};
+	var res = { ram_usages: [] };
 	var fs = require('fs');
 	
 	fs.readFile('/proc/meminfo', { encoding: 'utf8' }, function (err, data) {
 		if (!err) {
+			var total_mem = 0;Free
+			var free_mem = 0;
 			var meminfo = data.split(/[\r\n]{1,2}/);
 			
 			for (var c = 0; c < meminfo.length; c++)
@@ -18,22 +20,10 @@ exports.data = function (cb) {
 					switch(item)
 					{
 						case "MemTotal":
-							res.total_mem = item_data;
+							total_mem = item_data;
 							break;
 						case "MemFree":
-							res.free_mem = item_data;
-							break;
-						case "SwapTotal":
-							res.total_swap = item_data;
-							break;
-						case "SwapFree":
-							res.free_swap = item_data;
-							break;
-						case "Buffers":
-							res.buffer_mem = item_data;
-							break;
-						case "Cached":
-							res.cache_mem = item_data;
+							free_mem = item_data;
 							break;
 						default:
 							break;
@@ -41,14 +31,19 @@ exports.data = function (cb) {
 				}
 			}
 			
-			res.used_mem = res.total_mem - res.free_mem;
-			res.used_swap = res.total_swap - res.free_swap;
-			res.percent_free = Math.round((res.free_mem / res.total_mem) * 100);
-			res.percent_used = Math.round((res.used_mem / res.total_mem) * 100);
-			res.percent_swap = Math.round(((res.total_swap - res.free_swap ) / res.total_swap) * 100);
-			res.percent_swap_free = Math.round((res.free_swap / res.total_swap) * 100);
-			res.percent_buff = Math.round((res.buffer_mem / res.total_mem) * 100);
-			res.percent_cach = Math.round((res.cache_mem / res.total_mem) * 100);
+			used_mem = total_mem - free_mem;
+			percent_free = Math.round((free_mem / total_mem) * 100);
+			percent_used = Math.round((used_mem / total_mem) * 100);
+			var item_free = {
+				ram_percent: percent_free,
+				ram_description: 'Free'
+			};
+			var item_used = {
+				ram_percent: percent_used,
+				ram_description: 'Used'
+			};
+			
+			res.ram_usages = [item_used, item_free];
 		}
 		
 		cb(res);
