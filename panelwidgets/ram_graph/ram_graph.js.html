@@ -1,4 +1,3 @@
-@!(data, user_widget, sid)
 <div class="row">
 	<div class="col-xs-12">
 		<div id="ram_load_pie" style="width: 100%; height: 350px;"></div>
@@ -45,13 +44,13 @@
 	
 	function updateRamPie() {
 		var data = {
-		    widget_id: @user_widget.id,
-            sid: '@sid',
-        	json: true
+        	sid: 'uhcnvs3v2778obv701rv260376',
+        	json: true,
+        	widget_id: 30
 		};
 		
 		$.ajax({
-			url: 'ram_graph',
+			url: 'widget_loader.php',
 	        type: 'POST',
 	        data: data,
 	        success: function (data) {

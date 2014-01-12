@@ -1,4 +1,3 @@
-@!(data, user_widget, sid)
 <div class="process_grid"></div>
 <script type="text/javascript">
 	$(document).ready(function () {
@@ -13,11 +12,11 @@
                 { name: 'mem_percent', type: 'float' }
             ],
             id: 'id',
-            url: 'process',
+            url: 'widget_loader.php',
             root: 'procs',
             data: {
-            	widget_id: @user_widget.id,
-            	sid: '@sid',
+            	widget_id: {$user_widget_info->id},
+            	sid: '{$sid}',
             	json: true,
             	featureClass: "P",
                 style: "full",
@@ -34,7 +33,7 @@
         };
         
         var dataAdapter = new $.jqx.dataAdapter(source);
-        $("#@user_widget.id_html .process_grid").jqxGrid(
+        $("#{$user_widget_info->id_html} .process_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
         	autoshowloadelement: false,
@@ -55,14 +54,14 @@
         
         setTimeout(function () {
 			updateProcessGrid();
-		}, @user_widget.widget.updatetime);
+		}, {$widget_info->updatetime});
 	});
 	
 	function updateProcessGrid() {
-		$("#@user_widget.id_html .process_grid").jqxGrid('updatebounddata', 'cells');
+		$("#{$user_widget_info->id_html} .process_grid").jqxGrid('updatebounddata', 'cells');
 		
 		setTimeout(function () {
 			updateProcessGrid();
-		}, @uwer_widget.widget.updatetime);
+		}, {$widget_info->updatetime});
 	}
 </script>
