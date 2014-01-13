@@ -15,7 +15,7 @@ exports.data = function (cb) {
 		
 		transmission.get(function (err, get_results) {
 			var statuses = {};
-			console.log(get_results);
+			
 			for (var c = 0; c < get_results.torrents; c++) {
 				var torrent = get_results.torrents[c];
 				statuses[torrent.status] = statuses[torrent.status] + 1;
