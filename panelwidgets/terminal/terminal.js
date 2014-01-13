@@ -1,5 +1,4 @@
-function execute(cmd, cb)
-{
+function execute(cmd, cb) {
 	var util = require('util');
 	var exec = require('child_process').exec;
 	exec(cmd, function (err, stdout, stderr) {
