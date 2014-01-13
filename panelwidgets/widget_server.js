@@ -114,5 +114,4 @@ var server = http.createServer(function (req, res) {
 });
 
 server.listen(1337, function () {
-	var address = this.address();
 });
