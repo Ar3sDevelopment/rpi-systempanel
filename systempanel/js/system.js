@@ -22,7 +22,7 @@
 	};
 	
 	$.downloadWidget = function(widget_id_html, widget_id, sid) {
-		$.post('widget_loader.php', { 'widget_id': widget_id, 'sid': sid }, function (data) {
+		$.post('widget', { 'widget_id': widget_id, 'sid': sid }, function (data) {
 			$('#' + widget_id_html + ' .panel-body').html(data);
 			if ($('#' + widget_id_html + '[data-only="true"]').length <= 0)
 				$('#' + widget_id_html).parent().show();
@@ -32,7 +32,7 @@
 	$.updateWidget = function(widget_id, sid, callback, postData, mode) {
 		var defData = { 'widget_id': widget_id, 'sid': sid, 'json': (mode == 'json') };
 		$.extend(defData, postData);
-		$.post('widget_loader.php', defData, function (data) {
+		$.post('widget', defData, function (data) {
 			callback(data);
 		});
 	};
