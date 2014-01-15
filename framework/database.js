@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 var mysqlJSON = require('./db_conn.json');
-	
+var crypto = require('crypto');
+
 exports.getWidgets = function (sid, cb) {
 	var connection = mysql.createConnection(mysqlJSON);
 	var params = [sid];
@@ -64,7 +65,97 @@ exports.deleteWidget = function(sid, widget, cb) {
 	});
 };
 
+exports.getUserInfo = function (sid, cb) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [sid];
+	connection.query('CALL GetUserInfo(?)', params, function (err, rows) {
+		var userInfo = {};
+		if (!err) {
+			if (rows[0].length) {
+				userInfo = rows[0][0];
+			}
+		}
+		cb(userInfo)
+	});
+};
+
+exports.getHashMethods = function (sid, cb) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [sid];
+	connection.query('CALL GetHashes(?)', params, function (err, rows) {
+		if (!err) {
+			var hashes = [];
+			for (var c = 0; c < rows[0].length; c++) {
+				var row = rows[0][c];
+				hashes.push(row);
+			}
+			
+			cb(hashes);
+		}
+	});
+};
+
+exports.checkLogin = function (username, password, cb) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [username];
+	connection.query('CALL CheckLogin(?)', username, function (err, rows) {
+		var uid = -1;
+		if (!err) {
+			for (var c = 0; c < rows[0].length; c++) {
+				var userInfo = rows[0][c];
+				if (userInfo.password == crypto.createHash(userInfo.hash).update(password).digest("hex")) {
+					uid = userInfo.id;
+				}
+			}
+		}
+			
+		cb(uid);
+	});
+};
+
 /*
+		public function update_sid($sid, $device, $uid)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL UpdateSid(?, ?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("ssi", $sid, $device, $uid);
+			$stmt->execute();
+			$stmt->close();
+			
+			$mysqli->close();	
+		}
+		
+		public function toggleWidgetVisibility($sid, $widget_id, $visibility)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL ToggleWidgetVisibility(?, ?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("isi", $visibility, $sid, $widget_id); 
+			$stmt->execute();
+			$stmt->close();
+			
+			$mysqli->close();
+		}
+		
+		public function toggleWidgetState($sid, $widget_id, $enabled)
+		{
+			$mysqli = $this->init_mysqli();
+			
+			$query = "CALL ToggleWidgetState(?, ?, ?)";
+			$stmt = $mysqli->stmt_init();
+			$stmt->prepare($query);
+			$stmt->bind_param("isi", $enabled, $sid, $widget_id);
+			$stmt->execute();
+			$stmt->close();
+			
+			$mysqli->close();
+		}
+		
 		public function create_widget($sid, $widget)
 		{
 			$mysqli = $this->init_mysqli();
@@ -121,128 +212,6 @@ exports.deleteWidget = function(sid, widget, cb) {
 			{
 				file_put_contents("", "../panelwidgets/$widget->folder/templates/$widget->templatefile");
 			}
-		}
-		
-		public function get_user_info($sid)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL GetUserInfo(?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("s", $sid);
-			$stmt->execute();
-			
-			if ($result = $stmt->get_result())
-			{	
-				$obj = $result->fetch_object();
-
-				$result->close();
-				$stmt->close();
-				$mysqli->close();
-				return $obj;
-			}
-			
-			return null;
-		}
-		
-		public function get_hash_methods($sid)
-		{
-			$hashes = array();
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL GetHashes(?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("s", $sid);
-			$stmt->execute();
-			
-			if ($result = $stmt->get_result())
-			{	
-				while ($obj = $result->fetch_object())
-				{
-					$hashes[] = $obj;
-				}
-
-				$result->close();
-			}
-			
-			$stmt->close();
-			$mysqli->close();
-			
-			return $hashes;
-		}
-		
-		public function check_login($username, $password)
-		{
-			$uid = -1;
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL CheckLogin(?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("s", $username);
-			$stmt->execute();
-
-			if ($result = $stmt->get_result())
-			{
-				while ($obj = $result->fetch_object())
-				{
-					if ($obj->password == hash($obj->hash, $password))
-					{
-						$uid = $obj->id;
-					}
-				}
-
-				$result->close();
-			}
-			
-			$stmt->close();
-			$mysqli->close();
-			
-			return $uid;
-		}
-		
-		public function update_sid($sid, $device, $uid)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL UpdateSid(?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("ssi", $sid, $device, $uid);
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();	
-		}
-		
-		public function toggleWidgetVisibility($sid, $widget_id, $visibility)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL ToggleWidgetVisibility(?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("isi", $visibility, $sid, $widget_id); 
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
-		}
-		
-		public function toggleWidgetState($sid, $widget_id, $enabled)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL ToggleWidgetState(?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("isi", $enabled, $sid, $widget_id);
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
 		}
 		
 		public function load($sid)
