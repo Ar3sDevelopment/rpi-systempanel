@@ -6,15 +6,16 @@ exports.getWidgets = function (sid, cb) {
 	var connection = mysql.createConnection(mysqlJSON);
 	var params = [sid];
 	connection.query('CALL GetWidgets(?)', params, function (err, rows) {
+		var widgets = [];
+		
 		if (!err) {
-			var widgets = [];
 			for (var c = 0; c < rows[0].length; c++) {
 				var row = rows[0][c];
 				widgets.push(row);
 			}
-			
-			cb(widgets);
 		}
+		
+		cb(widgets);
 	});
 };
 
@@ -22,15 +23,16 @@ exports.getWidgetList = function (sid, cb) {
 	var connection = mysql.createConnection(mysqlJSON);
 	var params = [sid];
 	connection.query('CALL GetWidgetList(?)', params, function (err, rows) {
+		var widgets = [];
+		
 		if (!err) {
-			var widgets = [];
 			for (var c = 0; c < rows[0].length; c++) {
 				var row = rows[0][c];
 				widgets.push(row);
 			}
-			
-			cb(widgets);
 		}
+		
+		cb(widgets);
 	});
 };
 
@@ -49,9 +51,7 @@ exports.saveWidget = function(sid, widget, cb) {
 		widget.id
 	];
 	connection.query('CALL SaveWidget(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', params, function (err, rows) {
-		if (!err) {			
-			cb(true);
-		}
+		cb(!err);
 	});
 };
 
@@ -59,9 +59,7 @@ exports.deleteWidget = function(sid, widget, cb) {
 	var connection = mysql.createConnection(mysqlJSON);
 	var params = [widget.id];
 	connection.query('CALL DeleteWidget(?)', params, function (err, rows) {
-		if (!err) {
-			cb(true);
-		}
+		cb(!err);
 	});
 };
 
@@ -70,11 +68,13 @@ exports.getUserInfo = function (sid, cb) {
 	var params = [sid];
 	connection.query('CALL GetUserInfo(?)', params, function (err, rows) {
 		var userInfo = {};
+		
 		if (!err) {
 			if (rows[0].length) {
 				userInfo = rows[0][0];
 			}
 		}
+		
 		cb(userInfo)
 	});
 };
@@ -83,15 +83,16 @@ exports.getHashMethods = function (sid, cb) {
 	var connection = mysql.createConnection(mysqlJSON);
 	var params = [sid];
 	connection.query('CALL GetHashes(?)', params, function (err, rows) {
+		var hashes = [];
+		
 		if (!err) {
-			var hashes = [];
 			for (var c = 0; c < rows[0].length; c++) {
 				var row = rows[0][c];
 				hashes.push(row);
 			}
-			
-			cb(hashes);
 		}
+		
+		cb(hashes);
 	});
 };
 
@@ -113,49 +114,127 @@ exports.checkLogin = function (username, password, cb) {
 	});
 };
 
-/*
-		public function update_sid($sid, $device, $uid)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL UpdateSid(?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("ssi", $sid, $device, $uid);
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();	
+exports.updateSid = function(sid, device, uid, cb) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [
+		sid,
+		device,
+		uid
+	];
+	connection.query('CALL UpdateSid(?, ?, ?)', params, function (err, rows) {			
+		cb(!err);
+	});
+};
+
+exports.toggleWidgetVisibility = function(sid, widget_id, visibility, cb) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [
+		visibility,
+		sid,
+		widget_id
+	];
+	connection.query('CALL ToggleWidgetVisibility(?, ?, ?)', params, function (err, rows) {			
+		cb(!err);
+	});
+};
+
+exports.toggleWidgetState = function(sid, widget_id, enabled, cb) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [
+		enabled,
+		sid,
+		widget_id
+	];
+	connection.query('CALL ToggleWidgetState(?, ?, ?)', params, function (err, rows) {			
+		cb(!err);
+	});
+};
+
+exports.saveUser = function(sid, username, password, hash) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [
+		username,
+		password,
+		hash,
+		sid
+	];
+	connection.query('CALL SaveUser(?, ?, ?, ?)', params, function (err, rows) {			
+		cb(!err);
+	});
+};
+
+exports.saveUserWidget = function(sid, userWidget) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [
+		userWidget.position,
+		userWidget.id_html,
+		userWidget.id,
+		sid
+	];
+	connection.query('CALL SaveUserWidget(?, ?, ?, ?)', params, function (err, rows) {			
+		cb(!err);
+	});
+};
+
+exports.deleteUserWidget = function(sid, userWidget) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [
+		userWidget.id,
+		sid
+	];
+	connection.query('CALL DeleteUserWidget(?, ?)', params, function (err, rows) {			
+		cb(!err);
+	});
+};
+
+exports.createUserWidget = function(sid, userWidget, widget_id) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [
+		userWidget.position,
+		userWidget.id_html,
+		widget_id,
+		sid
+	];
+	connection.query('CALL CreateUserWidget(?, ?, ?, ?)', params, function (err, rows) {			
+		cb(!err);
+	});
+};
+
+exports.getWidgetFromUserWidget = function (sid, uwid) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [uwid, sid];
+	connection.query('CALL GetWidgetFromUserWidget(?, ?)', params, function (err, rows) {
+		var widget = {};
+		
+		if (!err) {
+			if (rows[0].length) {
+				widget = rows[0][0];
+			}
 		}
 		
-		public function toggleWidgetVisibility($sid, $widget_id, $visibility)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL ToggleWidgetVisibility(?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("isi", $visibility, $sid, $widget_id); 
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
-		}
-		
-		public function toggleWidgetState($sid, $widget_id, $enabled)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL ToggleWidgetState(?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("isi", $enabled, $sid, $widget_id);
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
-		}
-		
+		cb(widget)
+	});
+};
+
+exports.insertWidget = function(sid, title, folder, phpfile, classname, templatefile, columns, updatetime, requireadmin, version, cb) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [
+		title,
+		folder,
+		classname,
+		templatefile,
+		columns,
+		updatetime,
+		requireadmin,
+		version,
+		sid
+	];
+	connection.query('CALL InsertWidget(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', params, function (err, rows) {
+		cb(!err);
+	});
+};
+
+/*	
 		public function create_widget($sid, $widget)
 		{
 			$mysqli = $this->init_mysqli();
@@ -258,100 +337,5 @@ exports.checkLogin = function (username, password, cb) {
 			$mysqli->close();
 			
 			return $widgets;
-		}
-		
-		public function save_user($sid, $username, $password, $hash)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL SaveUser(?, ?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("ssss", $username, $password, $hash, $sid); 
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
-		}
-		
-		public function save_user_widget($sid, $widget)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL SaveUserWidget(?, ?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("isis", $widget->position,
-											$widget->id_html,
-											$widget->id,
-											$sid);
-
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
-		}
-		
-		public function delete_user_widget($sid, $widget)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL DeleteUserWidget(?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("is", $widget->id, $sid);
-
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
-			
-			$mysqli->close();
-		}
-		
-		public function create_user_widget($sid, $widget, $wid)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL CreateUserWidget(?, ?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("isis", $widget->position,
-											$widget->id_html,
-											$wid,
-											$sid);
-
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
-		}
-		
-		public function get_widget_from_user_widget($sid, $uwid)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL GetWidgetFromUserWidget(?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("is", $uwid, $sid);
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
-		}
-		
-		public function insert_widget($sid, $title, $folder, $phpfile, $classname, $templatefile, $columns, $updatetime, $requireadmin, $version)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL InsertWidget(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("sssssiiiis", $title, $folder, $phpfile, $classname, $templatefile, $columns, $updatetime, $requireadmin, $version, $sid);
-			$stmt->execute();
-			$stmt->close();
-			
-			$mysqli->close();
 		}
 		*/
