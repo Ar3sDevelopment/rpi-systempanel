@@ -1,0 +1,32 @@
+@!(userWidgets, user, sid)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{include file="html_head.tpl" title="System Info Panel"}
+</head>
+<body>
+	<div class="visible-xs visible-sm" style="height: 20px;">&nbsp;</div>
+	<div class="container">
+		{include file="menu.tpl" sid=@sid page="home" admin=@user.admin}
+		@{ var columns = 0; }
+		<div class="row">
+		@userWidgets.forEach(function (userWidget) {
+		    @if (userWidget.enabled) {
+		        @{ columns += userWidget.widget.columns; }
+		        @if (columns > 12) {
+		            @{ columns = userWidget.widget.columns; }
+    		        </div>
+    		        <div class="row">
+		        }
+		        @if (!widget->visible) {
+		            <div class="col-md-@userWidget.widget.columns" style="display: none;">
+		        } else {
+		            <div class="col-md-@userWidget.widget.columns">
+		        }
+		        </div>
+		    }
+        })
+        </div>
+	</div>
+</body>
+</html>
