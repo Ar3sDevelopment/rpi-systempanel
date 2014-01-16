@@ -213,7 +213,7 @@ exports.getWidgetFromUserWidget = function (sid, uwid) {
 			}
 		}
 		
-		cb(widget)
+		cb(widget);
 	});
 };
 
@@ -257,7 +257,7 @@ function createUserWidgetFromSQLRow(row, cb) {
 	return user_widget;
 }
 
-exports.load = function(sid) {
+exports.load = function(sid, cb) {
 	var connection = mysql.createConnection(mysqlJSON);
 	var params = [sid];
 	
@@ -302,7 +302,7 @@ exports.createWidget = function(sid, widget) {
 					if (!exists) {
 						fs.writeFileSync(widgetFilePath,"exports.data = function (cb) {\n" +
 													"	var util = require('util');\n" + 
-													"	var exec = require('child_process').exec;\n"
+													"	var exec = require('child_process').exec;\n" +
 													"	var res = {};" +
 													"	cb(res);" +
 													"};" +

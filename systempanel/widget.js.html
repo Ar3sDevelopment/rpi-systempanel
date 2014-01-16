@@ -1,0 +1,31 @@
+@!(userWidget)
+<div class="panel panel-success" id="@userWidget.id_html">
+	<div class="panel-heading">
+		<button type="button" class="btn btn-link" data-toggle="hide" data-target="#{$widget->id_html} .panel-body">@userWidget.widget.title</button>
+		@if (userWidget.widget.updatetime > 0) {
+			<button type="button" class="btn btn-link pull-right refreshWidget"><span class="glyphicon glyphicon-refresh"></span></button>
+		}
+		<button type="button" class="btn btn-link pull-right" data-toggle="collapse" data-target="#{$widget->id_html} .panel-body">
+			<span class="glyphicon glyphicon-chevron-up"></span><span class="glyphicon glyphicon-chevron-down"></span>
+		</button>
+	</div>
+	<div class="panel-body collapse in">
+	</div>
+</div>
+@if (userWidget.widget.updatetime > 0) {
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
+			
+			$('#{$widget->id_html} .panel-heading .refreshWidget').click(function () {
+				$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
+			});
+		});
+	</script>
+} else {
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$.downloadWidget('@userWidget.id_html}', @userWidget.id, '@sid');
+		});
+	</script>
+}
