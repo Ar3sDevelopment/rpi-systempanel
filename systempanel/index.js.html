@@ -2,12 +2,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	{include file="html_head.tpl" title="System Info Panel"}
+    @render('html_head', 'System Info Panel')
 </head>
 <body>
 	<div class="visible-xs visible-sm" style="height: 20px;">&nbsp;</div>
 	<div class="container">
-		{include file="menu.tpl" sid=@sid page="home" admin=@user.admin}
+	    @render('menu', sid, 'home', user.admin)
 		@{ var columns = 0; }
 		<div class="row">
 		@userWidgets.forEach(function (userWidget) {
@@ -23,6 +23,7 @@
 		        } else {
 		            <div class="col-md-@userWidget.widget.columns">
 		        }
+		        @render('widget', widget, sid)
 		        </div>
 		    }
         })

@@ -1,7 +1,5 @@
 var http = require('http');
 var socket_io = require('socket.io');
-var nodeStatic = require('node-static');
-var file = new nodeStatic.Server();
 var url = require('url');
 
 function dictionaryByEquals(source) {
