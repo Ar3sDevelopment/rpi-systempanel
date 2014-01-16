@@ -7,12 +7,12 @@ var mysql = require('mysql');
 
 function dictionaryByEquals(source) {
 	var dict = {};
-	
+
 	for (var c = 0; c < source.length; c++) {
 		var pair = source[c].split('=');
 		dict[pair[0]] = pair[1];
 	}
-	
+
 	return dict;
 }
 
@@ -28,7 +28,7 @@ function initPredefinedVariables(req, res, pre, cb) {
 			req.connection.destroy();
 		}
 	});
-	req.on('end', function () {
+	req.on('end', function() {
 		pre.post = dictionaryByEquals(body.split('&'));
 		cb();
 	});
@@ -51,71 +51,63 @@ function createUserWidgetFromSQLRow(row, cb) {
 	user_widget.widget.phpfile = row.phpfile;
 	user_widget.widget.folder = row.folder;
 	user_widget.widget.class_name = row.class_name;
-	
+
 	return user_widget;
 }
 
 function getUserWidget(json, sid, widget_id, post_params, cb) {
 	var mysqlJSON = require('./db_conn.json');
 	var connection = mysql.createConnection(mysqlJSON);
-	
-	connection.query('CALL GetUserInfo(?)', [sid], function (err, rows) {
-		if (!err) {
-			if (rows[0].length) {
-				connection.query('CALL LoadSettings(?)', [sid], function (err, rows) {
-					if (!err) {
-						var user_widget = null;
-						
-						for (var c = 0; c < rows[0].length && !user_widget; c++) {
-							if (rows[0][c].uwid == widget_id) {
-								user_widget = createUserWidgetFromSQLRow(rows[0][c]);
-							}
-						}
-						
-						if (user_widget) {
-							var folder = './' + user_widget.widget.folder;
-							var path = folder + '/' + user_widget.widget.phpfile + '.js';
-							var loaded_widget = require(path);
-							loaded_widget.manage_post(post_params, function (result, output) {
-								if (result) {
-									cb(200, 'text/plain', output);
-								} else {
-									loaded_widget.data(function (widget_data) {
-										if (json) {
-											cb(200, 'application/json', widget_data);									
-										} else {
-											Bliss = require('bliss');
-											bliss = new Bliss();
-											template = bliss.compileFile(folder + '/' + user_widget.widget.templatefile.replace('.tpl', ''));
-											output = template(widget_data, user_widget, sid);
-											cb(200, 'text/html', output);
-										}
-									});
-								}
-							});
-						} else {
-							cb(500, 'text/plain', '');
-						}
-					} else {
-						console.log(err);
-					}
-				});
+	var settings = require('../framework/settings.js');
+
+	settings.load(sid, function(user) {
+		var user_widget = null;
+
+		for (var c = 0; c < user.widgets.length && !user_widget; c++) { 
+			if (user.widgets[c].widget.id == widget_id) {
+				user_widget = user.widgets[c];
 			}
+		}
+
+		if (user_widget) {
+			var folder = './' + user_widget.widget.folder;
+			var path = folder + '/' + user_widget.widget.phpfile + '.js';
+			var loaded_widget = require(path);
+			loaded_widget.manage_post(post_params, function(result, output) {
+				if (result) {
+					cb(200, 'text/plain', output);
+				} else {
+					loaded_widget.data(function(widget_data) {
+						if (json) {
+							cb(200, 'application/json', widget_data);
+						} else {
+							Bliss = require('bliss');
+							bliss = new Bliss();
+							template = bliss.compileFile(folder + '/' + user_widget.widget.templatefile.replace('.tpl', ''));
+							output = template(widget_data, user_widget, sid);
+							cb(200, 'text/html', output);
+						}
+					});
+				}
+			});
 		} else {
-			console.log(err);
+			cb(500, 'text/plain', '');
 		}
 	});
+
 }
 
-var server = http.createServer(function (req, res) {
+var server = http.createServer(function(req, res) {
 	var pre = {};
-	initPredefinedVariables(req, res, pre, function () {
+	initPredefinedVariables(req, res, pre, function() {
 		var json = pre.post.json || false;
 		var sid = pre.post.sid;
 		var widget_id = pre.post["widget-id"];
-		
-		getUserWidget(json, sid, widget_id, pre_post, function (statusCode, contentType, output) {
-			res.writeHead(statusCode, { 'Content-Type': contentType });
+
+		getUserWidget(json, sid, widget_id, pre_post, function(statusCode, contentType, output) {
+			res.writeHead(statusCode, {
+				'Content-Type' : contentType
+			});
 			res.end(output);
 		});
 	});
@@ -125,11 +117,15 @@ server.listen(1337);
 
 var io = socket_io.listen(server);
 
-io.sockets.on('connection', function (socket) {
-  socket.on('requestdata', function (data) {
-  	getUserWidget(data.json, data.sid, data["widget-id"], {}, function (statusCode, contentType, output) {
-  		socket.emit('newdata', { output: output, statusCode: statusCode, contentType: contentType });
+io.sockets.on('connection', function(socket) {
+	socket.on('requestdata', function(data) {
+		getUserWidget(data.json, data.sid, data["widget-id"], {}, function(statusCode, contentType, output) {
+			socket.emit('newdata', {
+				output : output,
+				statusCode : statusCode,
+				contentType : contentType
+			});
+		});
+
 	});
-    
-  });
 });
