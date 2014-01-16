@@ -3,7 +3,6 @@ var socket_io = require('socket.io');
 var nodeStatic = require('node-static');
 var file = new nodeStatic.Server();
 var url = require('url');
-var mysql = require('mysql');
 
 function dictionaryByEquals(source) {
 	var dict = {};
@@ -56,8 +55,6 @@ function createUserWidgetFromSQLRow(row, cb) {
 }
 
 function getUserWidget(json, sid, widget_id, post_params, cb) {
-	var mysqlJSON = require('./db_conn.json');
-	var connection = mysql.createConnection(mysqlJSON);
 	var settings = require('../framework/settings.js');
 
 	settings.load(sid, function(user) {
