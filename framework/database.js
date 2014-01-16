@@ -234,6 +234,47 @@ exports.insertWidget = function(sid, title, folder, phpfile, classname, template
 	});
 };
 
+function createUserWidgetFromSQLRow(row, cb) {
+	var user_widget = {};
+	
+	user_widget.id = row.uwid;
+	user_widget.id_widget = row.wid;
+	user_widget.id_html = row.id_html;
+	user_widget.enabled = row.enabled;
+	user_widget.visible = row.visible;
+	user_widget.position = row.position;
+	user_widget.widget = {};
+	user_widget.widget.id = row.wid;
+	user_widget.widget.title = row.title;
+	user_widget.widget.updatetime = row.updatetime;
+	user_widget.widget.columns = row.columns;
+	user_widget.widget.templatefile = row.templatefile;
+	user_widget.widget.phpfile = row.phpfile;
+	user_widget.widget.folder = row.folder;
+	user_widget.widget.class_name = row.class_name;
+	
+	return user_widget;
+}
+
+exports.load = function(sid) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [sid];
+	
+	connection.query('CALL LoadSettings(?)', params, function (err, rows) {
+		if (!err) {
+			var userWidgets = [];
+			
+			for (var c = 0; c < rows[0].length && !user_widget; c++) {
+				if (rows[0][c].uwid == widget_id) {
+					userWidgets.push(createUserWidgetFromSQLRow(rows[0][c]));
+				}
+			}
+			
+			cb(userWidgets);
+		}
+	});
+};
+
 /*	
 		public function create_widget($sid, $widget)
 		{
@@ -291,51 +332,5 @@ exports.insertWidget = function(sid, title, folder, phpfile, classname, template
 			{
 				file_put_contents("", "../panelwidgets/$widget->folder/templates/$widget->templatefile");
 			}
-		}
-		
-		public function load($sid)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL LoadSettings(?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("s", $sid);
-			$stmt->execute();
-
-			$widgets = array();
-
-			if ($result = $stmt->get_result())
-			{				
-				while ($obj = $result->fetch_object())
-				{
-					$user_widget = new UserWidget();
-					$user_widget->widget = new Widget();
-				
-					$user_widget->id = $obj->uwid;
-					$user_widget->id_widget = $obj->wid;
-					$user_widget->id_html = $obj->id_html;
-					$user_widget->enabled = $obj->enabled;
-					$user_widget->visible = $obj->visible;
-					$user_widget->position = $obj->position;
-					$user_widget->widget->id = $obj->wid;
-					$user_widget->widget->title = $obj->title;
-					$user_widget->widget->updatetime = $obj->updatetime;
-					$user_widget->widget->columns = $obj->columns;
-					$user_widget->widget->templatefile = $obj->templatefile;
-					$user_widget->widget->phpfile = $obj->phpfile;
-					$user_widget->widget->folder = $obj->folder;
-					$user_widget->widget->class_name = $obj->class_name;
-					
-					$widgets[] = $user_widget;
-				}
-				
-				$result->close();
-			}
-			
-			$stmt->close();
-			$mysqli->close();
-			
-			return $widgets;
 		}
 		*/

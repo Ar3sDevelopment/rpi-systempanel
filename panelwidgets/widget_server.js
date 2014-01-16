@@ -52,7 +52,7 @@ function createUserWidgetFromSQLRow(row, cb) {
 	user_widget.widget.folder = row.folder;
 	user_widget.widget.class_name = row.class_name;
 	
-	cb(user_widget);
+	return user_widget;
 }
 
 function getUserWidget(json, sid, widget_id, post_params, cb) {
@@ -68,9 +68,7 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 						
 						for (var c = 0; c < rows[0].length && !user_widget; c++) {
 							if (rows[0][c].uwid == widget_id) {
-								createUserWidgetFromSQLRow(rows[0][c], function (uw) {
-									user_widget = uw;
-								});
+								user_widget = createUserWidgetFromSQLRow(rows[0][c]);
 							}
 						}
 						
