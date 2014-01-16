@@ -1,3 +1,4 @@
+var fs = require('fs');
 var mysql = require('mysql');
 var mysqlJSON = require('./db_conn.json');
 var crypto = require('crypto');
@@ -275,62 +276,53 @@ exports.load = function(sid) {
 	});
 };
 
-/*	
-		public function create_widget($sid, $widget)
-		{
-			$mysqli = $this->init_mysqli();
-			
-			$query = "CALL CreateWidget(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			$stmt = $mysqli->stmt_init();
-			$stmt->prepare($query);
-			$stmt->bind_param("iisssssii", $widget->columns,
-										$widget->updatetime,
-										$widget->title,
-										$widget->phpfile,
-										$widget->templatefile,
-										$widget->folder,
-										$widget->class_name,
-										$widget->version,
-										$widget->requireadmin);
-
-			print_r($stmt);
-
-			$stmt->execute();
-			$stmt->close();
-			
-			if (!file_exists("../panelwidgets/$widget->folder"))
-			{
-				mkdir("../panelwidgets/$widget->folder");
-			}
-			
-			if (!file_exists("../panelwidgets/$widget->folder/$widget->phpfile.widget.php"))
-			{
-				file_put_contents("../panelwidgets/$widget->folder/$widget->phpfile.widget.php", "<?php
-	require_once('../panelwidgets/abstract.widget.php');
-
-	class $widget->class_name" . "Widget extends AbstractWidget
-	{	
-		public function load() {
-			//TODO: Load widget here
+exports.createWidget = function(sid, widget) {
+	var connection = mysql.createConnection(mysqlJSON);
+	var params = [
+		columns,
+		updatetime,
+		title,
+		phpfile,
+		templatefile,
+		folder,
+		class_name,
+		version,
+		requireadmin
+	];
+	connection.query('CALL CreateWidget(?, ?, ?, ?, ?, ?, ?, ?, ?)', params, function (err, rows) {
+		if (!err) {
+			var folderPath = '../panelwidgets/' + widget.folder;
+			fs.exists(folderPath, function (exists) {
+				if (!exists) {
+					fs.mkdirSync(folderPath);
+				}
+				
+				var widgetFilePath = folderPath + '/' + widget.phpfile + '.js';
+				fs.exists(widgetFilePath, function (exists) {
+					if (!exists) {
+						fs.writeFileSync(widgetFilePath,"exports.data = function (cb) {\n" +
+													"	var util = require('util');\n" + 
+													"	var exec = require('child_process').exec;\n"
+													"	var res = {};" +
+													"	cb(res);" +
+													"};" +
+													"exports.manage_post = function(post, cb) {" +
+													"	cb(0, null);" +
+													"};");
+					}
+					
+					var widgetTemplateFilePath = folderPath + '/' + widget.templatefile + '.js.html';
+					fs.exists(widgetTemplateFilePath, function (exists) {
+						if (!exists) {
+							fs.writeFileSync(widgetTemplateFilePath,"@!(data, user_widget, sid)");
+						}
+						
+						cb(true);
+					});
+				});
+			});
+		} else {
+			cb(false);
 		}
-		
-		public function manage_post(\$post)
-		{
-			//TODO: Manage \$_POST here, return 0 for OK
-			return 0;
-		}
-	}
-?>");
-			}
-
-			if (!file_exists("../panelwidgets/$widget->folder/templates"))
-			{
-				mkdir("../panelwidgets/$widget->folder/templates");
-			}
-			
-			if (!file_exists("../panelwidgets/$widget->folder/templates"))
-			{
-				file_put_contents("", "../panelwidgets/$widget->folder/templates/$widget->templatefile");
-			}
-		}
-		*/
+	});
+};
