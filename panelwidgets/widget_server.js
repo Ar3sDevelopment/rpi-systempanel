@@ -33,27 +33,6 @@ function initPredefinedVariables(req, res, pre, cb) {
 	});
 }
 
-function createUserWidgetFromSQLRow(row, cb) {
-	user_widget = {};
-	user_widget.id = row.uwid;
-	user_widget.id_widget = row.wid;
-	user_widget.id_html = row.id_html;
-	user_widget.enabled = row.enabled;
-	user_widget.visible = row.visible;
-	user_widget.position = row.position;
-	user_widget.widget = {};
-	user_widget.widget.id = row.wid;
-	user_widget.widget.title = row.title;
-	user_widget.widget.updatetime = row.updatetime;
-	user_widget.widget.columns = row.columns;
-	user_widget.widget.templatefile = row.templatefile;
-	user_widget.widget.phpfile = row.phpfile;
-	user_widget.widget.folder = row.folder;
-	user_widget.widget.class_name = row.class_name;
-
-	return user_widget;
-}
-
 function getUserWidget(json, sid, widget_id, post_params, cb) {
 	var settings = require('../framework/settings.js');
 
