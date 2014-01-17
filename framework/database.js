@@ -236,7 +236,7 @@ exports.insertWidget = function(sid, title, folder, phpfile, classname, template
 };
 
 function createUserWidgetFromSQLRow(row, cb) {
-	var user_widget = {};
+	var user_widget = { widget: { } };
 	
 	user_widget.id = row.uwid;
 	user_widget.id_widget = row.wid;
@@ -244,7 +244,6 @@ function createUserWidgetFromSQLRow(row, cb) {
 	user_widget.enabled = row.enabled;
 	user_widget.visible = row.visible;
 	user_widget.position = row.position;
-	user_widget.widget = {};
 	user_widget.widget.id = row.wid;
 	user_widget.widget.title = row.title;
 	user_widget.widget.updatetime = row.updatetime;
@@ -265,10 +264,8 @@ exports.load = function(sid, cb) {
 		if (!err) {
 			var userWidgets = [];
 			
-			for (var c = 0; c < rows[0].length && !user_widget; c++) {
-				if (rows[0][c].uwid == widget_id) {
-					userWidgets.push(createUserWidgetFromSQLRow(rows[0][c]));
-				}
+			for (var c = 0; c < rows[0].length; c++) {
+				userWidgets.push(createUserWidgetFromSQLRow(rows[0][c]));
 			}
 			
 			cb(userWidgets);

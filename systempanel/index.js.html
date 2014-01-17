@@ -1,4 +1,4 @@
-@!(userWidgets, user, sid)
+@!(user, sid)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,25 +8,26 @@
 	<div class="visible-xs visible-sm" style="height: 20px;">&nbsp;</div>
 	<div class="container">
 	    @render('menu', sid, 'home', user.admin)
-		@{ var columns = 0; }
+		@{ var columns = 0; var widgets = user.widgets; }
 		<div class="row">
-		@userWidgets.forEach(function (userWidget) {
-		    @if (userWidget.enabled) {
-		        @{ columns += userWidget.widget.columns; }
-		        @if (columns > 12) {
-		            @{ columns = userWidget.widget.columns; }
-    		        </div>
-    		        <div class="row">
-		        }
-		        @if (!widget.visible) {
-		            <div class="col-md-@userWidget.widget.columns" style="display: none;">
-		        } else {
-		            <div class="col-md-@userWidget.widget.columns">
-		        }
-		        @render('widget', widget, sid)
-		        </div>
-		    }
-        })
+		    @for (var c = 0; c < widgets.length; c++) {
+		        @{ var userWidget = widgets[c]; }
+                @if (userWidget.enabled) {
+                    @{ columns += userWidget.widget.columns; }
+                    @if (columns > 12) {
+                        @{ columns = userWidget.widget.columns; }
+                        </div>
+                        <div class="row">
+                    }
+                    @if (!userWidget.visible) {
+                        <div class="col-md-@userWidget.widget.columns" style="display: none;">
+                    } else {
+                        <div class="col-md-@userWidget.widget.columns">
+                    }
+                    @render('widget', userWidget, sid)
+                    </div>
+                }
+            }
         </div>
 	</div>
 </body>

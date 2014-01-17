@@ -48,14 +48,13 @@ exports.load = function(sid, cb) {
 	db.getUserInfo(sid, function(user) {
 		if (user) {
 			user.logged = true;
-			db.load(sid, function (rows) {
-				user.widgets = rows;
+			db.load(sid, function (userWidgets) {
+				user.widgets = userWidgets;
 				
 				cb(user);
 			});
 		}
 	});
-
 };
 
 exports.save_user = function(sid, username, password, hash, cb) {

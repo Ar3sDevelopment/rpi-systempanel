@@ -1,4 +1,4 @@
-@!(userWidget)
+@!(userWidget, sid)
 <div class="panel panel-success" id="@userWidget.id_html">
 	<div class="panel-heading">
 		<button type="button" class="btn btn-link" data-toggle="hide" data-target="#{$widget->id_html} .panel-body">@userWidget.widget.title</button>
@@ -12,20 +12,16 @@
 	<div class="panel-body collapse in">
 	</div>
 </div>
-@if (userWidget.widget.updatetime > 0) {
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
-			
-			$('#{$widget->id_html} .panel-heading .refreshWidget').click(function () {
-				$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
-			});
-		});
-	</script>
-} else {
-	<script type="text/javascript">
-		$(document).ready(function () {
-			$.downloadWidget('@userWidget.id_html}', @userWidget.id, '@sid');
-		});
-	</script>
-}
+<script type="text/javascript">
+    $(document).ready(function () {
+        @if (userWidget.widget.updatetime > 0) {
+    		$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
+    			
+    		$('#@(userWidget.id_html) .panel-heading .refreshWidget').click(function () {
+    			$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
+    		});
+        } else {
+    		$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
+        }
+    });
+</script>

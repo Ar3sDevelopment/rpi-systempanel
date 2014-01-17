@@ -33,24 +33,33 @@ function initPredefinedVariables(req, res, pre, cb) {
 var server = http.createServer(function(req, res) {
 	var pre = {};
 	initPredefinedVariables(req, res, pre, function() {
+		console.log('pippo');
 		var sid = pre.get.sid;
-		//TODO: Verificare la validità della sessione
-		var settings = require('../framework/settings.js');
+		if (sid) {
+			//TODO: Verificare la validità della sessione
+			var settings = require('../framework/settings.js');
 
-		settings.load(sid, function(user) {
-			var widgets = user.widgets;
+			settings.load(sid, function(user) {
+				Bliss = require('bliss');
+				bliss = new Bliss();
+				template = bliss.compileFile('index');
+				output = template(user, sid);
 
-			Bliss = require('bliss');
-			bliss = new Bliss();
-			template = bliss.compileFile('index');
-			output = template(widgets, user, sid);
-
-			res.writeHead(200, {
-				'Content-Type' : 'text/html'
+				res.writeHead(200, {
+					'Content-Type' : 'text/html'
+				});
+				
+				console.log(output);
+				
+				res.end(output);
 			});
-			res.end(output);
-		});
+		} else {
+			res.writeHead(500, {
+				'Content-Type' : 'text/plain'
+			});
+			res.end();
+		}
 	});
 });
 
-server.listen(1338); 
+server.listen(1338);
