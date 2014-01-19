@@ -1,6 +1,7 @@
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
+var path = require('path');
 
 function dictionaryByEquals(source) {
 	var dict = {};
@@ -33,56 +34,63 @@ function initPredefinedVariables(req, res, pre, cb) {
 
 var server = http.createServer(function(req, res) {
 	var pre = {};
+	var mimeTypes = {
+		"html" : "text/html",
+		"jpeg" : "image/jpeg",
+		"jpg" : "image/jpeg",
+		"png" : "image/png",
+		"js" : "text/javascript",
+		"css" : "text/css",
+		"eot" : "application/vnd.ms-fontobject",
+		"svg" : "image/svg+xml",
+		"ttf" : "application/x-font-ttf",
+		"otf" : "application/x-font-opentype",
+		"woff" : "application/font-woff"
+	};
 	initPredefinedVariables(req, res, pre, function() {
-		console.log(__dirname + req.url);
-
-		if (req.url.indexOf('.js') != -1) {
-			fs.readFile(__dirname + req.url, function(err, data) {
-				if (err)
-					console.log(err);
-				res.writeHead(200, {
-					'Content-Type' : 'text/javascript'
-				});
-				console.log(data.length);
-				res.write(data);
-				res.end();
-			});
-		} else if (req.url.indexOf('.css') != -1) {
-			fs.readFile(__dirname + req.url, function(err, data) {
-				if (err)
-					console.log(err);
-				res.writeHead(200, {
-					'Content-Type' : 'text/css'
-				});
-				console.log(data.length);
-				res.write(data);
-				res.end();
-			});
-		} else {
-			var sid = pre.get.sid;
-			if (sid) {
-				//TODO: Verificare la validità della sessione
-				var settings = require('../framework/settings.js');
-
-				settings.load(sid, function(user) {
-					Bliss = require('bliss');
-					bliss = new Bliss();
-					template = bliss.compileFile('index');
-					output = template(user, sid);
-
-					res.writeHead(200, {
-						'Content-Type' : 'text/html'
-					});
-
-					res.end(output);
-				});
-			} else {
+		var uri = url.parse(req.url).pathname;
+		var filename = path.join(process.cwd(), uri);
+		fs.exists(filename, function(exists) {
+			if (!exists) {
 				res.writeHead(500, {
 					'Content-Type' : 'text/plain'
 				});
 				res.end();
+			} else {
+				fs.stat(filename, function(err, stats) {
+					if (stats.isDirectory()) {
+						var sid = pre.get.sid;
+						if (sid) {
+							//TODO: Verificare la validità della sessione
+							var settings = require('../framework/settings.js');
+
+							settings.load(sid, function(user) {
+								Bliss = require('bliss');
+								bliss = new Bliss();
+								template = bliss.compileFile('index');
+								output = template(user, sid);
+
+								res.writeHead(200, {
+									'Content-Type' : 'text/html'
+								});
+
+								res.end(output);
+							});
+						} else {
+							res.writeHead(500, {
+								'Content-Type' : 'text/plain'
+							});
+							res.end();
+						}
+					} else {
+						var mimeType = mimeTypes[path.extname(filename).split(".")[1]];
+						res.writeHead(200, mimeType);
+						var fileStream = fs.createReadStream(filename);
+						fileStream.pipe(res);
+					}
+				});
 			}
-		}
+		});
 	});
 });
 
