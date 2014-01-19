@@ -1,5 +1,6 @@
 var http = require('http');
 var url = require('url');
+var fs = require('fs');
 
 function dictionaryByEquals(source) {
 	var dict = {};
@@ -33,31 +34,54 @@ function initPredefinedVariables(req, res, pre, cb) {
 var server = http.createServer(function(req, res) {
 	var pre = {};
 	initPredefinedVariables(req, res, pre, function() {
-		console.log('pippo');
-		var sid = pre.get.sid;
-		if (sid) {
-			//TODO: Verificare la validità della sessione
-			var settings = require('../framework/settings.js');
+		console.log(__dirname + req.url);
 
-			settings.load(sid, function(user) {
-				Bliss = require('bliss');
-				bliss = new Bliss();
-				template = bliss.compileFile('index');
-				output = template(user, sid);
-
+		if (req.url.indexOf('.js') != -1) {
+			fs.readFile(__dirname + req.url, function(err, data) {
+				if (err)
+					console.log(err);
 				res.writeHead(200, {
-					'Content-Type' : 'text/html'
+					'Content-Type' : 'text/javascript'
 				});
-				
-				console.log(output);
-				
-				res.end(output);
+				console.log(data.length);
+				res.write(data);
+				res.end();
+			});
+		} else if (req.url.indexOf('.css') != -1) {
+			fs.readFile(__dirname + req.url, function(err, data) {
+				if (err)
+					console.log(err);
+				res.writeHead(200, {
+					'Content-Type' : 'text/css'
+				});
+				console.log(data.length);
+				res.write(data);
+				res.end();
 			});
 		} else {
-			res.writeHead(500, {
-				'Content-Type' : 'text/plain'
-			});
-			res.end();
+			var sid = pre.get.sid;
+			if (sid) {
+				//TODO: Verificare la validità della sessione
+				var settings = require('../framework/settings.js');
+
+				settings.load(sid, function(user) {
+					Bliss = require('bliss');
+					bliss = new Bliss();
+					template = bliss.compileFile('index');
+					output = template(user, sid);
+
+					res.writeHead(200, {
+						'Content-Type' : 'text/html'
+					});
+
+					res.end(output);
+				});
+			} else {
+				res.writeHead(500, {
+					'Content-Type' : 'text/plain'
+				});
+				res.end();
+			}
 		}
 	});
 });
