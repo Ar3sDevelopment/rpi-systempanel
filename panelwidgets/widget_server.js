@@ -92,14 +92,23 @@ server.listen(1337);
 var io = socket_io.listen(server);
 
 io.sockets.on('connection', function(socket) {
-	socket.on('requestdata', function(data) {
+	socket.on('request_new_data', function(data) {
 		getUserWidget(data.json, data.sid, data["widget-id"], {}, function(statusCode, contentType, output) {
-			socket.emit('newdata', {
+			socket.emit('updated_data', {
 				output : output,
 				statusCode : statusCode,
 				contentType : contentType
 			});
 		});
-
+	});
+	
+	socket.on('request_first_data', function(data) {
+		getUserWidget(data.json, data.sid, data["widget-id"], {}, function(statusCode, contentType, output) {
+			socket.emit('first_use_data', {
+				output : output,
+				statusCode : statusCode,
+				contentType : contentType
+			});
+		});
 	});
 });
