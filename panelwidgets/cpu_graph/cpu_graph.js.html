@@ -39,7 +39,7 @@
 			ticksMajor: { interval: 10, size: '10%' }
 		});
 		
-		$('#cpu_load_gauge').jqxGauge('setValue', @data.cpuload);
+		$('#cpu_load_gauge').jqxGauge('setValue', @(data.cpuload || 0));
 	
 		setTimeout(timeoutCPUGraphFunc, @user_widget.widget.updatetime);
 	});

@@ -8,12 +8,12 @@
 	function callbackTempGraphFunc(data)
 	{
 		$('#cpu_temp_gauge').jqxLinearGauge('value', data.cpu_temperature);
-		setTimeout(timeoutTempGraphFunc, @user_widget.widget.updatetime});
+		setTimeout(timeoutTempGraphFunc, @user_widget.widget.updatetime);
 	}
 	
 	function timeoutTempGraphFunc()
 	{
-		$.updateWidgetJson(@user_widget.id}, '@sid', callbackTempGraphFunc, null);
+		$.updateWidgetJson(@user_widget.id, '@sid', callbackTempGraphFunc, null);
 	}
 	
 	$(document).ready(function () {
@@ -39,8 +39,8 @@
 			]
 		});
 		
-		$('#cpu_temp_gauge').jqxLinearGauge('value', @data.temperature});
+		$('#cpu_temp_gauge').jqxLinearGauge('value', @(data.temperature || 0));
 	
-		setTimeout(timeoutTempGraphFunc, @user_widget.widget.updatetime});
+		setTimeout(timeoutTempGraphFunc, @user_widget.widget.updatetime);
 	});
 </script>

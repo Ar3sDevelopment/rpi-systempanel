@@ -37,7 +37,7 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 	settings.load(sid, function(user) {
 		var user_widget = null;
 
-		for (var c = 0; c < user.widgets.length && !user_widget; c++) { 
+		for (var c = 0; c < user.widgets.length && !user_widget; c++) {
 			if (user.widgets[c].id == widget_id) {
 				user_widget = user.widgets[c];
 			}
@@ -100,7 +100,7 @@ io.sockets.on('connection', function(socket) {
 			});
 		});
 	});
-	
+
 	socket.on('request_first_data', function(data) {
 		getUserWidget(data.json, data.sid, data.widget_id, {}, function(statusCode, contentType, output) {
 			socket.emit('first_use_data', {

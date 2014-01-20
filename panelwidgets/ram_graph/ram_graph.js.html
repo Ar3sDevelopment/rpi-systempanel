@@ -39,7 +39,7 @@
         
         setTimeout(function () {
 			updateRamPie();
-		}, 1000);
+		}, @user_widget.widget.updatetime);
 	});
 	
 	function updateRamPie() {
@@ -69,7 +69,7 @@
 	        complete: function () {
 	        	setTimeout(function () {
 					updateRamPie();
-				}, 1000);
+				}, @user_widget.widget.updatetime);
 	        }
 		});
 	}

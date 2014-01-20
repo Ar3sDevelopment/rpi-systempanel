@@ -15,7 +15,7 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#@user_widget.id_html} .btnSendCmd').click(function () {
+		$('#@user_widget.id_html .btnSendCmd').click(function () {
 			$.post('terminal', { widget_id: @user_widget.id, sid: '@sid', cmd: $('#@user_widget.id_html input[name="cmd"]').val() }, function (data) {
 				$('#@user_widget.id_html .terminal-output pre').text(data);
 			});
