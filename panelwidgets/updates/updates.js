@@ -10,7 +10,7 @@ exports.data = function (cb) {
 			var update = updates[c];
 			if (update) {
 				var matches = update.match("/^Inst (.*) \[(.*)\] \(([^s]*)\s.*\)/");
-				if (matches.length)
+				if (matches && matches.length)
 				{
 					res.updates.push({
 						name: matches[1],

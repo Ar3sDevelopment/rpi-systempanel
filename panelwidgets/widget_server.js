@@ -38,7 +38,7 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 		var user_widget = null;
 
 		for (var c = 0; c < user.widgets.length && !user_widget; c++) { 
-			if (user.widgets[c].widget.id == widget_id) {
+			if (user.widgets[c].id == widget_id) {
 				user_widget = user.widgets[c];
 			}
 		}
@@ -68,7 +68,6 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 			cb(500, 'text/plain', '');
 		}
 	});
-
 }
 
 var server = http.createServer(function(req, res) {
@@ -93,7 +92,7 @@ var io = socket_io.listen(server);
 
 io.sockets.on('connection', function(socket) {
 	socket.on('request_new_data', function(data) {
-		getUserWidget(data.json, data.sid, data["widget-id"], {}, function(statusCode, contentType, output) {
+		getUserWidget(data.json, data.sid, data.widget_id, {}, function(statusCode, contentType, output) {
 			socket.emit('updated_data', {
 				output : output,
 				statusCode : statusCode,
@@ -103,7 +102,7 @@ io.sockets.on('connection', function(socket) {
 	});
 	
 	socket.on('request_first_data', function(data) {
-		getUserWidget(data.json, data.sid, data["widget-id"], {}, function(statusCode, contentType, output) {
+		getUserWidget(data.json, data.sid, data.widget_id, {}, function(statusCode, contentType, output) {
 			socket.emit('first_use_data', {
 				output : output,
 				statusCode : statusCode,

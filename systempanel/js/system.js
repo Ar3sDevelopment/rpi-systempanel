@@ -20,9 +20,12 @@
 
 		$.downloadWidget = function(widget_id_html, widget_id, sid) {
 			var socket = io.connect('http://192.168.0.254:1337');
-			socket.on('first_use_data', function(statusCode, contentType, data) {
-				if (statusCode == 200) {
-					$('#' + widget_id_html + ' .panel-body').html(data);
+			socket.on('first_use_data', function(data) {
+				console.log(data.statusCode);
+				console.log(data.contentType);
+				console.log(data.output);
+				if (data.statusCode == 200) {
+					$('#' + widget_id_html + ' .panel-body').html(data.output);
 					if ($('#' + widget_id_html + '[data-only="true"]').length <= 0)
 						$('#' + widget_id_html).parent().show();
 				}
@@ -37,8 +40,11 @@
 		$.updateWidget = function(widget_id, sid, callback, postData, mode) {
 			var socket = io.connect('http://192.168.0.254:1337');
 			socket.on('updated_data', function(statusCode, contentType, data) {
-				if (statusCode == 200) {
-					callback(data);
+				console.log(statusCode);
+				console.log(contentType);
+				console.log(data);
+				if (data.statusCode == 200) {
+					callback(data.output);
 				}
 			});
 			var defData = {
