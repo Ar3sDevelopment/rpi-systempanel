@@ -1,4 +1,5 @@
-var http = require('http');
+var express = require('express');
+var app = express();
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
@@ -32,7 +33,7 @@ function initPredefinedVariables(req, res, pre, cb) {
 	});
 }
 
-var server = http.createServer(function(req, res) {
+app.all('*', function(req, res) {
 	var pre = {};
 	var mimeTypes = {
 		"html" : "text/html",
@@ -94,4 +95,4 @@ var server = http.createServer(function(req, res) {
 	});
 });
 
-server.listen(1338);
+app.listen(1338);
