@@ -93,7 +93,7 @@ var io = socket_io.listen(server);
 io.sockets.on('connection', function(socket) {
 	socket.on('request_new_data', function(data) {
 		getUserWidget(data.json, data.sid, data.widget_id, {}, function(statusCode, contentType, output) {
-			socket.emit('updated_data', {
+			socket.emit('updated_data_' + data.widget_id, {
 				output : output,
 				statusCode : statusCode,
 				contentType : contentType
@@ -103,7 +103,7 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('request_first_data', function(data) {
 		getUserWidget(data.json, data.sid, data.widget_id, {}, function(statusCode, contentType, output) {
-			socket.emit('first_use_data', {
+			socket.emit('first_use_data_' + data.widget_id, {
 				output : output,
 				statusCode : statusCode,
 				contentType : contentType
