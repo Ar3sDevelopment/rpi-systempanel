@@ -1,0 +1,14 @@
+{
+	"name": "cpu_graph",
+	"description": "CPU Graph Widget for System Information Panel",
+	"version": "0.6.0",
+	"keywords": ["system", "info", "panel", "raspberry", "pi", "rpi-systempanel", "widgets", "cpu_graph"],
+	"author": {
+		"name": "Matteo Bruni",
+		"email": "ar3shack@gmail.com"
+	},
+	"private": true,
+	"dependencies": {
+		"util": "*"
+	}
+}

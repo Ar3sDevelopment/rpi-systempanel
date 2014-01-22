@@ -1,0 +1,15 @@
+{
+	"name": "w_transmission",
+	"description": "Transmission Widget for System Information Panel",
+	"version": "0.6.0",
+	"keywords": ["system", "info", "panel", "raspberry", "pi", "rpi-systempanel", "widgets", "transmission"],
+	"author": {
+		"name": "Matteo Bruni",
+		"email": "ar3shack@gmail.com"
+	},
+	"private": true,
+	"dependencies": {
+		"util": "*",
+		"transmission": "*"
+	}
+}

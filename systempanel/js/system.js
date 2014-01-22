@@ -18,17 +18,29 @@
 			});
 		};
 
+		$.initSocket = function(socket) {
+			socket = io.connect('http://192.168.0.254:1337');
+
+			socket.on('first_use_data', $.manageFirstUseData);
+			socket.on('updated_data', $.manageUpdatedData);
+			return socket;
+		};
+
+		$.manageFirstUseData = function(data) {
+			if (data != null && data.statusCode == 200) {
+				$('#' + data.user_widget.id_html + ' .panel-body').html(data.output);
+				if ($('#' + data.user_widget.id_html + '[data-only="true"]').length <= 0)
+					$('#' + data.user_widget.id_html).parent().show();
+			}
+		};
+
+		$.manageUpdatedData = function(data) {
+			if (data != null && data.statusCode == 200 && data.callback != null && (typeof data.callback == "function")) {
+				data.callback(data.widget_id, data.output);
+			}
+		};
+
 		$.downloadWidget = function(widget_id_html, widget_id, sid) {
-			var socket = io.connect('http://192.168.0.254:1337');
-
-			socket.on('first_use_data_' + widget_id, function(data) {
-				if (data != null && data.statusCode == 200) {
-					$('#' + widget_id_html + ' .panel-body').html(data.output);
-					if ($('#' + widget_id_html + '[data-only="true"]').length <= 0)
-						$('#' + widget_id_html).parent().show();
-				}
-			});
-
 			socket.emit('request_first_data', {
 				json : false,
 				sid : sid,
@@ -37,18 +49,11 @@
 		};
 
 		$.updateWidget = function(widget_id, sid, callback, postData, mode) {
-			var socket = io.connect('http://192.168.0.254:1337');
-
-			socket.on('updated_data_' + widget_id, function(data) {
-				if (data != null && data.statusCode == 200) {
-					callback(data.output);
-				}
-			});
-
 			var defData = {
 				json : (mode == 'json'),
 				sid : sid,
-				widget_id : widget_id
+				widget_id : widget_id,
+				callback : callback
 			};
 			$.extend(defData, postData);
 			socket.emit('request_new_data', defData);

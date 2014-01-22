@@ -49,23 +49,23 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 			var loaded_widget = require(path);
 			loaded_widget.manage_post(post_params, function(result, output) {
 				if (result) {
-					cb(200, 'text/plain', output);
+					cb(user_widget, 200, 'text/plain', output);
 				} else {
 					loaded_widget.data(function(widget_data) {
 						if (json) {
-							cb(200, 'application/json', widget_data);
+							cb(user_widget, 200, 'application/json', widget_data);
 						} else {
 							Bliss = require('bliss');
 							bliss = new Bliss();
 							template = bliss.compileFile(folder + '/' + user_widget.widget.templatefile.replace('.tpl', ''));
 							output = template(widget_data, user_widget, sid);
-							cb(200, 'text/html', output);
+							cb(user_widget, 200, 'text/html', output);
 						}
 					});
 				}
 			});
 		} else {
-			cb(500, 'text/plain', '');
+			cb(user_widget, 500, 'text/plain', '');
 		}
 	});
 }
@@ -77,7 +77,7 @@ var server = http.createServer(function(req, res) {
 		var sid = pre.post.sid;
 		var widget_id = pre.post["widget-id"];
 
-		getUserWidget(json, sid, widget_id, pre_post, function(statusCode, contentType, output) {
+		getUserWidget(json, sid, widget_id, pre_post, function(user_widget, statusCode, contentType, output) {
 			res.writeHead(statusCode, {
 				'Content-Type' : contentType
 			});
@@ -92,9 +92,10 @@ var io = socket_io.listen(server);
 
 io.sockets.on('connection', function(socket) {
 	socket.on('request_new_data', function(data) {
-		getUserWidget(data.json, data.sid, data.widget_id, {}, function(statusCode, contentType, output) {
-			socket.emit('updated_data_' + data.widget_id, {
+		getUserWidget(data.json, data.sid, data.widget_id, {}, function(user_widget, statusCode, contentType, output) {
+			socket.emit('updated_data', {
 				output : output,
+				user_widget : user_widget,
 				statusCode : statusCode,
 				contentType : contentType
 			});
@@ -103,10 +104,12 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('request_first_data', function(data) {
 		getUserWidget(data.json, data.sid, data.widget_id, {}, function(statusCode, contentType, output) {
-			socket.emit('first_use_data_' + data.widget_id, {
+			socket.emit('first_use_data', {
 				output : output,
+				user_widget : user_widget,
 				statusCode : statusCode,
-				contentType : contentType
+				contentType : contentType,
+				callback : data.callback
 			});
 		});
 	});
