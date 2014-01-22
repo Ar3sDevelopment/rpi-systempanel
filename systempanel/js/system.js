@@ -38,8 +38,8 @@
 
 		$.updateWidget = function(widget_id, sid, callback, postData, mode) {
 			var socket = io.connect('http://192.168.0.254:1337');
-			
-			socket.on('updated_data_' + widget_id, function(statusCode, contentType, data) {
+
+			socket.on('updated_data_' + widget_id, function(data) {
 				if (data != null && data.statusCode == 200) {
 					callback(data.output);
 				}
@@ -55,10 +55,12 @@
 		};
 
 		$.updateWidgetJson = function(widget_id, sid, callback, postData) {
+			console.log('update json');
 			$.updateWidget(widget_id, sid, callback, postData, 'json');
 		};
 
 		$.updateWidgetHtml = function(widget_id, sid, callback, postData) {
+			console.log('update html');
 			$.updateWidget(widget_id, sid, callback, postData, 'html');
 		};
 
