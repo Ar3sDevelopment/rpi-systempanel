@@ -48,7 +48,7 @@
         };
         
         var dataAdapter = new $.jqx.dataAdapter(source);
-        $("#@user_widget.id_html .disks_grid").jqxGrid(
+        $("#@(user_widget.id_html) .disks_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
         	autoshowloadelement: false,
@@ -75,7 +75,7 @@
 	});
 	
 	function updateDiskGrid() {
-		$("#@user_widget.id_html .disks_grid").jqxGrid('updatebounddata', 'cells');
+		$("#@(user_widget.id_html) .disks_grid").jqxGrid('updatebounddata', 'cells');
 		
 		setTimeout(function () {
 			updateDiskGrid();

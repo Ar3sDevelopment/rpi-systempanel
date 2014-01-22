@@ -32,7 +32,7 @@
 	
 	function timeoutSysInfoFunc()
 	{
-		$.updateWidgetJson(@user_widget.id, '@sid', callbackSysInfoFunc, null);
+		$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackSysInfoFunc, null);
 	}
 	
 	$(document).ready(function () {

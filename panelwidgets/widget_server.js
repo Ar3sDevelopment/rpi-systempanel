@@ -103,7 +103,7 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('request_first_data', function(data) {
-		getUserWidget(data.json, data.sid, data.widget_id, {}, function(statusCode, contentType, output) {
+		getUserWidget(data.json, data.sid, data.widget_id, {}, function(user_widget, statusCode, contentType, output) {
 			socket.emit('first_use_data', {
 				output : output,
 				user_widget : user_widget,

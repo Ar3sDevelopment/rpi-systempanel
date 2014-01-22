@@ -1,11 +1,11 @@
 @!(userWidget, sid)
 <div class="panel panel-success" id="@userWidget.id_html">
 	<div class="panel-heading">
-		<button type="button" class="btn btn-link" data-toggle="hide" data-target="#{$widget->id_html} .panel-body">@userWidget.widget.title</button>
+		<button type="button" class="btn btn-link" data-toggle="hide" data-target="#@userWidget.id_html .panel-body">@userWidget.widget.title</button>
 		@if (userWidget.widget.updatetime > 0) {
 			<button type="button" class="btn btn-link pull-right refreshWidget"><span class="glyphicon glyphicon-refresh"></span></button>
 		}
-		<button type="button" class="btn btn-link pull-right" data-toggle="collapse" data-target="#{$widget->id_html} .panel-body">
+		<button type="button" class="btn btn-link pull-right" data-toggle="collapse" data-target="#@userWidget.id_html .panel-body">
 			<span class="glyphicon glyphicon-chevron-up"></span><span class="glyphicon glyphicon-chevron-down"></span>
 		</button>
 	</div>
@@ -15,13 +15,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         @if (userWidget.widget.updatetime > 0) {
-    		$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
+    		$.downloadWidget(socket, '@userWidget.id_html', @userWidget.id, '@sid');
     			
     		$('#@(userWidget.id_html) .panel-heading .refreshWidget').click(function () {
-    			$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
+    			$.downloadWidget(socket, '@userWidget.id_html', @userWidget.id, '@sid');
     		});
         } else {
-    		$.downloadWidget('@userWidget.id_html', @userWidget.id, '@sid');
+    		$.downloadWidget(socket, '@userWidget.id_html', @userWidget.id, '@sid');
         }
     });
 </script>

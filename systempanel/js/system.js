@@ -18,11 +18,13 @@
 			});
 		};
 
-		$.initSocket = function(socket) {
-			socket = io.connect('http://192.168.0.254:1337');
+		$.initSocket = function(socket, url, port) {
+			var sockurl = 'http://' + url + ':' + port;
+			socket = io.connect(sockurl);
 
 			socket.on('first_use_data', $.manageFirstUseData);
 			socket.on('updated_data', $.manageUpdatedData);
+
 			return socket;
 		};
 
@@ -35,12 +37,12 @@
 		};
 
 		$.manageUpdatedData = function(data) {
-			if (data != null && data.statusCode == 200 && data.callback != null && (typeof data.callback == "function")) {
+			if (data != null && data.statusCode == 200 && data.callback != null && ( typeof data.callback == "function")) {
 				data.callback(data.widget_id, data.output);
 			}
 		};
 
-		$.downloadWidget = function(widget_id_html, widget_id, sid) {
+		$.downloadWidget = function(socket, widget_id_html, widget_id, sid) {
 			socket.emit('request_first_data', {
 				json : false,
 				sid : sid,
@@ -48,7 +50,7 @@
 			});
 		};
 
-		$.updateWidget = function(widget_id, sid, callback, postData, mode) {
+		$.updateWidget = function(socket, widget_id, sid, callback, postData, mode) {
 			var defData = {
 				json : (mode == 'json'),
 				sid : sid,
@@ -60,12 +62,10 @@
 		};
 
 		$.updateWidgetJson = function(widget_id, sid, callback, postData) {
-			console.log('update json');
 			$.updateWidget(widget_id, sid, callback, postData, 'json');
 		};
 
 		$.updateWidgetHtml = function(widget_id, sid, callback, postData) {
-			console.log('update html');
 			$.updateWidget(widget_id, sid, callback, postData, 'html');
 		};
 

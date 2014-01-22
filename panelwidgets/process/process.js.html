@@ -17,7 +17,7 @@
             root: 'procs',
             data: {
             	widget_id: @user_widget.id,
-            	sid: '{$sid}',
+            	sid: '@sid',
             	json: true,
             	featureClass: "P",
                 style: "full",
@@ -34,7 +34,7 @@
         };
         
         var dataAdapter = new $.jqx.dataAdapter(source);
-        $("#@user_widget.id_html .process_grid").jqxGrid(
+        $("#@(user_widget.id_html) .process_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
         	autoshowloadelement: false,
@@ -59,7 +59,7 @@
 	});
 	
 	function updateProcessGrid() {
-		$("#@user_widget.id_html .process_grid").jqxGrid('updatebounddata', 'cells');
+		$("#@(user_widget.id_html) .process_grid").jqxGrid('updatebounddata', 'cells');
 		
 		setTimeout(function () {
 			updateProcessGrid();

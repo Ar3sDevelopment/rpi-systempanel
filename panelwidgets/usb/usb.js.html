@@ -27,12 +27,12 @@
 <script type="text/javascript">
 	function callbackUSBFunc(data)
     {
-        $('#@user_widget.id_html .panel-body').html(data);
+        $('#@(user_widget.id_html) .panel-body').html(data);
     }
 
     $(document).ready(function () {
         setTimeout(function () {
-        $.updateWidgetHtml(@user_widget.id, '@sid', callbackUSBFunc, null);
+        $.updateWidgetHtml(socket, @user_widget.id, '@sid', callbackUSBFunc, null);
         }, @user_widget.widget.updatetime);
     });
 </script>

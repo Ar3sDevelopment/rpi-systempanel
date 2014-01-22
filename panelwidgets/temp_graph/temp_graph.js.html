@@ -13,7 +13,7 @@
 	
 	function timeoutTempGraphFunc()
 	{
-		$.updateWidgetJson(@user_widget.id, '@sid', callbackTempGraphFunc, null);
+		$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackTempGraphFunc, null);
 	}
 	
 	$(document).ready(function () {

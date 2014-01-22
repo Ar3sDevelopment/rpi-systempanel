@@ -69,7 +69,9 @@ app.all('*', function(req, res) {
 								Bliss = require('bliss');
 								bliss = new Bliss();
 								template = bliss.compileFile('index');
-								output = template(user, sid);
+								var current_url = req.headers.host.split(':')[0];
+								var socket_port = 1337;
+								output = template(user, sid, current_url, socket_port);
 
 								res.writeHead(200, {
 									'Content-Type' : 'text/html'

@@ -49,7 +49,7 @@
 	
 	function timeoutCPUFunc()
 	{
-		$.updateWidgetJson(@user_widget.id, '@sid', callbackCPUFunc, null);
+		$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackCPUFunc, null);
 	}
 	
 	$(document).ready(function () {

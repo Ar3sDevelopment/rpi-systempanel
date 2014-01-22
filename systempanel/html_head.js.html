@@ -1,4 +1,4 @@
-@!(title)
+@!(title, url, port)
 <meta charset="UTF-8">
 <title>@title</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,7 +27,9 @@
 <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
+    var socket;
 	$(document).ready(function () {
+	    socket = $.initSocket(socket, '@url', @port);
 		$.initPanelCollapse();
 	});
 </script>
