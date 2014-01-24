@@ -37,8 +37,8 @@
 		};
 
 		$.manageUpdatedData = function(data) {
-			if (data != null && data.statusCode == 200 && data.callback != null && ( typeof data.callback == "function")) {
-				data.callback(data.widget_id, data.output);
+			if (data != null && data.statusCode == 200 && data.callback != null && ( typeof window[data.callback] == "function")) {
+				window[data.callback](data.output);
 			}
 		};
 
@@ -55,18 +55,18 @@
 				json : (mode == 'json'),
 				sid : sid,
 				widget_id : widget_id,
-				callback : callback
+				callback : callback.name
 			};
 			$.extend(defData, postData);
 			socket.emit('request_new_data', defData);
 		};
 
-		$.updateWidgetJson = function(widget_id, sid, callback, postData) {
-			$.updateWidget(widget_id, sid, callback, postData, 'json');
+		$.updateWidgetJson = function(socket, widget_id, sid, callback, postData) {
+			$.updateWidget(socket, widget_id, sid, callback, postData, 'json');
 		};
 
-		$.updateWidgetHtml = function(widget_id, sid, callback, postData) {
-			$.updateWidget(widget_id, sid, callback, postData, 'html');
+		$.updateWidgetHtml = function(socket, widget_id, sid, callback, postData) {
+			$.updateWidget(socket, widget_id, sid, callback, postData, 'html');
 		};
 
 		//TODO: Think about making AJAX Form jQuery plugin

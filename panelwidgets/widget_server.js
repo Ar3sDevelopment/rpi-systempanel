@@ -88,7 +88,7 @@ var server = http.createServer(function(req, res) {
 
 server.listen(1337);
 
-var io = socket_io.listen(server);
+var io = socket_io.listen(server, { log: false });
 
 io.sockets.on('connection', function(socket) {
 	socket.on('request_new_data', function(data) {
@@ -97,7 +97,8 @@ io.sockets.on('connection', function(socket) {
 				output : output,
 				user_widget : user_widget,
 				statusCode : statusCode,
-				contentType : contentType
+				contentType : contentType,
+				callback : data.callback
 			});
 		});
 	});
@@ -109,7 +110,6 @@ io.sockets.on('connection', function(socket) {
 				user_widget : user_widget,
 				statusCode : statusCode,
 				contentType : contentType,
-				callback : data.callback
 			});
 		});
 	});
