@@ -1,4 +1,4 @@
-( function($) {
+var updatingWidgets = []; ( function($) {
 		$.initPanelCollapse = function() {
 			$('.panel-heading .btn-link[data-toggle="hide"]').click(function() {
 				if (!$(this).data('only') || ($(this).data('only') == false)) {
@@ -50,19 +50,23 @@
 			});
 		};
 
-		$.startUpdatingWidget = function (socket, widget_id, sid, callback, postData, mode) {
-			var defData = {
-				json : (mode == 'json'),
-				sid : sid,
-				widget_id : widget_id
-			};
-			$.extend(defData, postData);
-			socket.on('updated_data_' + widget_id, function (data) {
-				if (data != null && data.statusCode == 200 && callback != null) {
-					callback(data.output)
-				}
-			});
-			socket.emit('request_updating', defData);
+		$.startUpdatingWidget = function(socket, widget_id, sid, callback, postData, mode) {
+			if ($.inArray(widget_id, updatingWidgets) == -1) {
+				updatingWidgets.push(widget_id);
+				var defData = {
+					json : (mode == 'json'),
+					sid : sid,
+					widget_id : widget_id
+				};
+				$.extend(defData, postData);
+				socket.on('updated_data_' + widget_id, function(data) {
+					if (data != null && data.statusCode == 200 && callback != null) {
+						callback(data.output);
+					}
+				});
+				socket.emit('request_updating', defData);
+			} else {
+			}
 		};
 
 		$.startUpdatingWidgetJson = function(socket, widget_id, sid, callback, postData) {

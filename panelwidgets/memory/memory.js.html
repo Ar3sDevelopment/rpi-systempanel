@@ -103,7 +103,7 @@
 		$('#percent_swap_free_progress .progress div').css({ width: data.percent_swap_free + '%' }).prop('aria-valuenow', data.percent_swap_free)
 		$('#percent_swap_free').html(data.percent_swap_free + ' %');
 		
-		setTimeout(timeoutRAMFunc, @user_widget.widget.updatetime);
+		//setTimeout(timeoutRAMFunc, @user_widget.widget.updatetime);
 	}
 	
 	function timeoutRAMFunc()
