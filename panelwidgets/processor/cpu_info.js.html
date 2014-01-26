@@ -44,16 +44,16 @@
 		$('#cpuload').html(data.cpuload + ' %');
 		$('#cpuload_percent .progress div').css({ width: data.cpuload + '%' }).prop('aria-valuenow', data.cpuload)
 		$('#cpu_temperature').html(data.cpu_temperature + '&deg;C');
-		setTimeout(timeoutCPUFunc, @user_widget.widget.updatetime);
+		//setTimeout(timeoutCPUFunc, @user_widget.widget.updatetime);
 	}
 	
 	function timeoutCPUFunc()
 	{
-		$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackCPUFunc, null);
+	    $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackCPUFunc, null);
+		//$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackCPUFunc, null);
 	}
 	
 	$(document).ready(function () {
-	
 		setTimeout(timeoutCPUFunc, @user_widget.widget.updatetime);
 	});
 </script>

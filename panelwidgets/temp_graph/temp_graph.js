@@ -4,7 +4,9 @@ exports.data = function(cb) {
 	var res = {};
 
 	exec("cat /sys/class/thermal/thermal_zone0/temp", function(err, stdout, stderr) {
-		res.cpu_temperature = Math.round(stdout / 1000).toFixed(1);
+		if (!err) {
+			res.cpu_temperature = Math.round(stdout / 1000).toFixed(1);
+		}
 
 		cb(res);
 	});
@@ -12,4 +14,4 @@ exports.data = function(cb) {
 
 exports.manage_post = function(post, cb) {
 	cb(0, null);
-}; 
+};

@@ -35,35 +35,44 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 	var settings = require('../framework/settings.js');
 
 	settings.load(sid, function(user) {
-		var user_widget = null;
+		if (user != null) {
+			var user_widget = null;
 
-		for (var c = 0; c < user.widgets.length && !user_widget; c++) {
-			if (user.widgets[c].id == widget_id) {
-				user_widget = user.widgets[c];
-			}
-		}
-
-		if (user_widget) {
-			var folder = './' + user_widget.widget.folder;
-			var path = folder + '/' + user_widget.widget.phpfile + '.js';
-			var loaded_widget = require(path);
-			loaded_widget.manage_post(post_params, function(result, output) {
-				if (result) {
-					cb(user_widget, 200, 'text/plain', output);
-				} else {
-					loaded_widget.data(function(widget_data) {
-						if (json) {
-							cb(user_widget, 200, 'application/json', widget_data);
-						} else {
-							Bliss = require('bliss');
-							bliss = new Bliss();
-							template = bliss.compileFile(folder + '/' + user_widget.widget.templatefile.replace('.tpl', ''));
-							output = template(widget_data, user_widget, sid);
-							cb(user_widget, 200, 'text/html', output);
-						}
-					});
+			for (var c = 0; c < user.widgets.length && !user_widget; c++) {
+				if (user.widgets[c].id == widget_id) {
+					user_widget = user.widgets[c];
 				}
-			});
+			}
+
+			if (user_widget) {
+				var folder = './' + user_widget.widget.folder;
+				var path = folder + '/' + user_widget.widget.phpfile + '.js';
+				var loaded_widget = require(path);
+				console.log(path);
+				loaded_widget.manage_post(post_params, function(result, output) {
+					if (result) {
+						cb(user_widget, 200, 'text/plain', output);
+					} else {
+						loaded_widget.data(function(widget_data) {
+							if (widget_data != null) {
+								if (json) {
+									cb(user_widget, 200, 'application/json', widget_data);
+								} else {
+									Bliss = require('bliss');
+									bliss = new Bliss();
+									template = bliss.compileFile(folder + '/' + user_widget.widget.templatefile.replace('.tpl', ''));
+									output = template(widget_data, user_widget, sid);
+									cb(user_widget, 200, 'text/html', output);
+								}
+							} else {
+								cb(user_widget, 500, 'text/plain', '');
+							}
+						});
+					}
+				});
+			} else {
+				cb(user_widget, 500, 'text/plain', '');
+			}
 		} else {
 			cb(user_widget, 500, 'text/plain', '');
 		}
@@ -71,24 +80,57 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 }
 
 var server = http.createServer(function(req, res) {
-	var pre = {};
-	initPredefinedVariables(req, res, pre, function() {
-		var json = pre.post.json || false;
-		var sid = pre.post.sid;
-		var widget_id = pre.post["widget-id"];
+	/*var pre = {};
+	 initPredefinedVariables(req, res, pre, function() {
+	 var json = pre.post.json || false;
+	 var sid = pre.post.sid;
+	 var widget_id = pre.post["widget-id"];
 
-		getUserWidget(json, sid, widget_id, pre_post, function(user_widget, statusCode, contentType, output) {
-			res.writeHead(statusCode, {
-				'Content-Type' : contentType
-			});
-			res.end(output);
-		});
+	 getUserWidget(json, sid, widget_id, pre_post, function(user_widget, statusCode, contentType, output) {
+	 res.writeHead(statusCode, {
+	 'Content-Type' : contentType
+	 });
+	 res.end(output);
+	 });
+	 })*/;
+	res.writeHead(200, {
+		'Content-Type' : 'text/html'
 	});
+	res.end()
 });
 
 server.listen(1337);
 
-var io = socket_io.listen(server, { log: false });
+var io = socket_io.listen(server, {
+	log : false
+});
+
+function widgetUpdatingCallback(socket, data, old_user_widget) {
+	getUserWidget(data.json, data.sid, data.widget_id, {}, function(user_widget, statusCode, contentType, output) {
+		socket.emit('updated_data_' + data.widget_id, {
+			output : output,
+			user_widget : user_widget,
+			statusCode : statusCode,
+			contentType : contentType
+		});
+
+		if (user_widget == null) {
+			user_widget = old_user_widget;
+			if (user_widget == null) {
+				user_widget = {
+					widget : {
+						updatetime : 1000
+					}
+				};
+			}
+		}
+		if (user_widget.widget.updatetime > 0) {
+			setTimeout(function() {
+				widgetUpdatingCallback(socket, data, user_widget);
+			}, user_widget.widget.updatetime);
+		}
+	});
+}
 
 io.sockets.on('connection', function(socket) {
 	socket.on('request_new_data', function(data) {
@@ -101,6 +143,10 @@ io.sockets.on('connection', function(socket) {
 				callback : data.callback
 			});
 		});
+	});
+
+	socket.on('request_updating', function(data) {
+		widgetUpdatingCallback(socket, data, null);
 	});
 
 	socket.on('request_first_data', function(data) {

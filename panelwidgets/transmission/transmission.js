@@ -10,22 +10,28 @@ exports.data = function(cb) {
 	});
 
 	transmission.sessionStats(function(err, stats_result) {
-		res.total_torrents = stats_result.torrentCount;
-		res.active_torrents = stats_result.activeTorrentCount;
+		if (!err) {
+			res.total_torrents = stats_result.torrentCount;
+			res.active_torrents = stats_result.activeTorrentCount;
 
-		transmission.get(function(err, get_results) {
-			var statuses = {};
+			transmission.get(function(err, get_results) {
+				if (!err) {
+					var statuses = {};
 
-			for (var c = 0; c < get_results.torrents; c++) {
-				var torrent = get_results.torrents[c];
-				statuses[torrent.status] = statuses[torrent.status] + 1;
-			}
+					for (var c = 0; c < get_results.torrents; c++) {
+						var torrent = get_results.torrents[c];
+						statuses[torrent.status] = statuses[torrent.status] + 1;
+					}
 
-			res.downloading_torrents = statuses[4] || 0;
-			res.seeding_torrents = statuses[6] || 0;
+					res.downloading_torrents = statuses[4] || 0;
+					res.seeding_torrents = statuses[6] || 0;
+				}
 
+				cb(res);
+			});
+		} else {
 			cb(res);
-		});
+		}
 	});
 };
 
@@ -63,4 +69,4 @@ exports.manage_post = function(post, cb) {
 	}
 
 	cb(0);
-}; 
+};

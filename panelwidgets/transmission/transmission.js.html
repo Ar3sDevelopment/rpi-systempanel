@@ -38,7 +38,8 @@
 		});
 		
 		setTimeout(function () {
-			$.updateWidgetHtml(socket, @user_widget.id, '@sid', callbackTransmissionFunc, null);
+		    $.startUpdatingWidgetHtml(socket, @user_widget.id, '@sid', callbackTransmissionFunc, null);
+			//$.updateWidgetHtml(socket, @user_widget.id, '@sid', callbackTransmissionFunc, null);
 		}, @user_widget.widget.updatetime);
 	});
 </script>

@@ -50,6 +50,29 @@
 			});
 		};
 
+		$.startUpdatingWidget = function (socket, widget_id, sid, callback, postData, mode) {
+			var defData = {
+				json : (mode == 'json'),
+				sid : sid,
+				widget_id : widget_id
+			};
+			$.extend(defData, postData);
+			socket.on('updated_data_' + widget_id, function (data) {
+				if (data != null && data.statusCode == 200 && callback != null) {
+					callback(data.output)
+				}
+			});
+			socket.emit('request_updating', defData);
+		};
+
+		$.startUpdatingWidgetJson = function(socket, widget_id, sid, callback, postData) {
+			$.startUpdatingWidget(socket, widget_id, sid, callback, postData, 'json');
+		};
+
+		$.startUpdatingWidgetHtml = function(socket, widget_id, sid, callback, postData) {
+			$.startUpdatingWidget(socket, widget_id, sid, callback, postData, 'html');
+		};
+
 		$.updateWidget = function(socket, widget_id, sid, callback, postData, mode) {
 			var defData = {
 				json : (mode == 'json'),

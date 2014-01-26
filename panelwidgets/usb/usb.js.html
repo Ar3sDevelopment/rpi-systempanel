@@ -32,7 +32,8 @@
 
     $(document).ready(function () {
         setTimeout(function () {
-        $.updateWidgetHtml(socket, @user_widget.id, '@sid', callbackUSBFunc, null);
+            $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUSBFunc, null);
+            //$.updateWidgetHtml(socket, @user_widget.id, '@sid', callbackUSBFunc, null);
         }, @user_widget.widget.updatetime);
     });
 </script>

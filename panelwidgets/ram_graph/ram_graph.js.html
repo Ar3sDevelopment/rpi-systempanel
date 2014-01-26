@@ -5,7 +5,7 @@
 	</div>
 </div>
 <script type="text/javascript">
-	var source = [];
+	var sourceRamGraph = [];
     $(document).ready(function () {
         var settings = {
             title: "Ram Usage",
@@ -14,7 +14,7 @@
             showLegend: false,
             padding: { left: 5, top: 5, right: 5, bottom: 5 },
             titlePadding: { left: 0, top: 0, right: 0, bottom: 10 },
-            source: source,
+            source: sourceRamGraph,
             colorScheme: 'scheme02',
             seriesGroups: [
                 {
@@ -37,40 +37,30 @@
         
         $('#ram_load_pie').jqxChart(settings);
         
-        setTimeout(function () {
-			updateRamPie();
-		}, @user_widget.widget.updatetime);
+        setTimeout(timeoutRamGraphFunc, @user_widget.widget.updatetime);
 	});
 	
-	function updateRamPie() {
-		var data = {
-        	sid: 'uhcnvs3v2778obv701rv260376',
-        	json: true,
-        	widget_id: 30
-		};
-		
-		$.ajax({
-			url: 'ram_graph',
-	        type: 'POST',
-	        data: data,
-	        success: function (data) {
-	        	if (source.length <= 0) {
-	        		source.push(data.ram_usages[0]);
-	        		source.push(data.ram_usages[1]);
-	        	} else {
-	        		if (source[0].ram_percent != data.ram_usages[0].ram_percent) {
-		        		source[0].ram_percent = data.ram_usages[0].ram_percent;
-		        		source[1].ram_percent = data.ram_usages[1].ram_percent;
-	        		}
-	        	}
-	        	
-	        	$("#ram_load_pie").jqxChart('update');
-	        },
-	        complete: function () {
-	        	setTimeout(function () {
-					updateRamPie();
-				}, @user_widget.widget.updatetime);
-	        }
-		});
-	}
+    function callbackRamGraphFunc(data)
+    {
+        if (sourceRamGraph.length <= 0) {
+            sourceRamGraph.push(data.ram_usages[0]);
+            sourceRamGraph.push(data.ram_usages[1]);
+        } else {
+            if (sourceRamGraph[0].ram_percent != data.ram_usages[0].ram_percent) {
+                sourceRamGraph[0].ram_percent = data.ram_usages[0].ram_percent;
+                sourceRamGraph[1].ram_percent = data.ram_usages[1].ram_percent;
+            }
+        }
+        
+        $("#ram_load_pie").jqxChart('update');
+        
+        //setTimeout(timeoutRamGraphFunc, @user_widget.widget.updatetime);
+    }
+    
+    function timeoutRamGraphFunc()
+    {
+        $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackRamGraphFunc, null);
+        
+        //$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackRamGraphFunc, null);
+    }
 </script>

@@ -1,21 +1,20 @@
 @!(data, user_widget, sid)
 <div class="disks_grid"></div>
 <script type="text/javascript">
+    var sourceDisks = {
+        datatype: "array",
+        localdata: [],
+        datafields: [
+            { name: 'mount' },
+            { name: 'typex' },
+            { name: 'size'},
+            { name: 'avail' },
+            { name: 'used' },
+            { name: 'percent_avail', type: 'float' },
+            { name: 'percent_used', type: 'float' }
+        ]
+    };
     $(document).ready(function () {
-        var source = {
-            datatype: "array",
-            localdata: [],
-            datafields: [
-                { name: 'mount' },
-                { name: 'typex' },
-                { name: 'size'},
-                { name: 'avail' },
-                { name: 'used' },
-                { name: 'percent_avail', type: 'float' },
-                { name: 'percent_used', type: 'float' }
-            ]
-        };
-        
         var percentagerenderer = function (row, column, value) {
             var progress_type = 'danger';
             
@@ -35,7 +34,7 @@
             return '<div style="overflow: hidden; text-overflow: ellipsis; padding-bottom: 2px; text-align: left; margin-right: 2px; margin-left: 4px; margin-top: 4px;">' + value + 'B</div>';
         };
         
-        var dataAdapter = new $.jqx.dataAdapter(source);
+        var dataAdapter = new $.jqx.dataAdapter(sourceDisks);
         
         $("#@(user_widget.id_html) .disks_grid").jqxGrid({
             showdefaultloadelement: false,
@@ -57,26 +56,17 @@
             ]
         });
         
-        setTimeout(function () {
-            updateDiskGrid(source);
-        }, 1000);
+        setTimeout(updateDiskGrid, @user_widget.widget.updatetime);
     });
     
-    function callbackUpdateDiskGrid(source, data) {
-        source.localdata = data.disks;
+    function callbackUpdateDiskGrid(data) {
+        sourceDisks.localdata = data.disks;
         $("#@(user_widget.id_html) .disks_grid").jqxGrid('updatebounddata', 'cells');
-        setTimeout(function () {
-            updateDiskGrid(source);
-        }, @user_widget.widget.updatetime); 
+        //setTimeout(updateDiskGrid, @user_widget.widget.updatetime);
     }
 
-    function updateDiskGrid(source) {
-        $.updateWidgetJson(socket, @user_widget.id, '@sid', function (data) {
-            callbackUpdateDiskGrid(source, data);
-        }, null);
-
-        setTimeout(function () {
-            updateDiskGrid(source);
-        }, @user_widget.widget.updatetime);
+    function updateDiskGrid() {
+        $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateDiskGrid, null);
+        //$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateDiskGrid, null);
    	}
 </script>

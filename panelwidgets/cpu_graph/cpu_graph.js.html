@@ -8,12 +8,13 @@
 	function callbackCPUGraphFunc(data)
 	{
 		$('#cpu_load_gauge').jqxGauge('setValue', data.cpuload);
-		setTimeout(timeoutCPUGraphFunc, @user_widget.widget.updatetime);
+		//setTimeout(timeoutCPUGraphFunc, @user_widget.widget.updatetime);
 	}
 	
 	function timeoutCPUGraphFunc()
 	{
-		$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackCPUGraphFunc, null);
+	    $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackCPUGraphFunc, null);
+		//$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackCPUGraphFunc, null);
 	}
 	
 	$(document).ready(function () {

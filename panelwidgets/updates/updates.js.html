@@ -1,30 +1,18 @@
 @!(data, user_widget, sid)
 <div class="updates_grid"></div>
 <script type="text/javascript">
-	$(document).ready(function () {
-        var source =
-        {
-            datatype: "json",
-            datafields: [
-                { name: 'name' },
-                { name: 'old_version' },
-                { name: 'new_version' }
-            ],
-            id: 'id',
-            url: 'updates',
-            root: 'updates',
-            data: {
-            	widget_id: @user_widget.id,
-            	sid: '@sid',
-            	json: true,
-            	featureClass: "P",
-                style: "full",
-                maxRows: 10
-			},
-			type: 'POST'
-        };
-        
-        var dataAdapter = new $.jqx.dataAdapter(source);
+    var sourceUpdates =
+    {
+        datatype: "array",
+        localdata: [],
+        datafields: [
+            { name: 'name' },
+            { name: 'old_version' },
+            { name: 'new_version' }
+        ]
+    };
+	$(document).ready(function () {        
+        var dataAdapter = new $.jqx.dataAdapter(sourceUpdates);
         $("#@(user_widget.id_html) .updates_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
@@ -42,16 +30,17 @@
             ]
         });
         
-        setTimeout(function () {
-			updateUpdatesGrid();
-		}, @user_widget.widget.updatetime);
+        setTimeout(updateUpdatesGrid, @user_widget.widget.updatetime);
 	});
-	
-	function updateUpdatesGrid() {
-		$("#@(user_widget.id_html) .updates_grid").jqxGrid('updatebounddata', 'cells');
-		
-		setTimeout(function () {
-			updateUpdatesGrid();
-		}, @user_widget.widget.updatetime);
-	}
+	   
+	function callbackUpdateUpdatesGrid(data) {
+        sourceUpdates.localdata = data.updates;
+        $("#@(user_widget.id_html) .updates_grid").jqxGrid('updatebounddata', 'cells');
+        //setTimeout(updateNetworkGrid, @user_widget.widget.updatetime); 
+    }
+
+    function updateUpdatesGrid() {
+        $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateUpdatesGrid, null);
+        //$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateUpdatesGrid, null);
+    }
 </script>

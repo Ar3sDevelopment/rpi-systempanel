@@ -1,33 +1,21 @@
 @!(data, user_widget, sid)
 <div class="network_grid"></div>
 <script type="text/javascript">
-	$(document).ready(function () {
-        var source =
-        {
-            datatype: "json",
-            datafields: [
-                { name: 'name' },
-                { name: 'encap' },
-                { name: 'mac'},
-                { name: 'ip' },
-                { name: 'rx' },
-                { name: 'tx' }
-            ],
-            id: 'id',
-            url: 'network',
-            root: 'nics',
-            data: {
-            	widget_id: @user_widget.id,
-            	sid: '@sid',
-            	json: true,
-            	featureClass: "P",
-                style: "full",
-                maxRows: 10
-			},
-			type: 'POST'
-        };
-        
-        var dataAdapter = new $.jqx.dataAdapter(source);
+    var sourceNetwork =
+    {
+        datatype: "array",
+        localdata: [],
+        datafields: [
+            { name: 'name' },
+            { name: 'encap' },
+            { name: 'mac'},
+            { name: 'ip' },
+            { name: 'rx' },
+            { name: 'tx' }
+        ]
+    };
+	$(document).ready(function () {        
+        var dataAdapter = new $.jqx.dataAdapter(sourceNetwork);
         $("#@(user_widget.id_html) .network_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
@@ -48,16 +36,17 @@
             ]
         });
         
-        setTimeout(function () {
-			updateNetworkGrid();
-		}, @user_widget.widget.updatetime);
+        setTimeout(updateNetworkGrid, @user_widget.widget.updatetime);
 	});
 	
-	function updateNetworkGrid() {
-		$("#@(user_widget.id_html) .network_grid").jqxGrid('updatebounddata', 'cells');
-		
-		setTimeout(function () {
-			updateNetworkGrid();
-		}, @user_widget.widget.updatetime);
-	}
+    function callbackUpdateNetworkGrid(data) {
+        sourceNetwork.localdata = data.nics;
+        $("#@(user_widget.id_html) .network_grid").jqxGrid('updatebounddata', 'cells');
+        //setTimeout(updateNetworkGrid, @user_widget.widget.updatetime); 
+    }
+
+    function updateNetworkGrid() {
+        $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateNetworkGrid, null);
+        //$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateNetworkGrid, null);
+    }
 </script>

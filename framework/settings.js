@@ -53,6 +53,8 @@ exports.load = function(sid, cb) {
 				
 				cb(user);
 			});
+		} else {
+			cb(null);
 		}
 	});
 };

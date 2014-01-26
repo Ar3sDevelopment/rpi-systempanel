@@ -1,39 +1,28 @@
 @!(data, user_widget, sid)
 <div class="process_grid"></div>
 <script type="text/javascript">
+    var sourceProcess =
+    {
+        datatype: "array",
+        localdata: [],
+        datafields: [
+            { name: 'pid', type: 'int' },
+            { name: 'command' },
+            { name: 'user'},
+            { name: 'cpu_percent', type: 'float' },
+            { name: 'mem_percent', type: 'float' }
+        ]
+    };
+
 	$(document).ready(function () {
-        var source =
-        {
-            datatype: "json",
-            datafields: [
-                { name: 'pid', type: 'int' },
-                { name: 'command' },
-                { name: 'user'},
-                { name: 'cpu_percent', type: 'float' },
-                { name: 'mem_percent', type: 'float' }
-            ],
-            id: 'id',
-            url: 'process',
-            root: 'procs',
-            data: {
-            	widget_id: @user_widget.id,
-            	sid: '@sid',
-            	json: true,
-            	featureClass: "P",
-                style: "full",
-                maxRows: 10
-			},
-			type: 'POST'
-        };
-        
-        var percentagerenderer = function (row, column, value) {
+	    var percentagerenderer = function (row, column, value) {
             var html = '<div class="row" style="margin-top: 4px; margin-right: 3px;"><div class="col-xs-4">' + value + '%</div><div class="col-xs-8"><div class="progress" style="margin-top: -2px;">\n';
             html += '<div style="width: ' + value + '%;" aria-valuenow="' + value + '" class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>\n';
             html += '</div></div>';
             return html;
         };
         
-        var dataAdapter = new $.jqx.dataAdapter(source);
+        var dataAdapter = new $.jqx.dataAdapter(sourceProcess);
         $("#@(user_widget.id_html) .process_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
@@ -53,16 +42,17 @@
             ]
         });
         
-        setTimeout(function () {
-			updateProcessGrid();
-		}, @user_widget.widget.updatetime);
+        setTimeout(updateProcessGrid, @user_widget.widget.updatetime);
 	});
-	
-	function updateProcessGrid() {
-		$("#@(user_widget.id_html) .process_grid").jqxGrid('updatebounddata', 'cells');
-		
-		setTimeout(function () {
-			updateProcessGrid();
-		}, @user_widget.widget.updatetime);
-	}
+    
+    function callbackUpdateProcessGrid(data) {
+        sourceProcess.localdata = data.procs;
+        $("#@(user_widget.id_html) .process_grid").jqxGrid('updatebounddata', 'cells');
+        //setTimeout(updateProcessGrid, @user_widget.widget.updatetime); 
+    }
+
+    function updateProcessGrid() {
+        $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateProcessGrid, null);
+        //$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateProcessGrid, null);
+    }
 </script>
