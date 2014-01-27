@@ -1,17 +1,17 @@
-@!(user, sid, url, port)
+@!(model)
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @render('html_head', 'System Info Panel', url, port)
+    @render('html_head', 'System Info Panel', model.url, model.port)
 </head>
 <body>
 	<div class="visible-xs visible-sm" style="height: 20px;">&nbsp;</div>
 	<div class="container">
-	    @render('menu', sid, 'home', user.admin)
-		@{ var columns = 0; var widgets = user.widgets; }
+	    @render('menu', model.sid, 'home', model.user.admin)
+		@{ var columns = 0; }
 		<div class="row">
-		    @for (var c = 0; c < widgets.length; c++) {
-		        @{ var userWidget = widgets[c]; }
+		    @for (var c = 0; c < model.user.widgets.length; c++) {
+		        @{ var userWidget = model.user.widgets[c]; }
                 @if (userWidget.enabled) {
                     @{ columns += userWidget.widget.columns; }
                     @if (columns > 12) {
@@ -24,7 +24,7 @@
                     } else {
                         <div class="col-md-@userWidget.widget.columns">
                     }
-                    @render('widget', userWidget, sid)
+                    @render('widget', userWidget, model.sid)
                     </div>
                 }
             }

@@ -23,10 +23,10 @@ function indexFunction(req, res) {
 		//TODO: Verificare la validità della sessione
 		var settings = require('../framework/settings.js');
 
-		settings.load(sid, function(user) {
+		settings.load(sid, function(user) {			
 			var current_url = req.headers.host.split(':')[0];
 			var socket_port = 1337;
-			res.render('index', {
+			res.render('index.js.html', {
 				user : user,
 				sid : sid,
 				url : current_url,
@@ -53,21 +53,23 @@ function loginFunction(req, res) {
 	if (!sid) {
 		var current_url = req.headers.host.split(':')[0];
 		var socket_port = 1337;
-		res.render('login', {
+		res.render('login.js.html', {
 			url : current_url,
 			port : socket_port
 		});
 	}
 }
 
-app.engine('.js.html', function(path, options, fn) {
+app.engine('html', function(path, options, fn) {
 	fn(null, bliss.render(path, options));
 });
 
+app.set('views', __dirname);
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/fonts', express.static(__dirname + '/fonts'));
 app.use('/images', express.static(__dirname + '/images'));
 app.use('/js', express.static(__dirname + '/js'));
+app.use('/tmp', express.static(__dirname + '/tmp'));
 
 app.get('/:sid', function(req, res) {
 	indexFunction(req, res);

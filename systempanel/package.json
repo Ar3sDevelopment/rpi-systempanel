@@ -10,7 +10,7 @@
 	"private": true,
 	"dependencies": {
 		"express": "*",
-		"bliss": "*",
+		"vash": "*",
 		"path": "*",
 		"url": "*"
 	}
