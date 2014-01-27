@@ -3,6 +3,8 @@ var app = express();
 var url = require('url');
 var fs = require('fs');
 var path = require('path');
+Bliss = require('bliss');
+bliss = new Bliss();
 
 function dictionaryByEquals(source) {
 	var dict = {};
@@ -15,86 +17,72 @@ function dictionaryByEquals(source) {
 	return dict;
 }
 
-function initPredefinedVariables(req, res, pre, cb) {
-	var urlParts = url.parse(req.url, true);
-	pre.get = urlParts.query;
-	pre.post = {};
-	var body = '';
-	var bodyMax = 1e6;
-	req.on('data', function(chunk) {
-		body += chunk;
-		if (body.length > bodyMax) {
-			req.connection.destroy();
-		}
-	});
-	req.on('end', function() {
-		pre.post = dictionaryByEquals(body.split('&'));
-		cb();
-	});
+function indexFunction(req, res) {
+	var sid = req.params.sid;
+	if (sid) {
+		//TODO: Verificare la validità della sessione
+		var settings = require('../framework/settings.js');
+
+		settings.load(sid, function(user) {
+			var current_url = req.headers.host.split(':')[0];
+			var socket_port = 1337;
+			res.render('index', {
+				user : user,
+				sid : sid,
+				url : current_url,
+				port : socket_port
+			});
+		});
+	} else {
+		res.send(500, '');
+	}
 }
 
-app.all('*', function(req, res) {
-	var pre = {};
-	var mimeTypes = {
-		"html" : "text/html",
-		"jpeg" : "image/jpeg",
-		"jpg" : "image/jpeg",
-		"png" : "image/png",
-		"js" : "text/javascript",
-		"css" : "text/css",
-		"eot" : "application/vnd.ms-fontobject",
-		"svg" : "image/svg+xml",
-		"ttf" : "application/x-font-ttf",
-		"otf" : "application/x-font-opentype",
-		"woff" : "application/font-woff"
-	};
-	initPredefinedVariables(req, res, pre, function() {
-		var uri = url.parse(req.url).pathname;
-		var filename = path.join(process.cwd(), uri);
-		fs.exists(filename, function(exists) {
-			if (!exists) {
-				res.writeHead(500, {
-					'Content-Type' : 'text/plain'
-				});
-				res.end();
-			} else {
-				fs.stat(filename, function(err, stats) {
-					if (stats.isDirectory()) {
-						var sid = pre.get.sid;
-						if (sid) {
-							//TODO: Verificare la validità della sessione
-							var settings = require('../framework/settings.js');
+function loginFunction(req, res) {
+	if (req.body != null) {
+		if (req.body.username && req.body.password) {
+			//TODO: Check login and get sid
+			var sid = '';
 
-							settings.load(sid, function(user) {
-								Bliss = require('bliss');
-								bliss = new Bliss();
-								template = bliss.compileFile('index');
-								var current_url = req.headers.host.split(':')[0];
-								var socket_port = 1337;
-								output = template(user, sid, current_url, socket_port);
-
-								res.writeHead(200, {
-									'Content-Type' : 'text/html'
-								});
-
-								res.end(output);
-							});
-						} else {
-							res.writeHead(500, {
-								'Content-Type' : 'text/plain'
-							});
-							res.end();
-						}
-					} else {
-						var mimeType = mimeTypes[path.extname(filename).split(".")[1]];
-						res.writeHead(200, mimeType);
-						var fileStream = fs.createReadStream(filename);
-						fileStream.pipe(res);
-					}
-				});
+			if (sid) {
+				res.redirect('/' + sid);
 			}
+		}
+	}
+
+	if (!sid) {
+		var current_url = req.headers.host.split(':')[0];
+		var socket_port = 1337;
+		res.render('login', {
+			url : current_url,
+			port : socket_port
 		});
-	});
+	}
+}
+
+app.engine('.js.html', function(path, options, fn) {
+	fn(null, bliss.render(path, options));
+});
+
+app.use('/css', express.static(__dirname + '/css'));
+app.use('/fonts', express.static(__dirname + '/fonts'));
+app.use('/images', express.static(__dirname + '/images'));
+app.use('/js', express.static(__dirname + '/js'));
+
+app.get('/:sid', function(req, res) {
+	indexFunction(req, res);
+});
+
+app.get('/login', function(req, res) {
+	loginFunction(req, res);
+});
+
+app.post('/login', function(req, res) {
+	loginPostFunction(req, res);
+});
+
+app.get('/logout', function (req, res) {
+	res.redirect('/login');
 });
 
 app.listen(1338);
