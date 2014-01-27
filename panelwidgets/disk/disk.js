@@ -5,7 +5,7 @@ exports.data = function(cb) {
 		disks : []
 	};
 
-	exec("df -h -T -x tmpfs -x devtmpfs -x rootfs", function(err, stdout, stderr) {
+	exec("df -h -T -x tmpfs -x devtmpfs -x rootfs -x fuse -x cifs", function(err, stdout, stderr) {
 		if (!err) {
 			var diskfree = stdout.split(/[\r\n]{1,2}/);
 			delete diskfree[0];
@@ -14,6 +14,7 @@ exports.data = function(cb) {
 				if (diskfree[c]) {
 					var splitArr = diskfree[c].split(/\s+/);
 					var obj = {
+						mount : splitArr[0],
 						typex : splitArr[1],
 						size : splitArr[2],
 						used : splitArr[3],
@@ -25,7 +26,7 @@ exports.data = function(cb) {
 				}
 			}
 		}
-		
+
 		cb(res);
 	});
 };

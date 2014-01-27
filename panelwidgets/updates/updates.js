@@ -11,7 +11,7 @@ exports.data = function(cb) {
 			for (var c = 0; c < updates.length; c++) {
 				var update = updates[c];
 				if (update) {
-					var matches = update.match("/^Inst (.*) \[(.*)\] \(([^s]*)\s.*\)/");
+					var matches = update.match(/^Inst\s+(.*)\s+\[(.*)\]\s+\(([^s]*)\s+.*\)/);
 					if (matches && matches.length) {
 						res.updates.push({
 							name : matches[1],
