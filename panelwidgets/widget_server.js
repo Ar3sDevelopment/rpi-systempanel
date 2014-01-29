@@ -96,7 +96,7 @@ var server = http.createServer(function(req, res) {
 	res.writeHead(200, {
 		'Content-Type' : 'text/html'
 	});
-	res.end()
+	res.end();
 });
 
 server.listen(1337);
