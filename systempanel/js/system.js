@@ -77,25 +77,6 @@ var updatingWidgets = []; ( function($) {
 			$.startUpdatingWidget(socket, widget_id, sid, callback, postData, 'html');
 		};
 
-		$.updateWidget = function(socket, widget_id, sid, callback, postData, mode) {
-			var defData = {
-				json : (mode == 'json'),
-				sid : sid,
-				widget_id : widget_id,
-				callback : callback.name
-			};
-			$.extend(defData, postData);
-			socket.emit('request_new_data', defData);
-		};
-
-		$.updateWidgetJson = function(socket, widget_id, sid, callback, postData) {
-			$.updateWidget(socket, widget_id, sid, callback, postData, 'json');
-		};
-
-		$.updateWidgetHtml = function(socket, widget_id, sid, callback, postData) {
-			$.updateWidget(socket, widget_id, sid, callback, postData, 'html');
-		};
-
 		//TODO: Think about making AJAX Form jQuery plugin
 		$.initAjaxForms = function() {
 			$('form[data-type="ajax"]').submit(function(event) {

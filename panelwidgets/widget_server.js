@@ -50,7 +50,7 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 							if (widget_data != null) {
 								if (json) {
 									cb(user_widget, 200, 'application/json', widget_data);
-							} else {
+								} else {
 									app.render(folder + '/' + user_widget.widget.templatefile.replace('.tpl', '.js.html'), {
 										data : widget_data,
 										user_widget : user_widget,
@@ -79,45 +79,35 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 }
 
 function widgetUpdatingCallback(socket, data, old_user_widget) {
-	getUserWidget(data.json, data.sid, data.widget_id, {}, function(user_widget, statusCode, contentType, output) {
-		socket.emit('updated_data_' + data.widget_id, {
-			output : output,
-			user_widget : user_widget,
-			statusCode : statusCode,
-			contentType : contentType
-		});
-
-		if (user_widget == null) {
-			user_widget = old_user_widget;
-			if (user_widget == null) {
-				user_widget = {
-					widget : {
-						updatetime : 1000
-					}
-				};
-			}
-		}
-		if (user_widget.widget.updatetime > 0) {
-			setTimeout(function() {
-				widgetUpdatingCallback(socket, data, user_widget);
-			}, user_widget.widget.updatetime);
-		}
-	});
-}
-
-io.sockets.on('connection', function(socket) {
-	socket.on('request_new_data', function(data) {
+	if (!socket.disconnected) {
 		getUserWidget(data.json, data.sid, data.widget_id, {}, function(user_widget, statusCode, contentType, output) {
-			socket.emit('updated_data', {
+			socket.emit('updated_data_' + data.widget_id, {
 				output : output,
 				user_widget : user_widget,
 				statusCode : statusCode,
-				contentType : contentType,
-				callback : data.callback
+				contentType : contentType
 			});
-		});
-	});
 
+			if (user_widget == null) {
+				user_widget = old_user_widget;
+				if (user_widget == null) {
+					user_widget = {
+						widget : {
+							updatetime : 1000
+						}
+					};
+				}
+			}
+			if (user_widget.widget.updatetime > 0 && !socket.disconnected) {
+				setTimeout(function() {
+					widgetUpdatingCallback(socket, data, user_widget);
+				}, user_widget.widget.updatetime);
+			}
+		});
+	}
+}
+
+io.sockets.on('connection', function(socket) {
 	socket.on('request_updating', function(data) {
 		widgetUpdatingCallback(socket, data, null);
 	});
