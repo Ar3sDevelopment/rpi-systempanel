@@ -80,19 +80,6 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 }
 
 var server = http.createServer(function(req, res) {
-	/*var pre = {};
-	 initPredefinedVariables(req, res, pre, function() {
-	 var json = pre.post.json || false;
-	 var sid = pre.post.sid;
-	 var widget_id = pre.post["widget-id"];
-
-	 getUserWidget(json, sid, widget_id, pre_post, function(user_widget, statusCode, contentType, output) {
-	 res.writeHead(statusCode, {
-	 'Content-Type' : contentType
-	 });
-	 res.end(output);
-	 });
-	 })*/;
 	res.writeHead(200, {
 		'Content-Type' : 'text/html'
 	});
