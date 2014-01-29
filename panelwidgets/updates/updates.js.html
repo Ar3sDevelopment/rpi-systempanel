@@ -1,4 +1,4 @@
-@!(data, user_widget, sid)
+@!(model)
 <div class="updates_grid"></div>
 <script type="text/javascript">
     var sourceUpdates =
@@ -13,7 +13,7 @@
     };
 	$(document).ready(function () {        
         var dataAdapter = new $.jqx.dataAdapter(sourceUpdates);
-        $("#@(user_widget.id_html) .updates_grid").jqxGrid(
+        $("#@(model.user_widget.id_html) .updates_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
         	autoshowloadelement: false,
@@ -35,12 +35,10 @@
 	   
 	function callbackUpdateUpdatesGrid(data) {
         sourceUpdates.localdata = data.updates;
-        $("#@(user_widget.id_html) .updates_grid").jqxGrid('updatebounddata', 'cells');
-        //setTimeout(updateNetworkGrid, @user_widget.widget.updatetime); 
+        $("#@(model.user_widget.id_html) .updates_grid").jqxGrid('updatebounddata', 'cells'); 
     }
 
     function updateUpdatesGrid() {
-        $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateUpdatesGrid, null);
-        //$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateUpdatesGrid, null);
+        $.startUpdatingWidgetJson(socket, @model.user_widget.id, '@model.sid', callbackUpdateUpdatesGrid, null);
     }
 </script>

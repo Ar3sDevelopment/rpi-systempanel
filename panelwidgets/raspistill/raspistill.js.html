@@ -1,9 +1,9 @@
-@!(data, user_widget, sid)
+@!(model)
 <img class="img-responsive" src="tmp/still.jpg?d=@(new Date().getTime())" />
-@if (data.result) {
-	@if (data.result.length) {
+@if (model.data.result) {
+	@if (model.data.result.length) {
 	<pre>
-		@data.result.forEach(function (res) {
+		@model.data.result.forEach(function (res) {
 			@res;
 		})
 	</pre>

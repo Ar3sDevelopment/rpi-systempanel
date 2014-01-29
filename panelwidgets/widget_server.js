@@ -1,35 +1,28 @@
+var express = require('express');
+var app = express();
 var http = require('http');
-var socket_io = require('socket.io');
 var url = require('url');
+var fs = require('fs');
+var path = require('path');
+Bliss = require('bliss');
+bliss = new Bliss();
 
-function dictionaryByEquals(source) {
-	var dict = {};
+var socket_io = require('socket.io');
+var server = http.createServer(app).listen(1337);
 
-	for (var c = 0; c < source.length; c++) {
-		var pair = source[c].split('=');
-		dict[pair[0]] = pair[1];
-	}
+app.engine('html', function(path, options, fn) {
+	fn(null, bliss.render(path, options));
+});
 
-	return dict;
-}
+app.set('views', __dirname);
 
-function initPredefinedVariables(req, res, pre, cb) {
-	var urlParts = url.parse(req.url, true);
-	pre.get = urlParts.query;
-	pre.post = {};
-	var body = '';
-	var bodyMax = 1e6;
-	req.on('data', function(chunk) {
-		body += chunk;
-		if (body.length > bodyMax) {
-			req.connection.destroy();
-		}
-	});
-	req.on('end', function() {
-		pre.post = dictionaryByEquals(body.split('&'));
-		cb();
-	});
-}
+var io = socket_io.listen(server, {
+	log : false
+});
+
+app.get('/', function(req, res) {
+	res.send('');
+});
 
 function getUserWidget(json, sid, widget_id, post_params, cb) {
 	var settings = require('../framework/settings.js');
@@ -57,12 +50,18 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 							if (widget_data != null) {
 								if (json) {
 									cb(user_widget, 200, 'application/json', widget_data);
-								} else {
-									Bliss = require('bliss');
-									bliss = new Bliss();
-									template = bliss.compileFile(folder + '/' + user_widget.widget.templatefile.replace('.tpl', ''));
-									output = template(widget_data, user_widget, sid);
-									cb(user_widget, 200, 'text/html', output);
+							} else {
+									app.render(folder + '/' + user_widget.widget.templatefile.replace('.tpl', '.js.html'), {
+										data : widget_data,
+										user_widget : user_widget,
+										sid : sid
+									}, function(err, output) {
+										if (!err) {
+											cb(user_widget, 200, 'text/html', output);
+										} else {
+											console.log(err);
+										}
+									});
 								}
 							} else {
 								cb(user_widget, 500, 'text/plain', '');
@@ -78,19 +77,6 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 		}
 	});
 }
-
-var server = http.createServer(function(req, res) {
-	res.writeHead(200, {
-		'Content-Type' : 'text/html'
-	});
-	res.end();
-});
-
-server.listen(1337);
-
-var io = socket_io.listen(server, {
-	log : false
-});
 
 function widgetUpdatingCallback(socket, data, old_user_widget) {
 	getUserWidget(data.json, data.sid, data.widget_id, {}, function(user_widget, statusCode, contentType, output) {

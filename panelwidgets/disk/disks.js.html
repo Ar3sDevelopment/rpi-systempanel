@@ -1,4 +1,4 @@
-@!(data, user_widget, sid)
+@!(model)
 <div class="disks_grid"></div>
 <script type="text/javascript">
     var sourceDisks = {
@@ -36,7 +36,7 @@
         
         var dataAdapter = new $.jqx.dataAdapter(sourceDisks);
         
-        $("#@(user_widget.id_html) .disks_grid").jqxGrid({
+        $("#@(model.user_widget.id_html) .disks_grid").jqxGrid({
             showdefaultloadelement: false,
             autoshowloadelement: false,
             width: '100%',
@@ -61,12 +61,10 @@
     
     function callbackUpdateDiskGrid(data) {
         sourceDisks.localdata = data.disks;
-        $("#@(user_widget.id_html) .disks_grid").jqxGrid('updatebounddata', 'cells');
-        //setTimeout(updateDiskGrid, @user_widget.widget.updatetime);
+        $("#@(model.user_widget.id_html) .disks_grid").jqxGrid('updatebounddata', 'cells');
     }
 
     function updateDiskGrid() {
-        $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateDiskGrid, null);
-        //$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateDiskGrid, null);
+        $.startUpdatingWidgetJson(socket, @model.user_widget.id, '@model.sid', callbackUpdateDiskGrid, null);
    	}
 </script>

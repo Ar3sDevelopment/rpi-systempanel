@@ -1,7 +1,7 @@
-@!(data, user_widget, sid)
+@!(model)
 <div class="row">
 	<div class="col-xs-3">Total</div>
-	<div class="col-xs-3 text-right total_tor">@data.total_torrents</div>
+	<div class="col-xs-3 text-right total_tor">@model.data.total_torrents</div>
 	<div class="col-xs-6">
 		<button type="button" class="btn btn-success btnTransPlay"><span class="glyphicon glyphicon-play"></span></button>
 		<button type="button" class="btn btn-danger btnTransStop"><span class="glyphicon glyphicon-stop"></span></button>
@@ -9,37 +9,36 @@
 </div>
 <div class="row">
 	<div class="col-xs-3">Active</div>
-	<div class="col-xs-3 text-right active_tor">@data.active_torrents</div>
+	<div class="col-xs-3 text-right active_tor">@model.data.active_torrents</div>
 	<div class="col-xs-6">&nbsp;</div>
 </div>
 <div class="row">
 	<div class="col-xs-3">Seeding</div>
-	<div class="col-xs-3 text-right seeding_tor">@data.seeding_torrents</div>
+	<div class="col-xs-3 text-right seeding_tor">@model.data.seeding_torrents</div>
 	<div class="col-xs-6">&nbsp;</div>
 </div>
 <div class="row">
 	<div class="col-xs-3">Downloading</div>
-	<div class="col-xs-3 text-right down_tor">@data.downloading_torrents</div>
+	<div class="col-xs-3 text-right down_tor">@model.data.downloading_torrents</div>
 	<div class="col-xs-6">&nbsp;</div>
 </div>
 <script type="text/javascript">
 	function callbackTransmissionFunc(data)
 	{
-		$('#@(user_widget.id_html) .panel-body').html(data);
+		$('#@(model.user_widget.id_html) .panel-body').html(data);
 	}
 
 	$(document).ready(function () {
-		$('#@(user_widget.id_html) .btnTransPlay').click(function () {
-			$.post('transmission', { widget_id: @user_widget.id, sid: '@sid', sta: true }, null);
+		$('#@(model.user_widget.id_html) .btnTransPlay').click(function () {
+			$.post('transmission', { widget_id: @model.user_widget.id, sid: '@model.sid', sta: true }, null);
 		});
 		
-		$('#@(user_widget.id_html) .btnTransStop').click(function () {
-			$.post('transmission', { widget_id: @user_widget.id, sid: '@sid', sto: true }, null);
+		$('#@(model.user_widget.id_html) .btnTransStop').click(function () {
+			$.post('transmission', { widget_id: @model.user_widget.id, sid: '@model.sid', sto: true }, null);
 		});
 		
 		setTimeout(function () {
-		    $.startUpdatingWidgetHtml(socket, @user_widget.id, '@sid', callbackTransmissionFunc, null);
-			//$.updateWidgetHtml(socket, @user_widget.id, '@sid', callbackTransmissionFunc, null);
-		}, @user_widget.widget.updatetime);
+		    $.startUpdatingWidgetHtml(socket, @model.user_widget.id, '@model.sid', callbackTransmissionFunc, null);
+		}, @model.user_widget.widget.updatetime);
 	});
 </script>

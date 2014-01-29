@@ -1,36 +1,36 @@
-@!(data, user_widget, sid)
+@!(model)
 <div class="row">
 	<div class="col-xs-3">CPUs</div>
-	<div class="col-xs-3" id="cpus">@data.cpus</div>
+	<div class="col-xs-3" id="cpus">@model.data.cpus</div>
 	<div class="col-xs-3">Cores</div>
-	<div class="col-xs-3" id="cores">@data.cores</div>
+	<div class="col-xs-3" id="cores">@model.data.cores</div>
 </div>
 <div class="row">
 	<div class="col-xs-3">Sockets</div>
-	<div class="col-xs-3" id="sockets">@data.sockets</div>
+	<div class="col-xs-3" id="sockets">@model.data.sockets</div>
 	<div class="col-xs-3">Nodes</div>
-	<div class="col-xs-3" id="nodes">@data.nodes</div>
+	<div class="col-xs-3" id="nodes">@model.data.nodes</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">Model</div>
-	<div class="col-xs-6" id="model">@data.processor</div>
+	<div class="col-xs-6" id="model">@model.data.processor</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">Frequency</div>
-	<div class="col-xs-6" id="freq">@data.frequency MHz</div>
+	<div class="col-xs-6" id="freq">@model.data.frequency MHz</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">Load</div>
-	<div class="col-xs-3" id="cpuload">@data.cpuload %</div>
+	<div class="col-xs-3" id="cpuload">@model.data.cpuload %</div>
 	<div class="col-xs-3" id="cpuload_percent">
 		<div class="progress">
-			<div style="width: @data.cpuload%" aria-valuenow="@data.cpuload" class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+			<div style="width: @model.data.cpuload%" aria-valuenow="@model.data.cpuload" class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 		</div>
 	</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">Temperature</div>
-	<div class="col-xs-6" id="cpu_temperature">@data.cpu_temperature&deg;C</div>
+	<div class="col-xs-6" id="cpu_temperature">@model.data.cpu_temperature&deg;C</div>
 </div>
 <script type="text/javascript">
 	function callbackCPUFunc(data)
@@ -44,16 +44,14 @@
 		$('#cpuload').html(data.cpuload + ' %');
 		$('#cpuload_percent .progress div').css({ width: data.cpuload + '%' }).prop('aria-valuenow', data.cpuload)
 		$('#cpu_temperature').html(data.cpu_temperature + '&deg;C');
-		//setTimeout(timeoutCPUFunc, @user_widget.widget.updatetime);
 	}
 	
 	function timeoutCPUFunc()
 	{
-	    $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackCPUFunc, null);
-		//$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackCPUFunc, null);
+	    $.startUpdatingWidgetJson(socket, @model.user_widget.id, '@model.sid', callbackCPUFunc, null);
 	}
 	
 	$(document).ready(function () {
-		setTimeout(timeoutCPUFunc, @user_widget.widget.updatetime);
+		setTimeout(timeoutCPUFunc, @model.user_widget.widget.updatetime);
 	});
 </script>

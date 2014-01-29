@@ -1,23 +1,4 @@
-var express = require('express');
-var app = express();
-var url = require('url');
-var fs = require('fs');
-var path = require('path');
-Bliss = require('bliss');
-bliss = new Bliss();
-
-function dictionaryByEquals(source) {
-	var dict = {};
-
-	for (var c = 0; c < source.length; c++) {
-		var pair = source[c].split('=');
-		dict[pair[0]] = pair[1];
-	}
-
-	return dict;
-}
-
-function indexFunction(req, res) {
+exports.page = function(req, res, app) {
 	var sid = req.params.sid;
 	if (sid) {
 		//TODO: Verificare la validità della sessione
@@ -36,55 +17,4 @@ function indexFunction(req, res) {
 	} else {
 		res.send(500, '');
 	}
-}
-
-function loginFunction(req, res) {
-	if (req.body != null) {
-		if (req.body.username && req.body.password) {
-			//TODO: Check login and get sid
-			var sid = '';
-
-			if (sid) {
-				res.redirect('/' + sid);
-			}
-		}
-	}
-
-	if (!sid) {
-		var current_url = req.headers.host.split(':')[0];
-		var socket_port = 1337;
-		res.render('login.js.html', {
-			url : current_url,
-			port : socket_port
-		});
-	}
-}
-
-app.engine('html', function(path, options, fn) {
-	fn(null, bliss.render(path, options));
-});
-
-app.set('views', __dirname);
-app.use('/css', express.static(__dirname + '/css'));
-app.use('/fonts', express.static(__dirname + '/fonts'));
-app.use('/images', express.static(__dirname + '/images'));
-app.use('/js', express.static(__dirname + '/js'));
-app.use('/tmp', express.static(__dirname + '/tmp'));
-
-app.get('/:sid', function(req, res) {
-	indexFunction(req, res);
-});
-
-app.get('/login', function(req, res) {
-	loginFunction(req, res);
-});
-
-app.post('/login', function(req, res) {
-	loginPostFunction(req, res);
-});
-
-app.get('/logout', function (req, res) {
-	res.redirect('/login');
-});
-
-app.listen(1338);
+};

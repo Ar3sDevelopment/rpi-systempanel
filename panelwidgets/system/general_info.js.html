@@ -1,23 +1,23 @@
-@!(data, user_widget, sid)
+@!(model)
 <div class="row">
 	<div class="col-xs-6">Hostname</div>
-	<div class="col-xs-6" id="host">@data.host</div>
+	<div class="col-xs-6" id="host">@model.data.host</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">System Time</div>
-	<div class="col-xs-6" id="time">@data.current_time</div>
+	<div class="col-xs-6" id="time">@model.data.current_time</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">Kernel</div>
-	<div class="col-xs-6" id="kernel">@data.system @data.kernel</div>
+	<div class="col-xs-6" id="kernel">@model.data.system @model.data.kernel</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">Firmware</div>
-	<div class="col-xs-6" id="firmware">@data.firmware</div>
+	<div class="col-xs-6" id="firmware">@model.data.firmware</div>
 </div>
 <div class="row">
 	<div class="col-xs-6">Uptime</div>
-	<div class="col-xs-6" id="uptime">@data.uptime</div>
+	<div class="col-xs-6" id="uptime">@model.data.uptime</div>
 </div>
 <script type="text/javascript">
 	function callbackSysInfoFunc(data)
@@ -27,16 +27,14 @@
 		$('#kernel').html(data.system + ' ' + data.kernel);
 		$('#firmware').html(data.firmware);
 		$('#uptime').html(data.uptime);
-		//setTimeout(timeoutSysInfoFunc, @user_widget.widget.updatetime);
 	}
 	
 	function timeoutSysInfoFunc()
 	{
-	    $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackSysInfoFunc, null);
-		//$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackSysInfoFunc, null);
+	    $.startUpdatingWidgetJson(socket, @model.user_widget.id, '@model.sid', callbackSysInfoFunc, null);
 	}
 	
 	$(document).ready(function () {
-		setTimeout(timeoutSysInfoFunc, @user_widget.widget.updatetime);
+		setTimeout(timeoutSysInfoFunc, @model.user_widget.widget.updatetime);
 	});
 </script>

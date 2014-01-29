@@ -9,6 +9,7 @@
 	},
 	"private": true,
 	"dependencies": {
+		"express": "*",
 		"socket.io": "*",
 		"url": "*",
 		"bliss": "*"

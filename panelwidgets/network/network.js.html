@@ -1,4 +1,4 @@
-@!(data, user_widget, sid)
+@!(model)
 <div class="network_grid"></div>
 <script type="text/javascript">
     var sourceNetwork =
@@ -16,7 +16,7 @@
     };
 	$(document).ready(function () {        
         var dataAdapter = new $.jqx.dataAdapter(sourceNetwork);
-        $("#@(user_widget.id_html) .network_grid").jqxGrid(
+        $("#@(model.user_widget.id_html) .network_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
         	autoshowloadelement: false,
@@ -41,12 +41,10 @@
 	
     function callbackUpdateNetworkGrid(data) {
         sourceNetwork.localdata = data.nics;
-        $("#@(user_widget.id_html) .network_grid").jqxGrid('updatebounddata', 'cells');
-        //setTimeout(updateNetworkGrid, @user_widget.widget.updatetime); 
+        $("#@(model.user_widget.id_html) .network_grid").jqxGrid('updatebounddata', 'cells'); 
     }
 
     function updateNetworkGrid() {
-        $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateNetworkGrid, null);
-        //$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateNetworkGrid, null);
+        $.startUpdatingWidgetJson(socket, @model.user_widget.id, '@model.sid', callbackUpdateNetworkGrid, null);
     }
 </script>

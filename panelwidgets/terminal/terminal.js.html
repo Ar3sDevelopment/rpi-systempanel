@@ -1,4 +1,4 @@
-@!(data, user_widget, sid)
+@!(model)
 <div class="row">
 	<div class="col-xs-12 terminal-output">
 		<pre>
@@ -15,9 +15,9 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#@(user_widget.id_html) .btnSendCmd').click(function () {
-			$.post('terminal', { widget_id: @user_widget.id, sid: '@sid', cmd: $('#@(user_widget.id_html) input[name="cmd"]').val() }, function (data) {
-				$('#@(user_widget.id_html) .terminal-output pre').text(data);
+		$('#@(model.user_widget.id_html) .btnSendCmd').click(function () {
+			$.post('terminal', { widget_id: @model.user_widget.id, sid: '@model.sid', cmd: $('#@(model.user_widget.id_html) input[name="cmd"]').val() }, function (data) {
+				$('#@(model.user_widget.id_html) .terminal-output pre').text(data);
 			});
 		});
 	});

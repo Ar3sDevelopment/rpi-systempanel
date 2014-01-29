@@ -1,4 +1,4 @@
-@!(data, user_widget, sid)
+@!(model)
 <div class="process_grid"></div>
 <script type="text/javascript">
     var sourceProcess =
@@ -23,7 +23,7 @@
         };
         
         var dataAdapter = new $.jqx.dataAdapter(sourceProcess);
-        $("#@(user_widget.id_html) .process_grid").jqxGrid(
+        $("#@(model.user_widget.id_html) .process_grid").jqxGrid(
         {
         	showdefaultloadelement: false,
         	autoshowloadelement: false,
@@ -47,12 +47,10 @@
     
     function callbackUpdateProcessGrid(data) {
         sourceProcess.localdata = data.procs;
-        $("#@(user_widget.id_html) .process_grid").jqxGrid('updatebounddata', 'cells');
-        //setTimeout(updateProcessGrid, @user_widget.widget.updatetime); 
+        $("#@(model.user_widget.id_html) .process_grid").jqxGrid('updatebounddata', 'cells'); 
     }
 
     function updateProcessGrid() {
-        $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateProcessGrid, null);
-        //$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackUpdateProcessGrid, null);
+        $.startUpdatingWidgetJson(socket, @model.user_widget.id, '@model.sid', callbackUpdateProcessGrid, null);
     }
 </script>

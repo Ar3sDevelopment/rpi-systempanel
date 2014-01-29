@@ -1,6 +1,6 @@
-@!(data, user_widget, sid)
-@for (var c = 0; c < data.devices.length; c++) {
-    @{ var device = data.devices[c]; }
+@!(model)
+@for (var c = 0; c < model.data.devices.length; c++) {
+    @{ var device = model.data.devices[c]; }
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
@@ -14,7 +14,7 @@
                     Device @device.device
                 </div>
             </div>
-            @if (c < (data.devices.length - 1)) {
+            @if (c < (model.data.devices.length - 1)) {
             <div class="row">
                 <div class="col-xs-12">
                     &nbsp;
@@ -27,13 +27,12 @@
 <script type="text/javascript">
 	function callbackUSBFunc(data)
     {
-        $('#@(user_widget.id_html) .panel-body').html(data);
+        $('#@(model.user_widget.id_html) .panel-body').html(data);
     }
 
     $(document).ready(function () {
         setTimeout(function () {
-            $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackUSBFunc, null);
-            //$.updateWidgetHtml(socket, @user_widget.id, '@sid', callbackUSBFunc, null);
-        }, @user_widget.widget.updatetime);
+            $.startUpdatingWidgetJson(socket, @model.user_widget.id, '@model.sid', callbackUSBFunc, null);
+        }, @model.user_widget.widget.updatetime);
     });
 </script>

@@ -1,4 +1,4 @@
-@!(data, user_widget, sid)
+@!(model)
 <div class="row">
 	<div class="col-xs-12">
 		<div id="cpu_temp_gauge"></div>
@@ -8,13 +8,11 @@
 	function callbackTempGraphFunc(data)
 	{
 		$('#cpu_temp_gauge').jqxLinearGauge('value', data.cpu_temperature);
-		//setTimeout(timeoutTempGraphFunc, @user_widget.widget.updatetime);
 	}
 	
 	function timeoutTempGraphFunc()
 	{
-	    $.startUpdatingWidgetJson(socket, @user_widget.id, '@sid', callbackTempGraphFunc, null);
-		//$.updateWidgetJson(socket, @user_widget.id, '@sid', callbackTempGraphFunc, null);
+	    $.startUpdatingWidgetJson(socket, @model.user_widget.id, '@model.sid', callbackTempGraphFunc, null);
 	}
 	
 	$(document).ready(function () {
@@ -40,8 +38,8 @@
 			]
 		});
 		
-		$('#cpu_temp_gauge').jqxLinearGauge('value', @data.cpu_temperature);
+		$('#cpu_temp_gauge').jqxLinearGauge('value', @model.data.cpu_temperature);
 	
-		setTimeout(timeoutTempGraphFunc, @user_widget.widget.updatetime);
+		setTimeout(timeoutTempGraphFunc, @model.user_widget.widget.updatetime);
 	});
 </script>
