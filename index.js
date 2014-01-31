@@ -2,7 +2,7 @@ exports.page = function(req, res, app) {
 	var sid = req.params.sid;
 	if (sid) {
 		//TODO: Verificare la validità della sessione
-		var settings = require('framework/settings.js');
+		var settings = require('./framework/settings.js');
 
 		settings.load(sid, function(user) {			
 			var current_url = req.headers.host.split(':')[0];

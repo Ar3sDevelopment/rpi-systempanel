@@ -12,11 +12,13 @@ exports.data = function (cb) {
 };
 
 exports.manage_post = function(post, cb) {
-	if (post.cmd) {
-		execute($_POST['cmd'], function (stdout) {
-			cb(1, stdout);
-		});
+	if (post) {
+		if (post.cmd) {
+			execute($_POST['cmd'], function (stdout) {
+				cb(1, stdout);
+			});
+		}
+	} else {
+		cb(0, null);
 	}
-			
-	cb(0, null);
 };

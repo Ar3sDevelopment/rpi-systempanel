@@ -58,15 +58,17 @@ function start() {
 }
 
 exports.manage_post = function(post, cb) {
-	if (post.sta) {
-		start();
+	if (post) {
+		if (post.sta) {
+			start();
 
-		cb(1, '');
-	} else if (post.sto) {
-		stop();
+			cb(1, '');
+		} else if (post.sto) {
+			stop();
 
-		cb(1, '');
+			cb(1, '');
+		}
+	} else {
+		cb(0);
 	}
-
-	cb(0);
 };

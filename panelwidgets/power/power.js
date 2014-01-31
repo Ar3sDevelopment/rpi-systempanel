@@ -18,14 +18,16 @@ exports.data = function (cb) {
 };
 
 exports.manage_post = function (post, cb) {
-	if (post.po) {
-		poweroff(function () {
-			cb(1, '');
-		});
-	} else if (post['pr']) {
-		reboot(function () {
-			cb(1, '');
-		});
+	if (post) {
+		if (post.po) {
+			poweroff(function () {
+				cb(1, '');
+			});
+		} else if (post['pr']) {
+			reboot(function () {
+				cb(1, '');
+			});
+		}
 	} else {
 		cb(0, null);
 	}

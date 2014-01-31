@@ -41,7 +41,7 @@ app.get('/logout', function (req, res) {
 });
 
 function getUserWidget(data, cb) {
-	var settings = require('framework/settings.js');
+	var settings = require('./framework/settings.js');
 
 	settings.load(data.sid, function(user) {
 		if (user != null) {
@@ -54,7 +54,7 @@ function getUserWidget(data, cb) {
 			}
 
 			if (user_widget) {
-				var folder = './' + user_widget.widget.folder;
+				var folder = './panelwidgets/' + user_widget.widget.folder;
 				var path = folder + '/' + user_widget.widget.phpfile + '.js';
 				var loaded_widget = require(path);
 				console.log(path);
@@ -94,49 +94,51 @@ function getUserWidget(data, cb) {
 	});
 }
 
-function emitWidget(socket, data, cb) {
-	if (!socket.disconnected) {
-		getUserWidget(data, function(user_widget, statusCode, contentType, output) {
-			socket.emit(data.event_name, {
-				output : output,
-				user_widget : user_widget,
-				statusCode : statusCode,
-				contentType : contentType
-			});
+function emitUserWidget(socket, data, cb) {
+	getUserWidget(data, function(user_widget, statusCode, contentType, output) {
+		socket.emit(data.event_name, {
+			output : output,
+			user_widget : user_widget,
+			statusCode : statusCode,
+			contentType : contentType
+		});
 
-			if (cb) {
-				cb(user_widget);
+		if (cb) {
+			cb(user_widget);
+		}
+	});
+}
+
+function widgetUpdatingCallback(socket, data, old_user_widget) {
+	if (!socket.disconnected) {
+		emitUserWidget(socket, data, function (user_widget) {
+			if (user_widget == null) {
+				user_widget = old_user_widget != null ? old_user_widget : {
+					widget : {
+						updatetime : 1000
+					}
+				};
+			}
+
+			if (user_widget.widget.updatetime > 0 && !socket.disconnected) {
+				setTimeout(function() {
+					if (!socket.disconnected) {
+						widgetUpdatingCallback(socket, data, user_widget);
+					}
+				}, user_widget.widget.updatetime);
 			}
 		});
 	}
 }
 
-function widgetUpdatingCallback(socket, data, old_user_widget) {
-	data.eventname = 'updated_data_' + data.widget_id;
-	emitUserWidget(data, function (user_widget) {
-		if (user_widget == null) {
-			user_widget = old_user_widget != null ? old_user_widget : {
-				widget : {
-					updatetime : 1000
-				}
-			};
-		}
-
-		if (user_widget.widget.updatetime > 0 && !socket.disconnected) {
-			setTimeout(function() {
-				widgetUpdatingCallback(socket, data, user_widget);
-			}, user_widget.widget.updatetime);
-		}
-	});
-}
-
 io.sockets.on('connection', function(socket) {
 	socket.on('request_updating', function(data) {
+		data.event_name = 'updated_data_' + data.widget_id;
 		widgetUpdatingCallback(socket, data, null);
 	});
 
 	socket.on('request_first_data', function(data) {
-		data.eventname = 'first_use_data';
-		emitUserWidget(data, function (user_widget) { });
+		data.event_name = 'first_use_data';
+		emitUserWidget(socket, data, function (user_widget) { });
 	});
 });
