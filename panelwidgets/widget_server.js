@@ -2,7 +2,6 @@ var express = require('express');
 var app = express();
 var http = require('http');
 var url = require('url');
-var fs = require('fs');
 var path = require('path');
 Bliss = require('bliss');
 bliss = new Bliss();
@@ -24,15 +23,15 @@ app.get('/', function(req, res) {
 	res.send('');
 });
 
-function getUserWidget(json, sid, widget_id, post_params, cb) {
+function getUserWidget(data, cb) {
 	var settings = require('../framework/settings.js');
 
-	settings.load(sid, function(user) {
+	settings.load(data.sid, function(user) {
 		if (user != null) {
 			var user_widget = null;
 
 			for (var c = 0; c < user.widgets.length && !user_widget; c++) {
-				if (user.widgets[c].id == widget_id) {
+				if (user.widgets[c].id == data.widget_id) {
 					user_widget = user.widgets[c];
 				}
 			}
@@ -42,19 +41,19 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 				var path = folder + '/' + user_widget.widget.phpfile + '.js';
 				var loaded_widget = require(path);
 				console.log(path);
-				loaded_widget.manage_post(post_params, function(result, output) {
+				loaded_widget.manage_post(data.post_params, function(result, output) {
 					if (result) {
 						cb(user_widget, 200, 'text/plain', output);
 					} else {
 						loaded_widget.data(function(widget_data) {
 							if (widget_data != null) {
-								if (json) {
+								if (data.json) {
 									cb(user_widget, 200, 'application/json', widget_data);
 								} else {
 									app.render(folder + '/' + user_widget.widget.templatefile.replace('.tpl', '.js.html'), {
 										data : widget_data,
 										user_widget : user_widget,
-										sid : sid
+										sid : data.sid
 									}, function(err, output) {
 										if (!err) {
 											cb(user_widget, 200, 'text/html', output);
@@ -73,14 +72,14 @@ function getUserWidget(json, sid, widget_id, post_params, cb) {
 				cb(user_widget, 500, 'text/plain', '');
 			}
 		} else {
-			cb(user_widget, 500, 'text/plain', '');
+			cb(null, 500, 'text/plain', '');
 		}
 	});
 }
 
 function widgetUpdatingCallback(socket, data, old_user_widget) {
 	if (!socket.disconnected) {
-		getUserWidget(data.json, data.sid, data.widget_id, {}, function(user_widget, statusCode, contentType, output) {
+		getUserWidget(data, function(user_widget, statusCode, contentType, output) {
 			socket.emit('updated_data_' + data.widget_id, {
 				output : output,
 				user_widget : user_widget,
@@ -113,12 +112,12 @@ io.sockets.on('connection', function(socket) {
 	});
 
 	socket.on('request_first_data', function(data) {
-		getUserWidget(data.json, data.sid, data.widget_id, {}, function(user_widget, statusCode, contentType, output) {
+		getUserWidget(data, function(user_widget, statusCode, contentType, output) {
 			socket.emit('first_use_data', {
 				output : output,
 				user_widget : user_widget,
 				statusCode : statusCode,
-				contentType : contentType,
+				contentType : contentType
 			});
 		});
 	});
