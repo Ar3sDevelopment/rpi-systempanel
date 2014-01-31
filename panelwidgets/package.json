@@ -12,6 +12,7 @@
 		"express": "*",
 		"socket.io": "*",
 		"url": "*",
-		"bliss": "*"
+		"bliss": "*",
+		"path": "*"
 	}
 }
