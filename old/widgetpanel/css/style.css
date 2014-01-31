@@ -1,0 +1,31 @@
+body
+{
+	padding-top: 70px;
+}
+
+.progress
+{
+	margin-bottom: 0px;
+}
+
+#memory_info .progress, #disks .progress, #processes .progress
+{
+	margin-bottom: 5px;
+}
+
+.panel-heading .btn-link
+{
+	color: #fff;
+	padding: 0px 3px;
+}
+
+.navbar-brand
+{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.navbar-brand img
+{
+	height: 40px;
+}

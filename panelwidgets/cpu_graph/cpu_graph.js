@@ -13,7 +13,7 @@ exports.data = function(cb) {
 					if (!err) {
 						output2 = stdout.split(/[\n\r]{1,2}/);
 						res.cpuload = 0;
-						for ( i = 0; i < 1; i++) {
+						for (var i = 0; i < 1; i++) {
 							var cpu_stat_1 = output1[i + 1].split(/\s/);
 							var cpu_stat_2 = output2[i + 1].split(/\s/);
 							var info1 = {
@@ -34,8 +34,7 @@ exports.data = function(cb) {
 							var sum1 = info1.user + info1.nice + info1.system + info1.idle;
 							var sum2 = info2.user + info2.nice + info2.system + info2.idle;
 
-							var load = (1 - (idlesum / (sum2 - sum1))) * 100;
-							res.cpuload += load;
+							res.cpuload += (1 - (idlesum / (sum2 - sum1))) * 100;
 						}
 
 						res.cpuload = res.cpuload.toFixed(1);

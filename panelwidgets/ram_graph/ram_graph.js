@@ -33,9 +33,9 @@ exports.data = function(cb) {
 				}
 			}
 
-			used_mem = total_mem - free_mem;
-			percent_free = Math.round((free_mem / total_mem) * 100);
-			percent_used = Math.round((used_mem / total_mem) * 100);
+			var used_mem = total_mem - free_mem;
+			var percent_free = Math.round((free_mem / total_mem) * 100);
+			var percent_used = Math.round((used_mem / total_mem) * 100);
 			var item_free = {
 				ram_percent : percent_free,
 				ram_description : 'Free'

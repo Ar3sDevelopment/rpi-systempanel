@@ -15,9 +15,12 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#@(model.user_widget.id_html) .btnSendCmd').click(function () {
-			$.post('terminal', { widget_id: @model.user_widget.id, sid: '@model.sid', cmd: $('#@(model.user_widget.id_html) input[name="cmd"]').val() }, function (data) {
-				$('#@(model.user_widget.id_html) .terminal-output pre').text(data);
+        var buttonSelector = '#@(model.user_widget.id_html) .btnSendCmd';
+        var textSelector = '#@(model.user_widget.id_html) input[name="cmd"]';
+		$(buttonSelector).click(function () {
+			$.post('terminal', { widget_id: @model.user_widget.id, sid: '@model.sid', cmd: $(textSelector).val() }, function (data) {
+                var preSelector = '#@(model.user_widget.id_html) .terminal-output pre';
+				$(preSelector).text(data);
 			});
 		});
 	});

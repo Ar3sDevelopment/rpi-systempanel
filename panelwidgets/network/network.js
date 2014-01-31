@@ -1,4 +1,4 @@
-function human_bytes(bytes, cb) {
+function human_bytes(bytes) {
 	var strings = ['B', 'KB', 'MB', 'GB', 'TB'];
 	var idx = 0;
 
@@ -15,31 +15,38 @@ function get_nic_details(nicname, cb) {
 	var exec = require('child_process').exec;
 
 	exec("/sbin/ifconfig " + nicname, function(err, stdout, stderr) {
-		var nicrecord = {};
-		nicrecord.name = nicname;
+		var nicrecord = {
+			name: nicname
+		};
+
 		if (!err) {
 			var ifnic = stdout.split(/[\r\n]{1,2}/);
 			var match = ifnic[0].match(/Link encap:((\w+\s?)+)/);
+
 			if (match != null && match.length > 1) {
 				nicrecord.encap = match[1];
 			}
 
-			var match = ifnic[0].match(/HWaddr\s((\w{2}:){5}\w{2})/);
+			match = ifnic[0].match(/HWaddr\s((\w{2}:){5}\w{2})/);
+
 			if (match != null && match.length > 1) {
 				nicrecord.mac = match[1];
 			}
 
-			var match = ifnic[1].match(/inet addr:((\d{1,3}\.){3}\d{1,3})/);
+			match = ifnic[1].match(/inet addr:((\d{1,3}\.){3}\d{1,3})/);
+
 			if (match != null && match.length > 1) {
 				nicrecord.ip = match[1];
 			}
 
-			var match = ifnic[6].match(/RX bytes:(\d+)/);
+			match = ifnic[6].match(/RX bytes:(\d+)/);
+
 			if (match != null && match.length > 1) {
 				nicrecord.rx = human_bytes(match[1]);
 			}
 
-			var match = ifnic[6].match(/TX bytes:(\d+)/);
+			match = ifnic[6].match(/TX bytes:(\d+)/);
+
 			if (match != null && match.length > 1) {
 				nicrecord.tx = human_bytes(match[1]);
 			}
@@ -63,7 +70,6 @@ exports.data = function(cb) {
 			(function iterator(index) {
 				if (index == nics.length) {
 					cb(res);
-					return;
 				} else {
 					var nic = nics[index];
 					if (nic.length > 0) {
