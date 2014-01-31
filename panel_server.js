@@ -14,30 +14,39 @@ var io = socket_io.listen(server, {
 });
 
 app.engine('html', function(path, options, fn) {
+	console.log(path);
 	fn(null, bliss.render(path, options));
 });
 
 app.set('views', __dirname);
+app.use(express.urlencoded());
+app.use(express.json());
+app.use(express.methodOverride());
+app.use(app.router);
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/fonts', express.static(__dirname + '/fonts'));
 app.use('/images', express.static(__dirname + '/images'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/tmp', express.static(__dirname + '/tmp'));
 
-app.get('/:sid', function(req, res) {
-	require('./index.js').page(req, res, app);
+app.get('/', function(req, res, next) {
+	return res.redirect('/login');
 });
 
-app.get('/login', function(req, res) {
-	require('./login.js').page(req, res, app);
+app.get('/index/:sid', function(req, res, next) {
+	require('./index.js').page(req, res, app, next);
 });
 
-app.post('/login', function(req, res) {
-	require('./login.js').page(req, res, app);
+app.get('/login', function(req, res, next) {
+	require('./login.js').page(req, res, app, next);
 });
 
-app.get('/logout', function (req, res) {
-	res.redirect('/login');
+app.post('/login', function(req, res, next) {
+	require('./login.js').page(req, res, app, next);
+});
+
+app.get('/logout', function (req, res, next) {
+	return res.redirect('/login');
 });
 
 function getUserWidget(data, cb) {
@@ -60,37 +69,33 @@ function getUserWidget(data, cb) {
 				console.log(path);
 				loaded_widget.manage_post(data.post_params, function(result, output) {
 					if (result) {
-						cb(user_widget, 200, 'text/plain', output);
-					} else {
-						loaded_widget.data(function(widget_data) {
-							if (widget_data != null) {
-								if (data.json) {
-									cb(user_widget, 200, 'application/json', widget_data);
-								} else {
-									app.render(folder + '/' + user_widget.widget.templatefile.replace('.tpl', '.js.html'), {
-										data : widget_data,
-										user_widget : user_widget,
-										sid : data.sid
-									}, function(err, output) {
-										if (!err) {
-											cb(user_widget, 200, 'text/html', output);
-										} else {
-											console.log(err);
-										}
-									});
-								}
-							} else {
-								cb(user_widget, 500, 'text/plain', '');
-							}
-						});
+						return cb(user_widget, 200, 'text/plain', output);
 					}
+					loaded_widget.data(function(widget_data) {
+						if (widget_data != null) {
+							if (data.json) {
+								return cb(user_widget, 200, 'application/json', widget_data);
+							} else {
+								app.render(folder + '/' + user_widget.widget.templatefile.replace('.tpl', '.js.html'), {
+									data : widget_data,
+									user_widget : user_widget,
+									sid : data.sid
+								}, function(err, output) {
+									if (!err) {
+										return cb(user_widget, 200, 'text/html', output);
+									} else {
+										console.log(err);
+									}
+								});
+							}
+						}
+						return cb(user_widget, 500, 'text/plain', '');
+					});
 				});
-			} else {
-				cb(user_widget, 500, 'text/plain', '');
 			}
-		} else {
-			cb(null, 500, 'text/plain', '');
 		}
+
+		return cb(null, 500, 'text/plain', '');
 	});
 }
 
