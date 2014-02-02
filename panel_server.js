@@ -71,6 +71,7 @@ function getUserWidget(data, cb) {
 					if (result) {
 						return cb(user_widget, 200, 'text/plain', output);
 					}
+
 					loaded_widget.data(function(widget_data) {
 						if (widget_data != null) {
 							if (data.json) {
@@ -88,14 +89,15 @@ function getUserWidget(data, cb) {
 									}
 								});
 							}
+						} else {
+							return cb(user_widget, 500, 'text/plain', '');
 						}
-						return cb(user_widget, 500, 'text/plain', '');
 					});
 				});
 			}
+		} else {
+			return cb(null, 500, 'text/plain', '');
 		}
-
-		return cb(null, 500, 'text/plain', '');
 	});
 }
 
