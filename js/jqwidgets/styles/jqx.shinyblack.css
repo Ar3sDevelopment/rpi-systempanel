@@ -81,3 +81,6 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.jqx-icon-calendar-shinyblack, .jqx-icon-calendar-hover-shinyblack, .jqx-icon-calendar-pressed-shinyblack {
+    background-image: url('images/icon-calendar-white.png');
+}

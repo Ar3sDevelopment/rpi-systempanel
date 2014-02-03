@@ -9,7 +9,6 @@
 .jqx-rc-all-ui-lightness{border-radius:4px; moz-border-radius:4px; webkit-border-radius:4px}
 .jqx-grid-column-sortdescbutton-ui-lightness{background-position:0 -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png); position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px;}
 .jqx-grid-column-sortascbutton-ui-lightness{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png)}
-.jqx-grid-column-menubutton-ui-lightness{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png); border-width:0px}
 .jqx-grid-ui-lightness .jqx-widget-header-ui-lightness{border-width:0px !important}
 .jqx-tree-item-arrow-expand-ui-lightness, .jqx-tree-item-arrow-expand-hover-ui-lightness{background-position:-65px -16px; background-image:url(images/lightness/ui-icons_222222_256x240.png)}
 .jqx-tree-item-arrow-collapse-ui-lightness, .jqx-tree-item-arrow-collapse-hover-ui-lightness{background-position:-32px -16px; background-image:url(images/lightness/ui-icons_222222_256x240.png)}
@@ -60,6 +59,7 @@
 .jqx-icon-arrow-right-selected-ui-lightness{background-position:-32px -17px; background-image:url(images/lightness/ui-icons_222222_256x240.png)}
 .jqx-icon-close-ui-lightness{background-image:url(images/lightness/ui-icons_222222_256x240.png); background-position:-80px -128px; cursor:pointer}
 .jqx-icon-close-hover-ui-lightness{background-image:url(images/lightness/ui-icons_222222_256x240.png); background-position:-80px -128px; cursor:pointer}
+.jqx-grid-column-menubutton-ui-lightness{position: relative; max-height: 16px; height: 16px !important; top:50%; margin-top:-8px; background-position:-65px -16px; background-image:url(images/lightness/ui-icons_ffffff_256x240.png); border-width:0px}
 
 .jqx-widget-ui-lightness{line-height: 17px; font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif; font-size:12px; font-style:normal; webkit-tap-highlight-color:rgba(0,0,0,0)}
 .jqx-widget-content-ui-lightness{font-family:Trebuchet MS,Tahoma,Verdana,Arial,sans-serif; background-color:#f8f8f8; background-image:-webkit-gradient(linear,0 0,0 100%,from(#f8f8f8),to(#eee));  background-image:-moz-linear-gradient(top,#f8f8f8,#eee);  background-image:-o-linear-gradient(top,#f8f8f8,#eee); border-color:#ddd; color:#333; font-size:12px}

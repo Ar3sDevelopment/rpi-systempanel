@@ -162,3 +162,6 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.jqx-icon-calendar-ui-darkness, .jqx-icon-calendar-hover-ui-darkness, .jqx-icon-calendar-pressed-ui-darkness {
+    background-image: url('images/icon-calendar-white.png');
+}

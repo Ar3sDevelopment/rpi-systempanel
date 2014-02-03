@@ -185,3 +185,6 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.jqx-icon-calendar-ui-le-frog, .jqx-icon-calendar-hover-ui-le-frog, .jqx-icon-calendar-pressed-ui-le-frog {
+    background-image: url('images/icon-calendar-white.png');
+}

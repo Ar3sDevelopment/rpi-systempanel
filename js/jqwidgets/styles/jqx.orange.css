@@ -113,3 +113,6 @@ border-color:#FBB34E; }
     background-repeat: no-repeat;
     background-position: center;
 }
+.jqx-icon-calendar-orange, .jqx-icon-calendar-hover-orange, .jqx-icon-calendar-pressed-orange {
+    background-image: url('images/icon-calendar-white.png');
+}

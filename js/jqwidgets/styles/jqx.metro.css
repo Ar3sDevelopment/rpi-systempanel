@@ -101,7 +101,7 @@
 .jqx-grid-column-menubutton-metro {
     background-image: url('images/metro-icon-down.png');
  }
-.jqx-widget-metro .jqx-grid-cell-selected-metro, .jqx-grid-cell-selected-metro{ background-color:#1faeff !important; border-color: #1faeff !important; font-size: 12px;  color:#fff !important}
+.jqx-widget-metro .jqx-grid-cell-selected-metro, .jqx-grid-cell-selected-metro{ background-color:#1faeff; border-color: #1faeff; font-size: 12px;  color:#fff;}
 .jqx-grid-cell-hover-metro{ background-color:#dedede;}
  /*applied to the column's sort button when the sort order is ascending.*/
  .jqx-grid-column-sortascbutton-metro {
@@ -236,7 +236,26 @@
 
 .jqx-switchbutton-wrapper-metro {
 }
-
+.jqx-grid-cell-metro.jqx-grid-cell-selected-metro>.jqx-grid-group-expand-metro {
+    background-image: url('images/metro-icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-metro.jqx-grid-cell-selected-metro>.jqx-grid-group-collapse-metro{
+    background-image: url('images/metro-icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-metro.jqx-grid-cell-selected-metro>.jqx-grid-group-collapse-rtl-metro {
+    background-image: url('images/metro-icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-metro.jqx-grid-cell-selected-metro>.jqx-grid-group-expand-rtl-metro{
+    background-image: url('images/metro-icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
 .jqx-grid-group-collapse-metro {
     background-image: url(images/metro-icon-right.png);
     background-position: 50% 50%;
@@ -255,6 +274,42 @@
     background-image: url(images/metro-icon-down.png);
     background-position: 50% 50%;
     background-repeat: no-repeat;
+}
+.jqx-icon-arrow-first-metro
+{
+    background-image: url('images/metro-icon-first.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-last-metro
+{
+    background-image: url('images/metro-icon-last.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-first-hover-metro
+{
+    background-image: url('images/metro-icon-first.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-last-hover-metro
+{
+    background-image: url('images/metro-icon-last.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-first-selected-metro
+{
+    background-image: url('images/metro-icon-first-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-last-selected-metro
+{
+    background-image: url('images/metro-icon-last-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .jqx-tree-grid-collapse-button-metro {
     margin-top: 1px;

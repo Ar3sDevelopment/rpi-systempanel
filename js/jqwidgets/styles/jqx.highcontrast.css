@@ -23,3 +23,72 @@
 .jqx-scrollbar-thumb-state-pressed-horizontal-highcontrast, .jqx-scrollbar-thumb-state-pressed-highcontrast {
     background: #fff;
 }
+.jqx-icon-arrow-up-hover-highcontrast, .jqx-icon-arrow-up-selected-highcontrast
+{
+    background-image: url('images/icon-up-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-down-hover-highcontrast, .jqx-icon-arrow-down-selected-highcontrast
+
+{
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-left-hover-highcontrast, .jqx-icon-arrow-left-selected-highcontrast
+{
+    background-image: url('images/icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-right-hover-highcontrast, .jqx-icon-arrow-right-selected-highcontrast
+{
+    background-image: url('images/icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-first-hover-highcontrast, .jqx-icon-arrow-last-selected-highcontrast
+{
+    background-image: url('images/icon-first-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-last-hover-highcontrast, .jqx-icon-arrow-last-selected-highcontrast
+{
+    background-image: url('images/icon-last-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-calendar-hover-highcontrast, .jqx-icon-calendar-pressed-highcontrast {
+    background-image: url('images/icon-calendar-white.png');
+}
+.jqx-grid-cell-highcontrast.jqx-grid-cell-selected-highcontrast>.jqx-grid-group-expand-highcontrast,
+.jqx-grid-cell-highcontrast.jqx-grid-cell-hover-highcontrast>.jqx-grid-group-expand-highcontrast {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-highcontrast.jqx-grid-cell-selected-highcontrast>.jqx-grid-group-collapse-highcontrast,
+.jqx-grid-cell-highcontrast.jqx-grid-cell-hover-highcontrast>.jqx-grid-group-collapse-highcontrast {
+    background-image: url('images/icon-right-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-highcontrast.jqx-grid-cell-selected-highcontrast>.jqx-grid-group-collapse-rtl-highcontrast,
+.jqx-grid-cell-highcontrast.jqx-grid-cell-hover-highcontrast>.jqx-grid-group-collapse-rtl-highcontrast {
+    background-image: url('images/icon-left-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-grid-cell-highcontrast.jqx-grid-cell-selected-highcontrast>.jqx-grid-group-expand-rtl-highcontrast,
+.jqx-grid-cell-highcontrast.jqx-grid-cell-hover-highcontrast>.jqx-grid-group-expand-rtl-highcontrast {
+    background-image: url('images/icon-down-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-menu-item-arrow-right-hover-highcontrast, .jqx-menu-item-arrow-right-selected-highcontrast{background-image:url(images/icon-right-white.png); background-position:100% 50%; background-repeat:no-repeat}
+.jqx-menu-item-arrow-down-hover-highcontrast, .jqx-menu-item-arrow-down-selected-highcontrast{background-image:url(images/icon-down-white.png); background-position:100% 50%; background-repeat:no-repeat}
+.jqx-menu-item-arrow-up-hover-highcontrast, .jqx-menu-item-arrow-up-selected-highcontrast{background-image:url(images/icon-up-white.png);background-position:100% 50%; background-repeat:no-repeat}
+.jqx-menu-item-arrow-left-hover-highcontrast, .jqx-menu-item-arrow-left-selected-highcontrast{background-image:url(images/icon-left-white.png); background-position:0 50%; background-repeat:no-repeat}
+

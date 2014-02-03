@@ -191,3 +191,6 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.jqx-icon-calendar-ui-start, .jqx-icon-calendar-hover-ui-start, .jqx-icon-calendar-pressed-ui-start {
+    background-image: url('images/icon-calendar-white.png');
+}

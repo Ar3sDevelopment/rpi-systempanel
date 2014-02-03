@@ -20,7 +20,8 @@ background: -o-linear-gradient(top, #cacdd5 0%,#a3a7b4 93%,#a6aab7 100%);
 background: -ms-linear-gradient(top, #cacdd5 0%,#a3a7b4 93%,#a6aab7 100%);
 background: linear-gradient(top, #cacdd5 0%,#a3a7b4 93%,#a6aab7 100%);
 }
-.jqx-fill-state-pressed-fresh, .jqx-widget-fresh .jqx-grid-cell-selected-fresh{ background: #058cf5;
+.jqx-fill-state-pressed-fresh, .jqx-widget-fresh .jqx-grid-cell-selected-fresh{
+background: #058cf5;
 background: -moz-linear-gradient(top, #058cf5 0%, #0385f3 19%, #0167e9 72%, #015de6 100%);
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#058cf5), color-stop(19%,#0385f3), color-stop(72%,#0167e9), color-stop(100%,#015de6));
 background: -webkit-linear-gradient(top, #058cf5 0%,#0385f3 19%,#0167e9 72%,#015de6 100%);
@@ -113,4 +114,19 @@ background: linear-gradient(left, #9cbbed 0%,#3a78dc 1%,#1543bb 100%);
     background-image: url('images/icon-down-white.png');
     background-repeat: no-repeat;
     background-position: center;
+}
+.jqx-icon-arrow-first-selected-fresh
+{
+    background-image: url('images/icon-first-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-arrow-last-selected-fresh
+{
+    background-image: url('images/icon-last-white.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jqx-icon-calendar-pressed-fresh {
+    background-image: url('images/icon-calendar-white.png');
 }

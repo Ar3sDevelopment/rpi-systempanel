@@ -17,8 +17,6 @@
 .jqx-grid-group-cell-darkblue{border-color:#60aad2; background-color:#fff}
 .jqx-grid-cell-sort-darkblue, .jqx-grid-cell-filter-darkblue, .jqx-grid-cell-pinned-darkblue{background-color:#deedf5}
 .jqx-grid-cell-alt-darkblue, .jqx-grid-cell-sort-alt-darkblue, .jqx-grid-cell-filter-alt-darkblue{background-color:#deedf5}
-.jqx-grid-cell-selected-darkblue{background-color:#cee4f0 !important; color:#003451 !important;}
-.jqx-grid-cell-hover-darkblue{background-color:#eaf8ff !important; color:#003451 !important;}
 .jqx-scrollbar-state-normal-darkblue{background-color:#449bca; border:1px solid #449bca;}
 .jqx-tabs-title-selected-bottom-darkblue, .jqx-tabs-selection-tracker-bottom-darkblue, .jqx-tabs-title-selected-top-darkblue, .jqx-tabs-selection-tracker-top-darkblue{color: #ffffff; border-color:#004a73; border-bottom:1px solid #004a73; background:#004a73}
 
@@ -45,4 +43,7 @@
     background-image: url(images/search_white.png);
     background-repeat: no-repeat;
     background-position: center;
+}
+.jqx-icon-calendar-darkblue, .jqx-icon-calendar-hover-darkblue, .jqx-icon-calendar-pressed-darkblue {
+    background-image: url('images/icon-calendar-white.png');
 }

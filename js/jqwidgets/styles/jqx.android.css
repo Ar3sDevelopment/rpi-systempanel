@@ -187,6 +187,10 @@ input[type=text].jqx-input-android, input[type=password].jqx-input-android{
     border-top: 1px solid #262626;
    background: #262626;
  }
+.jqx-calendar-column-header-android {
+   background: #262626;
+   border-color: #262626;
+ }
 .jqx-grid-column-menubutton-android {
     background-image: url('images/metro-icon-down-white.png');
  }
@@ -484,4 +488,10 @@ input[type=text].jqx-input-android, input[type=password].jqx-input-android{
 {
     background-image: url(images/icon-showpassword-white.png) !important;
     background-repeat: no-repeat !important;
+}
+.jqx-icon-calendar-android, .jqx-icon-calendar-hover-android, .jqx-icon-calendar-pressed-android {
+    background-image: url('images/icon-calendar-white.png');
+}
+.jqx-calendar-cell-today-android {
+    color: black;
 }
