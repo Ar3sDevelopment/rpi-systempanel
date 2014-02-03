@@ -46,7 +46,7 @@ app.post('/login', function(req, res, next) {
 });
 
 app.get('/logout', function (req, res, next) {
-	return res.redirect('/login');
+	require('./logout.js').page(req, res, app, next);
 });
 
 function getUserWidget(data, cb) {
