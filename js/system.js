@@ -44,7 +44,7 @@ var updatingWidgets = [];
 		});
 	};
 
-	$.startUpdatingWidget = function(socket, widget_id, sid, callback, postData, mode) {
+	$.startUpdatingWidget = function(socket, widget_id, sid, callback, callbackPostData, mode) {
 		if ($.inArray(widget_id, updatingWidgets) == -1) {
 			updatingWidgets.push(widget_id);
 			var defData = {
@@ -52,32 +52,34 @@ var updatingWidgets = [];
 				sid : sid,
 				widget_id : widget_id
 			};
-			$.extend(defData, postData);
 			socket.on('updated_data_' + widget_id, function(data) {
 				if (data != null && data.statusCode == 200 && callback != null) {
 					callback(data.output);
 				}
 			});
+			socket.on('post_data_' + widget_id, function (data) {
+				if (data != null && data.statusCode == 200 && callbackPostData != null) {
+					callbackPostData(data.output);
+				}
+			})
 			socket.emit('request_updating', defData);
 		} else {
 		}
 	};
 
-	$.startUpdatingWidgetJson = function(socket, widget_id, sid, callback, postData) {
-		$.startUpdatingWidget(socket, widget_id, sid, callback, postData, 'json');
+	$.startUpdatingWidgetJson = function(socket, widget_id, sid, callback, callbackPostData) {
+		$.startUpdatingWidget(socket, widget_id, sid, callback, callbackPostData, 'json');
 	};
 
-	$.startUpdatingWidgetHtml = function(socket, widget_id, sid, callback, postData) {
-		$.startUpdatingWidget(socket, widget_id, sid, callback, postData, 'html');
+	$.startUpdatingWidgetHtml = function(socket, widget_id, sid, callbackPostData, callbackPostData) {
+		$.startUpdatingWidget(socket, widget_id, sid, callback, callbackPostData, 'html');
 	};
 
-	$.sendPostDataToWidget = function (socket, widget_id, sid, postData, callback) {
-		socket.emit('post_data', {
-			json : true,
-			sid : sid,
-			widget_id : widget_id,
-			post_data: postData
-		});
+	$.sendPostDataToWidget = function (socket, widget_id, sid, postData) {
+		postData.sid = sid;
+		postData.json = true;
+		postData.widget_id = widget_id;
+		socket.emit('post_data', postData);
 	};
 
 	//TODO: Think about making AJAX Form jQuery plugin

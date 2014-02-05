@@ -144,6 +144,11 @@ io.sockets.on('connection', function(socket) {
 		widgetUpdatingCallback(socket, data, null);
 	});
 
+	socket.on('post_data', function (data) {
+		data.event_name = 'post_data_' + data.widget_id;
+		emitUserWidget(socket, data, function (user_widget) { });
+	});
+
 	socket.on('request_first_data', function(data) {
 		data.event_name = 'first_use_data';
 		emitUserWidget(socket, data, function (user_widget) { });

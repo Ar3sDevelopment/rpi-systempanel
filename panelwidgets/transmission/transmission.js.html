@@ -30,11 +30,11 @@
 
 	$(document).ready(function () {
 		$('#@(model.user_widget.id_html) .btnTransPlay').click(function () {
-			$.post('transmission', { widget_id: @model.user_widget.id, sid: '@model.sid', sta: true }, null);
+            $.sendPostDataToWidget(socket, @model.user_widget.id, '@model.sid', { sta: true });
 		});
 		
 		$('#@(model.user_widget.id_html) .btnTransStop').click(function () {
-			$.post('transmission', { widget_id: @model.user_widget.id, sid: '@model.sid', sto: true }, null);
+            $.sendPostDataToWidget(socket, @model.user_widget.id, '@model.sid', { sto: true });
 		});
 		
 		setTimeout(function () {
