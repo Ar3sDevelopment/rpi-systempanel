@@ -9,14 +9,17 @@ exports.page = function(req, res, app, next) {
 			var settings = require('./framework/settings.js');
 
 			settings.load(sid, function(user) {
-				var current_url = req.headers.host.split(':')[0];
-				var socket_port = 1338;
+				settings.get_hash_methods(sid, function (hashes) {
+					var current_url = req.headers.host.split(':')[0];
+					var socket_port = 1338;
 
-				return res.render('settings.js.html', {
-					user : user,
-					sid : sid,
-					url : current_url,
-					port : socket_port
+					return res.render('settings.js.html', {
+						user : user,
+						sid : sid,
+						url : current_url,
+						port : socket_port,
+						hashes: hashes
+					});
 				});
 			});
 		} else {

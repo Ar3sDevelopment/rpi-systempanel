@@ -37,6 +37,10 @@ app.get('/index/:sid', function(req, res, next) {
 	require('./index.js').page(req, res, app, next);
 });
 
+app.get('/settings/:sid', function(req, res, next) {
+	require('./settings.js').page(req, res, app, next);
+});
+
 app.get('/login', function(req, res, next) {
 	require('./login.js').page(req, res, app, next);
 });

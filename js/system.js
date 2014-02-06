@@ -71,7 +71,7 @@ var updatingWidgets = [];
 		$.startUpdatingWidget(socket, widget_id, sid, callback, callbackPostData, 'json');
 	};
 
-	$.startUpdatingWidgetHtml = function(socket, widget_id, sid, callbackPostData, callbackPostData) {
+	$.startUpdatingWidgetHtml = function(socket, widget_id, sid, callback, callbackPostData) {
 		$.startUpdatingWidget(socket, widget_id, sid, callback, callbackPostData, 'html');
 	};
 

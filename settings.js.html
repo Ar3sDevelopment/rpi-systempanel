@@ -8,7 +8,7 @@
 			$('[name="visibility"]').click(function () {
 				$this = $(this);
 				var postData = { sid: '@model.sid', 'visibility': $this.data('val'), 'widget-id': $this.data('widget-id') };
-				$.post('settings.php', postData, function (data) {
+				$.post('/settings', postData, function (data) {
 					$this.data('val', data.visible ? 0 : 1);
 					if (data.visible) {
 						$this.text('Hide');
@@ -21,7 +21,7 @@
 			$('[name="enable"]').click(function () {
 				$this = $(this);
 				var postData = { sid: '@model.sid', 'enable': $this.data('val'), 'widget-id': $this.data('widget-id') };
-				$.post('settings.php', postData, function (data) {
+				$.post('/settings', postData, function (data) {
 					$this.data('val', data.enabled ? 0 : 1);
 					if (data.enabled) {
 						$this.text('Disable');
@@ -55,8 +55,8 @@
 </head>
 <body>
 	<div class="container">
-		{include file="menu.tpl" sid=$sid page="settings" admin=$user->admin}
-		<form action="settings.php" data-type="ajax" method="post" class="form-horizontal">
+        @render('menu', model.sid, 'settings', model.user.admin)
+		<form action="/settings" data-type="ajax" method="post" class="form-horizontal">
 			<input type="hidden" name="sid" value="@model.sid" />
 			<div class="row">
 				<div class="col-md-12">
@@ -64,7 +64,7 @@
 						<div class="form-group">
 							<label for="username" class="col-sm-2 control-label">Email</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="@model.user.username}" />
+								<input type="text" class="form-control" id="username" name="username" placeholder="Username" value="@model.user.username" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -77,10 +77,11 @@
 							<label for="hashmethod" class="col-sm-2 control-label">Hash Method</label>
 							<div class="col-sm-10">
 								<select class="form-control" id="hashmethod" name="hashmethod">
-									{foreach $hashes as $hash}
+                                    @for (var c = 0; c < model.hashes.length; c++) {
+                                        @{ var hash = model.hashes[c]; }
                                     <!-- TODO: Check here -->
-										<option value="@hash.name}"@if (model.hash.selected) { "selected="selected" }>@hash.description</option>
-									{/foreach}
+										<option value="@hash.name" @(hash.selected ? "selected='selected'" : "")>@hash.description</option>
+									}
 								</select>
 							</div>
 						</div>
@@ -107,36 +108,39 @@
 				</div>
 			</div>
 		</div>
-		{$columns = 0}
 		<div class="row">
-		{foreach $settings->user->widgets as $widget}
-		{$columns = $columns + {$widget->widget->columns}}
-			{if $columns > 12}
-				{$columns = {$widget->widget->columns}}
+        @{ var columns = 0; }
+        @for (var c = 0; c < model.user.widgets.length; c++) {
+            @{
+                var user_widget = model.user.widgets[c];
+                columns += user_widget.widget.columns;
+            }
+			@if (columns > 12) {
+				@ { columns = user_widget.widget.columns; }
 				</div>
 				<div class="row">
-			{/if}
-			<div class="col-md-{$widget->widget->columns}">
-				<form action="settings.php" method="POST" data-type="ajax" class="form-horizontal" data-success="widgetSaved" data-error="widgetError">
-					<input type="hidden" name="sid" value="{$sid}" />
-					<input type="hidden" name="widget_id" value="{$widget->id}" />
+			}
+			<div class="col-md-@user_widget.widget.columns">
+				<form action="/settings" method="POST" data-type="ajax" class="form-horizontal" data-success="widgetSaved" data-error="widgetError">
+					<input type="hidden" name="sid" value="@model.sid" />
+					<input type="hidden" name="widget_id" value="@user_widget.id" />
 					<div class="well">
-						{include file="userwidget_fields.tpl" widget=$widget}
+                        @render('userwidget_fields', user_widget)
 						<div class="form-group">
 							<div class="col-sm-offset-4 col-sm-8 text-right">
-								<button type="button" name="visibility" data-widget-id="{$widget->id}" data-val="{if $widget->visible}0{else}1{/if}" class="btn btn-default">
-									{if $widget->visible}
+								<button type="button" name="visibility" data-widget-id="@user_widget.id" data-val="@user_widget.visible ? 0 : 1" class="btn btn-default">
+									@if (user_widget.visible) {
 										Hide
-									{else}
+									} else {
 										Show
-									{/if}
+									}
 								</button>
-								<button type="button" name="enable" data-widget-id="{$widget->id}" data-val="{if $widget->enabled}0{else}1{/if}" class="btn btn-default">
-									{if $widget->enabled}
+								<button type="button" name="enable" data-widget-id="{$widget->id}" data-val="@user_widget.enabled ? 0 : 1" class="btn btn-default">
+									@if (user_widget.enabled) {
 										Disable
-									{else}
+									} else {
 										Enable
-									{/if}
+									}
 								</button>
 							</div>
 						</div>
@@ -150,7 +154,7 @@
 					</div>
 				</form>
 			</div>
-		{/foreach}
+		}
 		</div>
 	</div>
 </body>
