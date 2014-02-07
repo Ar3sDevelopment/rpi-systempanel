@@ -15,6 +15,9 @@
 		"bliss": "*",
 		"path": "*",
 		"mysql": "*",
-		"crypto": "*"
+		"crypto": "*",
+		"jade": "*",
+		"stylus": "*",
+		"nib": "*"
 	}
 }

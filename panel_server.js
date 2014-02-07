@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+//var stylus = require('stylus');
+//var nib = require('nib');
 var http = require('http');
 var url = require('url');
 var path = require('path');
@@ -18,6 +20,15 @@ app.engine('html', function(path, options, fn) {
 	fn(null, bliss.render(path, options));
 });
 
+/*function compile(str, path) {
+	return stylus(str).set('filename', path).use(nib());
+}
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jade');
+app.use(express.logger('dev'));
+app.use(stylus.middleware( { src: __dirname + '/public' , compile: compile } ));
+app.use(express.static(__dirname + '/public'));*/
+
 app.set('views', __dirname);
 app.use(express.urlencoded());
 app.use(express.json());
@@ -30,26 +41,32 @@ app.use('/js', express.static(__dirname + '/js'));
 app.use('/tmp', express.static(__dirname + '/tmp'));
 
 app.get('/', function(req, res, next) {
+	app.set('views', __dirname);
 	return res.redirect('/login');
 });
 
 app.get('/index/:sid', function(req, res, next) {
+	app.set('views', __dirname);
 	require('./index.js').page(req, res, app, next);
 });
 
 app.get('/settings/:sid', function(req, res, next) {
+	app.set('views', __dirname);
 	require('./settings.js').page(req, res, app, next);
 });
 
 app.get('/login', function(req, res, next) {
+	app.set('views', __dirname);
 	require('./login.js').page(req, res, app, next);
 });
 
 app.post('/login', function(req, res, next) {
+	app.set('views', __dirname);
 	require('./login.js').page(req, res, app, next);
 });
 
 app.get('/logout', function (req, res, next) {
+	app.set('views', __dirname);
 	require('./logout.js').page(req, res, app, next);
 });
 
