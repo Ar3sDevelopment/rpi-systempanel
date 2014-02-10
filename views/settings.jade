@@ -1,0 +1,116 @@
+extends layout
+
+block script
+    script(type="text/javascript").
+        $(document).ready(function () {
+            $('[name="visibility"]').click(function () {
+                $this = $(this);
+                var postData = { sid: '@model.sid', 'visibility': $this.data('val'), 'widget-id': $this.data('widget-id') };
+                $.post('/settings', postData, function (data) {
+                    $this.data('val', data.visible ? 0 : 1);
+                    if (data.visible) {
+                    $this.text('Hide');
+                    } else {
+                        $this.text('Show');
+                    }
+                });
+            });
+            $('[name="enable"]').click(function () {
+                $this = $(this);
+                var postData = { sid: '@model.sid', 'enable': $this.data('val'), 'widget-id': $this.data('widget-id') };
+                $.post('/settings', postData, function (data) {
+                    $this.data('val', data.enabled ? 0 : 1);
+                    if (data.enabled) {
+                    $this.text('Disable');
+                    } else {
+                        $this.text('Enable');
+                    }
+                });
+            });
+
+            $.initAjaxForms();
+        });
+
+        function changeAction(sender, action) {
+            $(sender).parent().children('input[name="widget_action"]').val(action);
+        }
+
+        function widgetSaved(caller) {
+            caller.prepend('<div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Widget Saved</strong></div>');
+            setTimeout(function () {
+                caller.children('.alert').alert('close');
+            }, 2000);
+        }
+
+        function widgetError(caller) {
+            caller.prepend('<div class="alert alert-danger fade in"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><strong>Error Saving Widget</strong></div>');
+            setTimeout(function () {
+                caller.children('.alert').alert('close');
+            }, 2000);
+        }
+
+block content
+    form.form-horizontal(action="/settings",data-type="ajax",method="post")
+        input(type="hidden",name="sid",value=sid)
+        div.row
+            div.col-md-12
+                div.well
+                    div.form-group
+                        label.col-sm-2.control-label(for="username")
+                            | Email
+                        div.col-sm-10
+                            input#username.form-control(type="text",name="username",placeholder="Username",value=user.username)
+                    div.form-group
+                        label.col-sm-2.control-label(for="password"
+                            | Password
+                        div.col-sm-10
+                            input#password.form-control(type="password",name="password",placeholder="Password")
+                    div.form-group
+                        label.col-sm-2.control-label(for="hashmethod")
+                            | Hash Method
+                        div.col-sm-10
+                            select#hashmethod.form-control(name="hashmethod")
+                                each hash in hashes
+                                    //TODO: Check here
+                                    option(value=hash.name,selected=hash.selected ? 'selected' : undefined)
+                                        #{hash.description}
+                    div.form-group
+                        div.row
+                            div.col-sm-offset-2.col-sm-10
+                                input(type="hidden",name="save_user",value="1")
+                                button.btn.btn-primary(type="submit")
+                                    | Save
+        div.row
+            div.col-md-12
+                div.well
+                    button.btn.btn-primary(data-toggle="modal",data-target="#assignWidget",href="widget_create.php?sid=@model.sid")
+                        | Assign New Widget
+                div#assignWidget.modal.fade(tabindex="-1",role="dialog",aria-labelledby="assignModalLabel",aria-hidden="true")
+        div.row
+            each user_widget in user.widgets
+                div(class="col-md-" + user_widget.widget.columns)
+                    form.form-horizontal(action="/settings",method="POST",data-type="ajax",data-success="widgetSaved",data-error="widgetError")
+                        input(type="hidden",name="sid",value=sid)
+                        input(type="hidden",name="widget_id",value=user_widget.id)
+                        div.well
+                            //TODO: Verify here for partial views
+                            block userwidget
+                            div.form-group
+                                div.col-sm-offset-4.col-sm-8.text-right
+                                    button.btn.btn-default(type="button",name="visibility",data-widget-id=user_widget.id,data-val=user_widget.visible ? 0 : 1)
+                                        if user_widget.visible
+                                            | Hide
+                                        else
+                                            | Show
+                                    button.btn.btn-default(type="button",name="enable",data-widget-id=user_widget.id,data-val=user_widget.enabled ? 0 : 1)
+                                        if user_widget.enabled
+                                            | Disable
+                                        else
+                                            | Enable
+                            div.form-group
+                                div.col-sm-offset-4.col-sm-8
+                                    input(type="hidden",name="widget_action",value="save")
+                                    button.btn.btn-primary(type="submit",onclick="changeAction(this, 'save');")
+                                        | Save
+                                    button.btn.btn-danger(type="submit",onclick="changeAction(this, 'delete');")
+                                        | Delete
