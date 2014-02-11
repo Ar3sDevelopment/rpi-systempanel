@@ -13,5 +13,4 @@ block content
         each userWidget in user.widgets
             if userWidget.enabled
                 div(class='col-md-' + userWidget.widget.columns,style=userWidget.visible ? 'display: none;' : '')
-                //TODO: Verify here for partial views
-                block widget
+                    include widget
