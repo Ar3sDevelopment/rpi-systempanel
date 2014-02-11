@@ -7,20 +7,20 @@ if page != 'login'
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-            a.navbar-brand(href="index.php?sid=@sid")
+            a.navbar-brand(href="/index/#{sid}")
                 img(src="/images/rpi.png")
         div#menu-navbar-collapse.collapse.navbar-collapse
             ul.nav.navbar-nav
                 li(class=(page == "home") ? "active" : "")
-                    a(href="/index/@sid")
+                    a(href="/index/#{sid}")
                         | Home
                 li(class=(page == "settings") ? "active" : "")
-                    a(href="settings.php?sid=@sid")
+                    a(href="/settings/#{sid}")
                         | Settings
                 if admin
                     li(class=(page == "admin") ? "active" : "")
-                        a(href="old/widgetpanel/index.php?sid=@sid")
+                        a(href="old/widgetpanel/index.php?sid=#{sid}")
                             | Admin
                 li
-                    a(href="logout.php?sid=@sid")
+                    a(href="/logout/#{sid}")
                         | Logout

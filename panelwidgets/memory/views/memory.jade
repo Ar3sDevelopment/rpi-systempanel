@@ -1,0 +1,108 @@
+div.row
+    div.col-xs-3
+        | Memory
+    div#total_mem.col-xs-3.text-right
+        | #{data.total_mem} kB
+    div.col-xs-6
+        | &nbsp;
+div.row
+    div.col-xs-3
+        | Used
+    div#used_mem.col-xs-3.text-right
+        | #{data.used_mem} kB
+    div#percent_used_progress.col-xs-3
+        div.progress
+            div.progress-bar.progress-bar-danger(style="width: " + data.percent_used + "%;",aria-valuenow=data.percent_used,role="progressbar",aria-valuemin="0",aria-valuemax="100")
+    div#percent_used.col-xs-3.text-right
+        | #{data.percent_used} %
+div.row
+    div.col-xs-3
+        | Free
+    div#free_mem.col-xs-3.text-right
+        | #{data.free_mem} kB
+    div#percent_free_progress.col-xs-3
+        div.progress
+            div.progress-bar.progress-bar-success(style="width: " + data.percent_free + "%;",aria-valuenow=data.percent_used,role="progressbar",aria-valuemin="0",aria-valuemax="100")
+    div#percent_free.col-xs-3.text-right
+        | #{data.percent_free} %
+div.row
+    div.col-xs-3
+        | Buffered
+    div#buffer_mem.col-xs-3.text-right
+        | #{data.buffer_mem} kB
+    div#percent_buff_progress.col-xs-3
+        div.progress
+            div.progress-bar.progress-bar-warning(style="width: " + data.percent_buff + "%;",aria-valuenow=data.percent_buff,role="progressbar",aria-valuemin="0",aria-valuemax="100")
+    div#percent_buff.col-xs-3.text-right
+        | #{data.percent_buff} %
+div.row
+    div.col-xs-3
+        | Cached
+    div#cache_mem.col-xs-3.text-right
+        | #{data.cache_mem} kB
+    div.col-xs-3
+        div#percent_cach_progress.progress
+            div.progress-bar.progress-bar-info(style="width: " + data.percent_cach + "%;",aria-valuenow=data.percent_cach,role="progressbar",aria-valuemin="0",aria-valuemax="100")
+    div#percent_cach.col-xs-3.text-right
+        | #{data.percent_cach} %
+div.row
+    div.col-xs-12
+        | &nbsp;
+div.row
+    div.col-xs-3
+        | Swap
+    div#total_swap.col-xs-3.text-right
+        | #{data.total_swap} kB
+    div.col-xs-6
+        | &nbsp;
+div.row
+    div.col-xs-3
+        | Used
+    div#used_swap.col-xs-3.text-right
+        | #{data.used_swap} kB
+    div#percent_swap_progress.col-xs-3
+        div.progress
+            div.progress-bar.progress-bar-danger(style="width: " + data.percent_swap + "%;",aria-valuenow=data.percent_swap,role="progressbar",aria-valuemin="0",aria-valuemax="100")
+    div#percent_swap.col-xs-3.text-right
+        | #{data.percent_swap} %
+div.row
+    div.col-xs-3
+        | Free
+    div#free_swap.col-xs-3.text-right
+        | #{data.free_swap} kB
+    div#percent_swap_free_progress.col-xs-3
+        div.progress
+            div.progress-bar.progress-bar-success(style="width: " + data.percent_swap_free + "%;",aria-valuenow=data.percent_swap_free,role="progressbar",aria-valuemin="0",aria-valuemax="100")
+    div#percent_swap_free.col-xs-3.text-right
+        | #{data.percent_swap_free} %
+script(type="text/javascript").
+    function callbackRAMFunc(data)
+    {
+        $('#total_mem').html(data.total_mem + ' kB');
+        $('#used_mem').html(data.used_mem + ' kB');
+        $('#percent_used_progress .progress div').css({ width: data.percent_used + '%' }).prop('aria-valuenow', data.percent_used)
+        $('#percent_used').html(data.percent_used + ' %');
+        $('#free_mem').html(data.free_mem + ' kB');
+        $('#percent_free_progress .progress div').css({ width: data.percent_free + '%' }).prop('aria-valuenow', data.percent_free)
+        $('#percent_free').html(data.percent_free + ' %');
+        $('#buffer_mem').html(data.buffer_mem + ' kB');
+        $('#percent_buff_progress .progress div').css({ width: data.percent_buff + '%' }).prop('aria-valuenow', data.percent_buff)
+        $('#percent_buff').html(data.percent_buff + ' %');
+        $('#cache_mem').html(data.cache_mem + ' kB');
+        $('#percent_cach_progress .progress div').css({ width: data.percent_cach + '%' }).prop('aria-valuenow', data.percent_cach)
+        $('#percent_cach').html(data.percent_cach + ' %');
+        $('#total_swap').html(data.total_swap + ' kB');
+        $('#used_swap').html(data.used_swap + ' kB');
+        $('#percent_swap_progress .progress div').css({ width: data.percent_swap + '%' }).prop('aria-valuenow', data.percent_swap)
+        $('#percent_swap').html(data.percent_swap + ' %');
+        $('#free_swap').html(data.free_swap + ' kB');
+        $('#percent_swap_free_progress .progress div').css({ width: data.percent_swap_free + '%' }).prop('aria-valuenow', data.percent_swap_free)
+        $('#percent_swap_free').html(data.percent_swap_free + ' %');
+    }
+    function timeoutRAMFunc()
+    {
+        $.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid}', callbackRAMFunc, null);
+    }
+    $(document).ready(function () {
+        setTimeout(timeoutRAMFunc, #{user_widget.widget.updatetime});
+    });
