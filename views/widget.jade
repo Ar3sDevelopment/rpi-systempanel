@@ -10,7 +10,7 @@ div.panel.panel-success(id=userWidget.id_html)
             span.glyphicon.glyphicon-chevron-down
     div.panel-body.collapse.in
 //TODO: Verificare come fare gli if nei blocchi di script
-if (userWidget.widget.updatetime > 0) {
+if (userWidget.widget.updatetime > 0)
     script(type="text/javascript").
         $(document).ready(function () {
             $.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
@@ -18,10 +18,9 @@ if (userWidget.widget.updatetime > 0) {
                 $.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
             });
         });
-} else {
+else
     script(type="text/javascript").
         $(document).ready(function () {
                 $.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
             }
         });
- }

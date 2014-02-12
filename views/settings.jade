@@ -71,9 +71,8 @@ block content
                         div.col-sm-10
                             select#hashmethod.form-control(name="hashmethod")
                                 each hash in hashes
-                                    //TODO: Check here
-                                    option(value=hash.name,selected=hash.selected ? 'selected' : undefined)
-                                        #{hash.description}
+                                    option(value=hash.name,selected=hash.selected)
+                                        | #{hash.description}
                     div.form-group
                         div.row
                             div.col-sm-offset-2.col-sm-10
@@ -83,7 +82,7 @@ block content
         div.row
             div.col-md-12
                 div.well
-                    button.btn.btn-primary(data-toggle="modal",data-target="#assignWidget",href="widget_create.php?sid=#{sid}")
+                    button.btn.btn-primary(data-toggle="modal",data-target="#assignWidget",href="widget_create.php?sid=" + sid)
                         | Assign New Widget
                 div#assignWidget.modal.fade(tabindex="-1",role="dialog",aria-labelledby="assignModalLabel",aria-hidden="true")
         div.row
@@ -93,8 +92,7 @@ block content
                         input(type="hidden",name="sid",value=sid)
                         input(type="hidden",name="widget_id",value=user_widget.id)
                         div.well
-                            //TODO: Verify here for partial views
-                            block userwidget
+                            include userwidget
                             div.form-group
                                 div.col-sm-offset-4.col-sm-8.text-right
                                     button.btn.btn-default(type="button",name="visibility",data-widget-id=user_widget.id,data-val=user_widget.visible ? 0 : 1)

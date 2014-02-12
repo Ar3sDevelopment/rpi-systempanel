@@ -19,7 +19,7 @@ exports.page = function(req, res, app, next) {
 			}
 		});
 	} else {
-		return res.render('login.js.html', {
+		return res.render('login', {
 			url : current_url,
 			port : socket_port
 		});

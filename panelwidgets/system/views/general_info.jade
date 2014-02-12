@@ -1,0 +1,43 @@
+div.row
+	div.col-xs-6
+        | Hostname
+	div#host.col-xs-6
+        | #{data.host}
+div.row
+	div.col-xs-6
+        | System Time
+	div#time.col-xs-6
+        | #{data.current_time}
+div.row
+	div.col-xs-6
+        | Kernel
+	div#kernel.col-xs-6
+        | #{data.system} #{data.kernel}
+div.row
+	div.col-xs-6
+        | Firmware
+	div#firmware.col-xs-6
+        | #{data.firmware}
+div.row
+	div.col-xs-6
+        | Uptime
+	div#uptime.col-xs-6
+        | #{data.uptime}
+script(type="text/javascript").
+	function callbackSysInfoFunc(data)
+	{
+		$('#host').html(data.host);
+		$('#time').html(data.current_time);
+		$('#kernel').html(data.system + ' ' + data.kernel);
+		$('#firmware').html(data.firmware);
+		$('#uptime').html(data.uptime);
+	}
+	
+	function timeoutSysInfoFunc()
+	{
+	    $.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid'}, callbackSysInfoFunc, null);
+	}
+	
+	$(document).ready(function () {
+		setTimeout(timeoutSysInfoFunc, #{user_widget.widget.updatetime});
+	});

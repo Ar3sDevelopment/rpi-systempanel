@@ -12,7 +12,6 @@
 		"express": "*",
 		"socket.io": "*",
 		"url": "*",
-		"bliss": "*",
 		"path": "*",
 		"mysql": "*",
 		"crypto": "*",

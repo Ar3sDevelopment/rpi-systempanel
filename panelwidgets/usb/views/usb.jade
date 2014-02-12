@@ -1,0 +1,25 @@
+each device, index in model.data.devices
+    div.row
+        div.col-xs-12
+            div.row
+                div.col-xs-4
+                    | #{device.name}
+                div.col-xs-4
+                    | BUS #{device.bus}
+                div.col-xs-4
+                    | Device #{device.device}
+            if index < (model.data.devices.length - 1))
+                div.row
+                    div.col-xs-12
+                        | &nbsp;
+script(type="text/javascript").
+	function callbackUSBFunc(data)
+    {
+        $('##{user_widget.id_html} .panel-body').html(data);
+    }
+
+    $(document).ready(function () {
+        setTimeout(function () {
+            $.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid}', callbackUSBFunc, null);
+        }, #{user_widget.widget.updatetime});
+    });

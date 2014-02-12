@@ -12,5 +12,5 @@ block content
     div.row
         each userWidget in user.widgets
             if userWidget.enabled
-                div(class='col-md-' + userWidget.widget.columns,style=userWidget.visible ? 'display: none;' : '')
+                div(class='col-md-' + userWidget.widget.columns,style=(userWidget.visible ? 'display: none;' : ''))
                     include widget

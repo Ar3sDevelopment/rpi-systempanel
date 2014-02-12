@@ -1,12 +1,10 @@
 var express = require('express');
 var app = express();
-//var stylus = require('stylus');
-//var nib = require('nib');
+var stylus = require('stylus');
+var nib = require('nib');
 var http = require('http');
 var url = require('url');
 var path = require('path');
-Bliss = require('bliss');
-bliss = new Bliss();
 
 var socket_io = require('socket.io');
 var server = http.createServer(app).listen(1338);
@@ -15,21 +13,14 @@ var io = socket_io.listen(server, {
 	log : false
 });
 
-app.engine('html', function(path, options, fn) {
-	console.log(path);
-	fn(null, bliss.render(path, options));
-});
-
-/*function compile(str, path) {
+function compile(str, path) {
 	return stylus(str).set('filename', path).use(nib());
 }
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.logger('dev'));
 app.use(stylus.middleware( { src: __dirname + '/public' , compile: compile } ));
-app.use(express.static(__dirname + '/public'));*/
-
-app.set('views', __dirname);
+app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.methodOverride());
@@ -41,32 +32,26 @@ app.use('/js', express.static(__dirname + '/js'));
 app.use('/tmp', express.static(__dirname + '/tmp'));
 
 app.get('/', function(req, res, next) {
-	app.set('views', __dirname);
 	return res.redirect('/login');
 });
 
 app.get('/index/:sid', function(req, res, next) {
-	app.set('views', __dirname);
 	require('./index.js').page(req, res, app, next);
 });
 
 app.get('/settings/:sid', function(req, res, next) {
-	app.set('views', __dirname);
 	require('./settings.js').page(req, res, app, next);
 });
 
 app.get('/login', function(req, res, next) {
-	app.set('views', __dirname);
 	require('./login.js').page(req, res, app, next);
 });
 
 app.post('/login', function(req, res, next) {
-	app.set('views', __dirname);
 	require('./login.js').page(req, res, app, next);
 });
 
 app.get('/logout', function (req, res, next) {
-	app.set('views', __dirname);
 	require('./logout.js').page(req, res, app, next);
 });
 
@@ -98,11 +83,13 @@ function getUserWidget(data, cb) {
 							if (data.json) {
 								return cb(user_widget, 200, 'application/json', widget_data);
 							} else {
-								app.render(folder + '/' + user_widget.widget.templatefile.replace('.tpl', '.js.html'), {
+								app.set('views', folder.replace('.', __dirname) + '/views');
+								app.render(user_widget.widget.templatefile.replace('.tpl', ''), {
 									data : widget_data,
 									user_widget : user_widget,
 									sid : data.sid
 								}, function(err, output) {
+									app.set('views', __dirname + '/views');
 									if (!err) {
 										return cb(user_widget, 200, 'text/html', output);
 									} else {
