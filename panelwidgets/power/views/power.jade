@@ -1,0 +1,16 @@
+button#btnPowerOff.btn.btn-danger(type="button")
+    span.glyphicon.glyphicon-off
+button#btnPowerReset.btn.btn-warning(type="button")
+    span.glyphicon.glyphicon-repeat
+script(type="text/javascript").
+	$(document).ready(function () {
+		$('#btnPowerOff').click(function () {
+			if (confirm('Are you sure you want to shutdown?'))
+                $.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { po: true });
+		});
+		
+		$('#btnPowerReset').click(function () {
+			if (confirm('Are you sure you want to reboot?'))
+                $.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { pr: true });
+		});
+	});
