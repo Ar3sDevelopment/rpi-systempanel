@@ -1,26 +1,25 @@
 div.panel.panel-success(id=userWidget.id_html)
-    div.panel-heading
-        button.btn.btn-link(type="button",data-toggle="hide",data-target="#" + userWidget.id_html + " .panel-body")
-            | #{userWidget.widget.title}
-        if userWidget.widget.updatetime > 0
-            button.btn.btn-link.pull-right.refreshWidget(type="button")
-                span.glyphicon.glyphicon-refresh
-        button.btn.btn-link.pull-right(type="button",data-toggle="collapse",data-target="#" + userWidget.id_html + ".panel-body")
-            span.glyphicon.glyphicon-chevron-up
-            span.glyphicon.glyphicon-chevron-down
-    div.panel-body.collapse.in
+	div.panel-heading
+		button.btn.btn-link(type="button",data-toggle="hide",data-target="#" + userWidget.id_html + " .panel-body")
+			| #{userWidget.widget.title}
+		if userWidget.widget.updatetime > 0
+			button.btn.btn-link.pull-right.refreshWidget(type="button")
+				span.glyphicon.glyphicon-refresh
+		button.btn.btn-link.pull-right(type="button",data-toggle="collapse",data-target="#" + userWidget.id_html + ".panel-body")
+			span.glyphicon.glyphicon-chevron-up
+			span.glyphicon.glyphicon-chevron-down
+	div.panel-body.collapse.in
 //TODO: Verificare come fare gli if nei blocchi di script
 if (userWidget.widget.updatetime > 0)
-    script(type="text/javascript").
-        $(document).ready(function () {
-            $.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
-            $('##{userWidget.id_html} .panel-heading .refreshWidget').click(function () {
-                $.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
-            });
-        });
+	script(type="text/javascript").
+		$(document).ready(function () {
+			$.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
+			$('##{userWidget.id_html} .panel-heading .refreshWidget').click(function () {
+				$.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
+			});
+		});
 else
-    script(type="text/javascript").
-        $(document).ready(function () {
-                $.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
-            }
-        });
+	script(type="text/javascript").
+		$(document).ready(function () {
+			$.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
+		});

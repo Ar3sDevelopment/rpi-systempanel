@@ -1,44 +1,44 @@
 div.row
 	div.col-xs-3
-        | CPUs
+		| CPUs
 	div#cpus.col-xs-3
-        | #{data.cpus}
+		| #{data.cpus}
 	div.col-xs-3
-        | Cores
+		| Cores
 	div#cores.col-xs-3
-        | #{data.cores}
+		| #{data.cores}
 div.row
 	div.col-xs-3
-        | Sockets
+		| Sockets
 	div#sockets.col-xs-3
-        | #{data.sockets}
+		| #{data.sockets}
 	div.col-xs-3
-        | Nodes
+		| Nodes
 	div#nodes.col-xs-3
-	    | #{data.nodes}
+		| #{data.nodes}
 div.row
 	div.col-xs-6
-        | Model
+		| Model
 	div#model.col-xs-6
-	    | #{data.processor}
+		| #{data.processor}
 div.row
 	div.col-xs-6
-        | Frequency
+		| Frequency
 	div#freq.col-xs-6
-	    | #{data.frequency} MHz
+		| #{data.frequency} MHz
 div.row
 	div.col-xs-6
-        | Load
+		| Load
 	div#cpuload.col-xs-3
-	    | #{data.cpuload} %
+		| #{data.cpuload} %
 	div#cpuload_percent.col-xs-3
 		div.progress
 			div.progress-bar.progress-bar-danger(style="width: " + data.cpuload + "%",aria-valuenow=data.cpuload,role="progressbar",aria-valuemin="0",aria-valuemax="100")
 div.row
 	div.col-xs-6
-        | Temperature
+		| Temperature
 	div#cpu_temperature.col-xs-6
-	    | #{data.cpu_temperature} &deg;C
+		| #{data.cpu_temperature} &deg;C
 script(type="text/javascript").
 	function callbackCPUFunc(data)
 	{
@@ -52,12 +52,12 @@ script(type="text/javascript").
 		$('#cpuload_percent .progress div').css({ width: data.cpuload + '%' }).prop('aria-valuenow', data.cpuload)
 		$('#cpu_temperature').html(data.cpu_temperature + '&deg;C');
 	}
-	
+
 	function timeoutCPUFunc()
 	{
-	    $.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid}', callbackCPUFunc, null);
+		$.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid}', callbackCPUFunc, null);
 	}
-	
+
 	$(document).ready(function () {
 		setTimeout(timeoutCPUFunc, #{user_widget.widget.updatetime});
 	});

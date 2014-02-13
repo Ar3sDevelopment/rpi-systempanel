@@ -3,14 +3,14 @@ extends layout
 block script
 
 block content
-    form(method="post",action="/login")
-        div.form-group
-            label(for="username")
-                | Username
-            input#username.form-control(type="text",name="username",placeholder="Username")
-        div class="form-group">
-            label(for="password")
-                | Password
-            input#password.form-control(type="password",name="password",placeholder="Password")
-        button.btn.btn-primary(type="submit",name="login")
-            | Submit
+	form(method="post",action="/login")
+		div.form-group
+			label(for="username")
+				| Username
+			input#username.form-control(type="text",name="username",placeholder="Username")
+		div class="form-group">
+			label(for="password")
+				| Password
+			input#password.form-control(type="password",name="password",placeholder="Password")
+		button.btn.btn-primary(type="submit",name="login")
+			| Submit

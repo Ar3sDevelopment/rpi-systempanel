@@ -6,16 +6,16 @@ div.row
 		input.form-control(type="text",name="cmd")
 	div.col-xs-3.col-sm-2
 		button.btn.btn-success.btnSendCmd(type="button")
-		    span.glyphicon.glyphicon-play
+			span.glyphicon.glyphicon-play
 script(type="text/javascript").
 	$(document).ready(function () {
-        $.startUpdatingWidgetHtml(socket, #{user_widget.id}, '#{sid}', null, manageTerminalPostData);
+		$.startUpdatingWidgetHtml(socket, #{user_widget.id}, '#{sid}', null, manageTerminalPostData);
 
 		$('##{user_widget.id_html} .btnSendCmd').click(function () {
-            $.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { cmd: $('##{user_widget.id_html} input[name="cmd"]').val() });
+			$.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { cmd: $('##{user_widget.id_html} input[name="cmd"]').val() });
 		});
 	});
 
-    function manageTerminalPostData(data) {
-        $('##{user_widget.id_html} .terminal-output pre').text(data);
-    }
+	function manageTerminalPostData(data) {
+		$('##{user_widget.id_html} .terminal-output pre').text(data);
+	}

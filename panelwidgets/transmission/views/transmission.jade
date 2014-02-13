@@ -1,36 +1,36 @@
 div.row
 	div.col-xs-3
-        | Total
+		| Total
 	div.col-xs-3.text-right. total_tor 
-        | #{data.total_torrents}
-	div.col-xs-6 
+		| #{data.total_torrents}
+	div.col-xs-6
 		<button type="button" class="btn btn-success btnTransPlay 
-		    <span class="glyphicon glyphicon-play 
+			<span class="glyphicon glyphicon-play
 		<button type="button" class="btn btn-danger btnTransStop 
-		    <span class="glyphicon glyphicon-stop 
+			<span class="glyphicon glyphicon-stop
 div.row
 	div.col-xs-3
-        | Active
+		| Active
 	div.col-xs-3.text-right. active_tor 
-	    | #{data.active_torrents}
-	div.col-xs-6 
-	    | &nbsp;
+		| #{data.active_torrents}
+	div.col-xs-6
+		| &nbsp;
 </div>
 div.row
 	div.col-xs-3
-        | Seeding
+		| Seeding
 	div.col-xs-3.text-right. seeding_tor 
-	    | #{data.seeding_torrents}
-	div.col-xs-6 
-	    | &nbsp;
+		| #{data.seeding_torrents}
+	div.col-xs-6
+		| &nbsp;
 </div>
 div.row
 	div.col-xs-3
-        | Downloading
+		| Downloading
 	div.col-xs-3.text-right. down_tor 
-	    | #{data.downloading_torrents}
-	div.col-xs-6 
-	    | &nbsp;
+		| #{data.downloading_torrents}
+	div.col-xs-6
+		| &nbsp;
 script(type="text/javascript").
 	function callbackTransmissionFunc(data)
 	{
@@ -39,14 +39,14 @@ script(type="text/javascript").
 
 	$(document).ready(function () {
 		$('##{user_widget.id_html} .btnTransPlay').click(function () {
-            $.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { sta: true });
+		$.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { sta: true });
 		});
-		
+
 		$('#@(model.user_widget.id_html) .btnTransStop').click(function () {
-            $.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { sto: true });
+			$.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { sto: true });
 		});
-		
+
 		setTimeout(function () {
-		    $.startUpdatingWidgetHtml(socket, #{user_widget.id}, '#{sid}', callbackTransmissionFunc, null);
+			$.startUpdatingWidgetHtml(socket, #{user_widget.id}, '#{sid}', callbackTransmissionFunc, null);
 		}, #{user_widget.widget.updatetime});
 	});

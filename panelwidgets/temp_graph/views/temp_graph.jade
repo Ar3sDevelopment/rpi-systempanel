@@ -6,12 +6,12 @@ script(type="text/javascript").
 	{
 		$('#cpu_temp_gauge').jqxLinearGauge('value', data.cpu_temperature);
 	}
-	
+
 	function timeoutTempGraphFunc()
 	{
-	    $.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid}', callbackTempGraphFunc, null);
+		$.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid}', callbackTempGraphFunc, null);
 	}
-	
+
 	$(document).ready(function () {
 		var majorTicks = { size: '10%', interval: 10 };
 		var minorTicks = { size: '5%', interval: 2.5, style: { 'stroke-width': 1, stroke: '#aaaaaa'} };
@@ -34,8 +34,8 @@ script(type="text/javascript").
 				{ startValue: 70, endValue: 80, style: { fill: '#FF4800', stroke: '#FF4800'}}
 			]
 		});
-		
+
 		$('#cpu_temp_gauge').jqxLinearGauge('value', #{data.cpu_temperature});
-	
+
 		setTimeout(timeoutTempGraphFunc, #{user_widget.widget.updatetime});
 	});

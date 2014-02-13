@@ -1,16 +1,16 @@
 extends layout
 
 block script
-    script(type="text/javascript").
-        var socket;
-        $(document).ready(function () {
-            socket = $.initSocket(socket, '#{url}', #{port});
-            $.initPanelCollapse();
-        });
+	script(type="text/javascript").
+		var socket;
+		$(document).ready(function () {
+			socket = $.initSocket(socket, '#{url}', #{port});
+			$.initPanelCollapse();
+		});
 
 block content
-    div.row
-        each userWidget in user.widgets
-            if userWidget.enabled
-                div(class='col-md-' + userWidget.widget.columns,style=(userWidget.visible ? 'display: none;' : ''))
-                    include widget
+	div.row
+		each userWidget in user.widgets
+			if userWidget.enabled
+				div(class='col-md-' + userWidget.widget.columns,style=(userWidget.visible ? 'display: none;' : ''))
+					include widget
