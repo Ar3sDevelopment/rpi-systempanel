@@ -24,8 +24,9 @@ exports.data = function(cb) {
 							var minutes = seconds / 60;
 							var hours = minutes / 60;
 							var days = Math.floor(hours / 24);
-							var hours = Math.floor(hours - Math.floor(days * 24));
-							var minutes = Math.floor(minutes - Math.floor(days * 24 * 60) - (hours * 60));
+
+							hours = Math.floor(hours - Math.floor(days * 24));
+							minutes = Math.floor(minutes - Math.floor(days * 24 * 60) - (hours * 60));
 
 							res.uptime = (days <= 0 ? days + "d " : "") + hours + "h " + minutes + "m";
 						}

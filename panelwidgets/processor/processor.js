@@ -53,7 +53,7 @@ exports.data = function(cb) {
 												res.cpuload = res.cpuload.toFixed(1);
 												exec("lscpu -p | grep '^[0-9]'", function(err, stdout, stderr) {
 													if (!err) {
-														var split = stdout.split(/\,/);
+														var split = stdout.split(/,/);
 
 														if (split.length > 3) {
 															res.cpus = split[0] + 1;
