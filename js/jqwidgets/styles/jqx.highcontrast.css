@@ -92,3 +92,27 @@
 .jqx-menu-item-arrow-up-hover-highcontrast, .jqx-menu-item-arrow-up-selected-highcontrast{background-image:url(images/icon-up-white.png);background-position:100% 50%; background-repeat:no-repeat}
 .jqx-menu-item-arrow-left-hover-highcontrast, .jqx-menu-item-arrow-left-selected-highcontrast{background-image:url(images/icon-left-white.png); background-position:0 50%; background-repeat:no-repeat}
 
+.jqx-icon-delete-highcontrast
+{
+    background-image: url('images/icon-delete-white.png');
+}
+.jqx-icon-edit-highcontrast
+{
+    background-image: url('images/icon-edit-white.png');
+}
+.jqx-icon-save-highcontrast
+{
+    background-image: url('images/icon-save-white.png');
+}
+.jqx-icon-cancel-highcontrast
+{
+    background-image: url('images/icon-cancel-white.png');
+}
+.jqx-icon-search-highcontrast
+{
+    background-image: url(images/search_white.png);
+}
+.jqx-icon-plus-highcontrast
+{
+    background-image: url(images/plus_white.png);
+}

@@ -188,3 +188,27 @@
 .jqx-icon-calendar-ui-le-frog, .jqx-icon-calendar-hover-ui-le-frog, .jqx-icon-calendar-pressed-ui-le-frog {
     background-image: url('images/icon-calendar-white.png');
 }
+.jqx-icon-delete-ui-le-frog
+{
+    background-image: url('images/icon-delete-white.png');
+}
+.jqx-icon-edit-ui-le-frog
+{
+    background-image: url('images/icon-edit-white.png');
+}
+.jqx-icon-save-ui-le-frog
+{
+    background-image: url('images/icon-save-white.png');
+}
+.jqx-icon-cancel-ui-le-frog
+{
+    background-image: url('images/icon-cancel-white.png');
+}
+.jqx-icon-search-ui-le-frog
+{
+    background-image: url(images/search_white.png);
+}
+.jqx-icon-plus-ui-le-frog
+{
+    background-image: url(images/plus_white.png);
+}

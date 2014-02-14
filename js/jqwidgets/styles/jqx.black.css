@@ -191,3 +191,27 @@ background: linear-gradient(top, #f87948 0%,#fb4e0b 4%,#f44501 11%,#e24000 19%,#
 .jqx-icon-calendar-black, .jqx-icon-calendar-hover-black, .jqx-icon-calendar-pressed-black {
     background-image: url('images/icon-calendar-white.png');
 }
+.jqx-icon-delete-black
+{
+    background-image: url('images/icon-delete-white.png');
+}
+.jqx-icon-edit-black
+{
+    background-image: url('images/icon-edit-white.png');
+}
+.jqx-icon-save-black
+{
+    background-image: url('images/icon-save-white.png');
+}
+.jqx-icon-cancel-black
+{
+    background-image: url('images/icon-cancel-white.png');
+}
+.jqx-icon-search-black
+{
+    background-image: url(images/search_white.png);
+}
+.jqx-icon-plus-black
+{
+    background-image: url(images/plus_white.png);
+}

@@ -125,3 +125,21 @@
 .jqx-grid-pager-number-ui-lightness.jqx-fill-state-hover-ui-lightness {
     color: #000;
 }
+.jqx-grid-group-collapse-ui-lightness
+{
+    background-image: url(images/icon-right.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+.jqx-grid-group-collapse-rtl-ui-lightness
+{
+    background-image: url(images/icon-left.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+.jqx-grid-group-expand-ui-lightness, .jqx-grid-group-expand-rtl-ui-lightness
+{
+    background-image: url(images/icon-down.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}

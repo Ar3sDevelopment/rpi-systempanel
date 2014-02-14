@@ -314,3 +314,27 @@
 .jqx-icon-calendar-metrodark, .jqx-icon-calendar-hover-metrodark, .jqx-icon-calendar-pressed-metrodark {
     background-image: url('images/icon-calendar-white.png');
 }
+.jqx-icon-delete-metrodark
+{
+    background-image: url('images/icon-delete-white.png');
+}
+.jqx-icon-edit-metrodark
+{
+    background-image: url('images/icon-edit-white.png');
+}
+.jqx-icon-save-metrodark
+{
+    background-image: url('images/icon-save-white.png');
+}
+.jqx-icon-cancel-metrodark
+{
+    background-image: url('images/icon-cancel-white.png');
+}
+.jqx-icon-search-metrodark
+{
+    background-image: url(images/search_white.png);
+}
+.jqx-icon-plus-metrodark
+{
+    background-image: url(images/plus_white.png);
+}

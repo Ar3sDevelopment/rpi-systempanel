@@ -314,3 +314,6 @@
 .jqx-tree-grid-collapse-button-metro {
     margin-top: 1px;
 }
+.jqx-icon-calendar-pressed-metro {
+    background-image: url('images/icon-calendar-white.png');
+}

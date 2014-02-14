@@ -140,7 +140,11 @@
     overflow: hidden !important;
 }
 /*jqxButton, jqxToggleButton, jqxRepeatButton Style*/
-.jqx-button{box-sizing: border-box !important; -moz-box-sizing: border-box !important; outline: none; border: 1px solid transparent; padding: 3px; text-align: center; vertical-align: central; margin: 0 0 0 0; cursor: default; }
+.jqx-button{outline: none; border: 1px solid transparent; padding: 3px; text-align: center; vertical-align: central; margin: 0 0 0 0; cursor: default; }
+button.jqx-button, input[type=button].jqx-button {
+    box-sizing: border-box !important; -moz-box-sizing: border-box !important; 
+}
+
 .jqx-buttongroup{}
 .jqx-group-button-normal {
     vertical-align: middle;
@@ -1946,6 +1950,12 @@
     margin: 0 0 0 0;
     cursor: pointer;
 }
+.jqx-calendar-cell-selected-invalid
+{
+    color: #FFF !important;
+    background: #FF0000 !important;
+    border: 1px solid #FF0000 !important;
+}
 /*applied to a calendar cell when the cell's date is the today date.*/
 .jqx-calendar-cell-today
 {
@@ -3047,6 +3057,9 @@ of the horizontal scrollbar.*/
 }
 /*applied to Inputs*/
 .jqx-input{-webkit-user-modify:inherit; -moz-user-modify: inherit;  overflow: hidden; background-color: inherit; border-color: #c7c7c7;}
+.jqx-input-invalid {
+    color: red !important;
+}
 .jqx-input-group {overflow: hidden;}
 .jqx-input-group-addon {border: 1px solid transparent; position: relative; -webkit-box-sizing: border-box !important; -moz-box-sizing: border-box !important; box-sizing: border-box !important; padding: 2px 8px !important; float: left; white-space: nowrap; vertical-align: middle; }
 .jqx-input-group-addon:first-child {
@@ -3730,4 +3743,5 @@ ol li .jqx-listmenu-item-label:before
 .jqx-action-button-rtl {
     border: none;
     border-right: 1px solid #c7c7c7;     
+    cursor: pointer;
 }
