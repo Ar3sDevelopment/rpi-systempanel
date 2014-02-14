@@ -1,4 +1,4 @@
-each device, index in model.data.devices
+each device, index in data.devices
 	div.row
 		div.col-xs-12
 			div.row
@@ -8,7 +8,7 @@ each device, index in model.data.devices
 					| BUS #{device.bus}
 				div.col-xs-4
 					| Device #{device.device}
-			if index < (model.data.devices.length - 1))
+			if index < (data.devices.length - 1)
 				div.row
 					div.col-xs-12
 						| &nbsp;

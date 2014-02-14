@@ -4,10 +4,10 @@ div.row
 	div.col-xs-3.text-right. total_tor 
 		| #{data.total_torrents}
 	div.col-xs-6
-		<button type="button" class="btn btn-success btnTransPlay 
-			<span class="glyphicon glyphicon-play
-		<button type="button" class="btn btn-danger btnTransStop 
-			<span class="glyphicon glyphicon-stop
+		button.btn.btn-success.btnTransPlay(type="button")
+			span.glyphicon.glyphicon-play
+		button.btn.btn-danger.btnTransStop(type="button")
+			span.glyphicon.glyphicon-stop
 div.row
 	div.col-xs-3
 		| Active
@@ -42,7 +42,7 @@ script(type="text/javascript").
 		$.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { sta: true });
 		});
 
-		$('#@(model.user_widget.id_html) .btnTransStop').click(function () {
+		$('##{user_widget.id_html} .btnTransStop').click(function () {
 			$.sendPostDataToWidget(socket, #{user_widget.id}, '#{sid}', { sto: true });
 		});
 

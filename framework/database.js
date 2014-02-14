@@ -104,10 +104,13 @@ exports.checkLogin = function(username, password, cb) {
 		if (!err) {
 			for (var c = 0; c < rows[0].length; c++) {
 				var userInfo = rows[0][c];
+				console.log(crypto.createHash(userInfo.hash).update(password).digest("hex"));
 				if (userInfo.password == crypto.createHash(userInfo.hash).update(password).digest("hex")) {
 					uid = userInfo.id;
 				}
 			}
+		} else {
+			console.log(err);
 		}
 		connection.end();
 

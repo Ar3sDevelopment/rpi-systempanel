@@ -3,6 +3,7 @@ exports.page = function(req, res, app, next) {
 	var socket_port = 1338;
 
 	if (req.body && req.body.username && req.body.password) {
+		console.log('login request by ' + req.body.username);
 		var settings = require('./framework/settings.js');
 
 		settings.check_login(req.body.username, req.body.password, function (uid) {
@@ -14,7 +15,19 @@ exports.page = function(req, res, app, next) {
 				settings.update_sid(sid, ip, uid, function (result) {
 					if (result) {
 						return res.redirect('/index/' + sid);
+					} else {
+						console.log('Update sid error');
+						return res.render('login', {
+							url : current_url,
+							port : socket_port
+						});
 					}
+				});
+			} else {
+				console.log('Login error');
+				return res.render('login', {
+					url : current_url,
+					port : socket_port
 				});
 			}
 		});

@@ -9,7 +9,7 @@ script(type="text/javascript").
 	
 	function timeoutCPUGraphFunc()
 	{
-	    $.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid}', callbackCPUGraphFunc, null);
+		$.startUpdatingWidgetJson(socket, #{user_widget.id}, '#{sid}', callbackCPUGraphFunc, null);
 	}
 	
 	$(document).ready(function () {
