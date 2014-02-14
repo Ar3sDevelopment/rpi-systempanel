@@ -30,6 +30,7 @@ app.use('/fonts', express.static(__dirname + '/fonts'));
 app.use('/images', express.static(__dirname + '/images'));
 app.use('/js', express.static(__dirname + '/js'));
 app.use('/tmp', express.static(__dirname + '/tmp'));
+app.use(require('./admin/admin.js'));
 
 app.get('/', function(req, res, next) {
 	return res.redirect('/login');
