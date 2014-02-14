@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Rpi-systempanel : Raspberry Pi System Panel" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <title>Rpi-systempanel</title>
+    <title>Rpi-systempanel by Ar3sDevelopment</title>
   </head>
 
   <body>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/Ar3sDevelopment/rpi-systempanel">View on GitHub</a>
+    <header>
+      <div class="container">
+        <h1>Rpi-systempanel</h1>
+        <h2>Raspberry Pi System Panel</h2>
 
-          <h1 id="project_title">Rpi-systempanel</h1>
-          <h2 id="project_tagline">Raspberry Pi System Panel</h2>
+        <section id="downloads">
+          <a href="https://github.com/Ar3sDevelopment/rpi-systempanel/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/Ar3sDevelopment/rpi-systempanel/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/Ar3sDevelopment/rpi-systempanel" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/Ar3sDevelopment/rpi-systempanel/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/Ar3sDevelopment/rpi-systempanel/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
+    <div class="container">
+      <section id="main_content">
         <h1>
-<a name="raspberry-pi-system-panel" class="anchor" href="#raspberry-pi-system-panel"><span class="octicon octicon-link"></span></a>Raspberry Pi System Panel</h1>
+<a name="raspberry-pi-nodejs-system-panel" class="anchor" href="#raspberry-pi-nodejs-system-panel"><span class="octicon octicon-link"></span></a>Raspberry Pi Node.js System Panel</h1>
 
-<p>A PHP System Information Panel with custom widgets, developed for my Raspberry Pi with support for Raspistill but supports Linux too <em>(not Raspistill)</em>.</p>
+<p>A Node.js System Information Panel with custom widgets, developed for Raspberry Pi with support for <code>raspistill</code>.</p>
 
 <h2>
 <a name="preview" class="anchor" href="#preview"><span class="octicon octicon-link"></span></a>Preview</h2>
@@ -60,36 +57,27 @@
 <a name="widgets" class="anchor" href="#widgets"><span class="octicon octicon-link"></span></a>Widgets</h2>
 
 <p><em>Widgets soon can be developed or customized following some simple guidelines and will be moved to their directory</em><br>
-If you want to try you can watch and edit the panelwidgets folder. The panel has its own widgets folder but this will change soon.
-Widgets must extends AbstractWidget class (abstract.widget.php).</p>
+If you want to try you can watch and edit the panelwidgets folder.</p>
 
 <h1>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h1>
 
-<ul>
-<li>Download all files to a directory available to webserver (Apache2 and Nginx are tested)</li>
+<ol>
 <li>Prepare an empty database on MySQL (it's the only DBMS supported for now)</li>
-<li>Access to the application <strong>systempanel</strong> <em>(if install.php is not the first page, go to it)</em> and set Database information and the panel login information (he will have administrator rights)</li>
+<li>Download all files and use <em>npm install</em> to download missing packages</li>
+<li>Go to <strong>framework</strong> folder and use <code>npm install</code>
+</li>
+<li>In <strong>framework</strong> folder edit <strong>db_conn.json</strong> to your mysql settings</li>
+<li>Go to <strong>panelwidgets</strong> folder and use <code>npm install</code> into any widget folder to install their dependencies</li>
+<li>-- Next steps are not implemented yet --</li>
+<li>Access to the application on 1338 port and set Database informations and the panel login information (he will have administrator rights)</li>
 <li>The panel is ready to log you in</li>
-</ul><p><em>Settings page is work in progress</em></p>
-
-<h2>
+</ol><h2>
 <a name="important" class="anchor" href="#important"><span class="octicon octicon-link"></span></a>Important</h2>
 
 <p><strong>Introduced Stored Procedures but not in the install.php yet so you have to restore it from the sql you find in the root.
-I'm working on an updater for keeping data between versions and updating stored procedures too.</strong>
-The new widget Terminal can be added by these query:
-<em>INSERT  IGNORE INTO <code>widget</code> VALUES (14,6,0,'Terminal','terminal','terminal.tpl','',1,'terminal','Terminal');
-INSERT  IGNORE INTO <code>user_widget</code> VALUES (26,1,14,'terminal',13,'','',1);</em></p>
+I'm working on an updater for keeping data between versions and updating stored procedures too.</strong></p>
       </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Rpi-systempanel maintained by <a href="https://github.com/Ar3sDevelopment">Ar3sDevelopment</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
     </div>
 
               <script type="text/javascript">
@@ -102,7 +90,6 @@ INSERT  IGNORE INTO <code>user_widget</code> VALUES (26,1,14,'terminal',13,'',''
             pageTracker._trackPageview();
             } catch(err) {}
           </script>
-
 
   </body>
 </html>
