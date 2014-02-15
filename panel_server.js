@@ -25,14 +25,10 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use('/css', express.static(__dirname + '/css'));
-app.use('/fonts', express.static(__dirname + '/fonts'));
-app.use('/images', express.static(__dirname + '/images'));
-app.use('/js', express.static(__dirname + '/js'));
 app.use('/tmp', express.static(__dirname + '/tmp'));
 app.use(require('./admin/admin.js'));
 
-app.get('/', function(req, res, next) {
+app.get('/', function(req, res) {
 	return res.redirect('/login');
 });
 
