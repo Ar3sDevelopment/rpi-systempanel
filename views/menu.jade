@@ -12,15 +12,15 @@ if page && page != 'login'
 		div#menu-navbar-collapse.collapse.navbar-collapse
 			ul.nav.navbar-nav
 				li(class=(page == "home") ? "active" : "")
-					a(href="/index/#{sid}")
+					a(href="/")
 						| Home
 				li(class=(page == "settings") ? "active" : "")
-					a(href="/settings/#{sid}")
+					a(href="/settings")
 						| Settings
 				if admin
 					li(class=(page == "admin") ? "active" : "")
 						a(href="old/widgetpanel/index.php?sid=#{sid}")
 							| Admin
 				li
-					a(href="/logout/#{sid}")
+					a(href="/logout")
 						| Logout

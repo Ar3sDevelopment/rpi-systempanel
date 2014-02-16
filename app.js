@@ -3,12 +3,11 @@ var app = express();
 var stylus = require('stylus');
 var nib = require('nib');
 var http = require('http');
-var url = require('url');
 var path = require('path');
-
 var socket_io = require('socket.io');
+
 var server = http.createServer(app).listen(1338, function () {
-	console.log('Express server listening on port 1338');
+	console.log('System Panel server listening on port 1338');
 });
 
 var io = socket_io.listen(server, {
@@ -27,21 +26,14 @@ app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.methodOverride());
 app.use(express.errorHandler());
+app.use(express.cookieParser());
 app.use(express.session());
 app.use(app.router);
 app.use('/tmp', express.static(__dirname + '/tmp'));
 app.use(require('./admin/admin.js'));
 
 app.get('/', function(req, res) {
-	return res.redirect('/login');
-});
-
-app.get('/index/:sid', function(req, res, next) {
 	require('./index.js').page(req, res, app, next);
-});
-
-app.get('/settings/:sid', function(req, res, next) {
-	require('./settings.js').page(req, res, app, next);
 });
 
 app.get('/login', function(req, res, next) {
@@ -52,11 +44,19 @@ app.post('/login', function(req, res, next) {
 	require('./login.js').page(req, res, app, next);
 });
 
-app.get('/logout/:sid', function (req, res, next) {
+app.get('/logout', function (req, res, next) {
 	require('./logout.js').page(req, res, app, next);
 });
 
-app.get('/widgetcreate/:sid', function (req, res, next) {
+app.get('/settings', function(req, res, next) {
+	require('./settings.js').page(req, res, app, next);
+});
+
+app.post('/settings', function(req, res, next) {
+	require('./settings.js').page(req, res, app, next);
+});
+
+app.get('/widgetcreate', function (req, res, next) {
 	require('./widgetcreate.js').page(req, res, app, next);
 });
 
@@ -74,8 +74,8 @@ function getUserWidget(data, cb) {
 			}
 
 			if (user_widget) {
-				var folder = './panelwidgets/' + user_widget.widget.folder;
-				var path = folder + '/' + user_widget.widget.phpfile + '.js';
+				var folder = path.join('./panelwidgets',user_widget.widget.folder);
+				var path = path.join(folder, user_widget.widget.phpfile + '.js');
 				var loaded_widget = require(path);
 				loaded_widget.manage_post(data.post_params, function(result, output) {
 					if (result) {
@@ -87,13 +87,13 @@ function getUserWidget(data, cb) {
 							if (data.json) {
 								return cb(user_widget, 200, 'application/json', widget_data);
 							} else {
-								app.set('views', folder.replace('.', __dirname) + '/views');
+								app.set('views', path.join(folder.replace('.', __dirname),'views'));
 								app.render(user_widget.widget.templatefile.replace('.tpl', ''), {
 									data : widget_data,
 									user_widget : user_widget,
 									sid : data.sid
 								}, function(err, output) {
-									app.set('views', __dirname + '/views');
+									app.set('views', path.join(__dirname,'views'));
 									if (!err) {
 										return cb(user_widget, 200, 'text/html', output);
 									} else {

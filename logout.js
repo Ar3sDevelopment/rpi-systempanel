@@ -1,5 +1,5 @@
 exports.page = function (req, res, app, next) {
-	var sid = req.params.sid;
+	var sid = req.session.sid;
 	if (sid) {
 		var settings = require('./framework/settings.js');
 

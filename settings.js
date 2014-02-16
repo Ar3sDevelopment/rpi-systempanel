@@ -1,6 +1,6 @@
 exports.page = function(req, res, app, next) {
 	var settings = require('./framework/settings.js');
-	var sid = req.params.sid;
+	var sid = req.session.sid;
 	if (sid) {
 		if (req.body && req.body != {}) {
 			if (req.body.visibility !== undefined) {
