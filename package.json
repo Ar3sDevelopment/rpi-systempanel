@@ -3,6 +3,9 @@
 	"description": "System Informations Panel with Widgets",
 	"version": "0.6.0",
 	"keywords": ["system", "info", "panel", "raspberry", "pi", "rpi-systempanel", "widgets"],
+	"scripts": {
+		"start": "node app.js"
+	},
 	"author": {
 		"name": "Matteo Bruni",
 		"email": "ar3shack@gmail.com"

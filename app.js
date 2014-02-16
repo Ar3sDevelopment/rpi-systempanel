@@ -7,7 +7,9 @@ var url = require('url');
 var path = require('path');
 
 var socket_io = require('socket.io');
-var server = http.createServer(app).listen(1338);
+var server = http.createServer(app).listen(1338, function () {
+	console.log('Express server listening on port 1338');
+});
 
 var io = socket_io.listen(server, {
 	log : false
@@ -16,13 +18,16 @@ var io = socket_io.listen(server, {
 function compile(str, path) {
 	return stylus(str).set('filename', path).use(nib());
 }
-app.set('views', __dirname + '/views');
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use(stylus.middleware( { src: __dirname + '/public' , compile: compile } ));
-app.use(express.static(__dirname + '/public'));
+app.use(stylus.middleware( { src: path.join(__dirname,'public'), compile: compile } ));
+app.use(express.static(path.join(__dirname,'public')));
+app.use(express.favicon());
 app.use(express.urlencoded());
 app.use(express.json());
 app.use(express.methodOverride());
+app.use(express.errorHandler());
+app.use(express.session());
 app.use(app.router);
 app.use('/tmp', express.static(__dirname + '/tmp'));
 app.use(require('./admin/admin.js'));
