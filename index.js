@@ -8,7 +8,7 @@ exports.page = function(req, res, app, next) {
 			var current_url = req.headers.host.split(':')[0];
 			var socket_port = 1338;
 
-			return res.render('index', {
+			res.render('index', {
 				user : user,
 				sid : sid,
 				url : current_url,
@@ -16,6 +16,6 @@ exports.page = function(req, res, app, next) {
 			});
 		});
 	} else {
-		return next();
+		next();
 	}
 };

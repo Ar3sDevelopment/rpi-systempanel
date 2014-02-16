@@ -1,4 +1,4 @@
-exports.page = function(req, res, app, next) {
+exports.page = function(req, res) {
 	var current_url = req.headers.host.split(':')[0];
 	var socket_port = 1338;
 
@@ -14,23 +14,23 @@ exports.page = function(req, res, app, next) {
 
 				settings.update_sid(sid, ip, uid, function (result) {
 					if (result) {
-						return res.redirect('/index/' + sid);
+						res.redirect('/index/' + sid);
 					} else {
-						return res.render('login', {
+						res.render('login', {
 							url : current_url,
 							port : socket_port
 						});
 					}
 				});
 			} else {
-				return res.render('login', {
+				res.render('login', {
 					url : current_url,
 					port : socket_port
 				});
 			}
 		});
 	} else {
-		return res.render('login', {
+		res.render('login', {
 			url : current_url,
 			port : socket_port
 		});

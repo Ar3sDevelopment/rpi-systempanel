@@ -7,16 +7,16 @@ exports.page = function (req, res, app, next) {
 			if (result) {
 				settings.update_sid(null, ip, result.id, function (result) {
 					if (result) {
-						return res.redirect('/login');
+						res.redirect('/login');
 					}else {
-						return next();
+						next();
 					}
 				});
 			}else {
-				return next();
+				next();
 			}
 		});
 	} else {
-		return next();
+		next();
 	}
 };
