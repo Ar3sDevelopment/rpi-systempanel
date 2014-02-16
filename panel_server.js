@@ -18,7 +18,6 @@ function compile(str, path) {
 }
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.use(express.logger('dev'));
 app.use(stylus.middleware( { src: __dirname + '/public' , compile: compile } ));
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded());
@@ -48,8 +47,12 @@ app.post('/login', function(req, res, next) {
 	require('./login.js').page(req, res, app, next);
 });
 
-app.get('/logout', function (req, res, next) {
+app.get('/logout/:sid', function (req, res, next) {
 	require('./logout.js').page(req, res, app, next);
+});
+
+app.get('/widgetcreate/:sid', function (req, res, next) {
+	require('./widgetcreate.js').page(req, res, app, next);
 });
 
 function getUserWidget(data, cb) {
@@ -69,7 +72,6 @@ function getUserWidget(data, cb) {
 				var folder = './panelwidgets/' + user_widget.widget.folder;
 				var path = folder + '/' + user_widget.widget.phpfile + '.js';
 				var loaded_widget = require(path);
-				console.log(path);
 				loaded_widget.manage_post(data.post_params, function(result, output) {
 					if (result) {
 						return cb(user_widget, 200, 'text/plain', output);

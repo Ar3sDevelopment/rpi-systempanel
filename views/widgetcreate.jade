@@ -1,0 +1,31 @@
+div.modal-dialog
+	div.modal-content
+		div.modal-header
+			button.close(type="button",data-dismiss="modal",aria-hidden="true")
+				| &times;
+			h4#assignModalLabel.modal-title
+				| New Widget
+		form.form-horizontal(action="/settings/" + sid,data-type="ajax",method="post")
+			div.modal-body
+				input(type="hidden",name="sid",value=sid)
+				input(type="hidden",name="assign_widget",value="1")
+				div.row
+					div.col-xs-12
+						include userwidget
+						div.form-group
+							label.col-sm-4.control-label(for="wid")
+								| Position
+							div.col-sm-8
+								select.form-control(name="wid")
+									each widget_item in widget_list
+										option(value=widget_item.id)
+											| #{widget_item.title}
+			div.modal-footer
+				button.btn.btn-primary(type="submit")
+					| Save changes
+				button.btn.btn-default(type="button",data-dismiss="modal")
+					| Close
+script(type="text/javascript").
+	$(document).ready(function () {
+		$.initAjaxForms();
+	});

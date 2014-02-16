@@ -1,0 +1,42 @@
+@media (max-width: 1024px), handheld
+	.navbar
+		padding-top 15px
+
+body
+	padding-top 70px
+
+.progress
+	margin-bottom 0
+
+#memory_info .progress
+#disks .progress
+#processes .progress
+	margin-bottom 5px
+
+.navbar-brand
+	padding-top 5px
+	padding-bottom 5px
+	img
+		height 40px
+
+.btn-link[data-toggle="collapse"]
+	text-decoration: none
+
+.panel-heading
+	.btn-link
+		color rgb(70, 136, 71)
+		padding 0 3px
+	.collapsed
+		.glyphicon-chevron-down
+			text-decoration: none
+			display: inline
+		.glyphicon-chevron-up
+			text-decoration: none
+			display: none
+	:not(.collapsed)
+		.glyphicon-chevron-down
+			text-decoration none
+			display: none
+		.glyphicon-chevron-up
+			text-decoration none
+			display inline

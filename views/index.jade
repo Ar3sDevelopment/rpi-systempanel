@@ -10,7 +10,12 @@ block script
 
 block content
 	div.row
+		- var columns = 0
 		each userWidget in user.widgets
 			if userWidget.enabled
+				- columns += userWidget.columns
+				if columns > 12
+					div.clearfix.visible-md
+					- columns = userWidget.columns
 				div(class='col-md-' + userWidget.widget.columns,style=(userWidget.visible ? 'display: none;' : ''))
 					include widget
