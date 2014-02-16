@@ -85,6 +85,7 @@ exports.page = function(req, res, app, next) {
 					var socket_port = 1338;
 
 					res.render('settings', {
+						page: 'settings',
 						user : user,
 						sid : sid,
 						url : current_url,

@@ -27,12 +27,12 @@ app.use(express.json());
 app.use(express.methodOverride());
 app.use(express.errorHandler());
 app.use(express.cookieParser());
-app.use(express.session());
+app.use(express.session({ secret: '1234567890ABCDEF' }));
 app.use(app.router);
 app.use('/tmp', express.static(__dirname + '/tmp'));
 app.use(require('./admin/admin.js'));
 
-app.get('/', function(req, res) {
+app.get('/', function(req, res, next) {
 	require('./index.js').page(req, res, app, next);
 });
 
@@ -74,12 +74,11 @@ function getUserWidget(data, cb) {
 			}
 
 			if (user_widget) {
-				var folder = path.join('./panelwidgets',user_widget.widget.folder);
-				var path = path.join(folder, user_widget.widget.phpfile + '.js');
-				var loaded_widget = require(path);
+				var folder = path.join('panelwidgets',user_widget.widget.folder);
+				var loaded_widget = require('./' + path.join(folder, user_widget.widget.phpfile + '.js'));
 				loaded_widget.manage_post(data.post_params, function(result, output) {
 					if (result) {
-						return cb(user_widget, 200, 'text/plain', output);
+						return cb(user_widget, 200, output);
 					}
 
 					loaded_widget.data(function(widget_data) {
@@ -95,31 +94,30 @@ function getUserWidget(data, cb) {
 								}, function(err, output) {
 									app.set('views', path.join(__dirname,'views'));
 									if (!err) {
-										return cb(user_widget, 200, 'text/html', output);
+										return cb(user_widget, 200, output);
 									} else {
 										console.log(err);
 									}
 								});
 							}
 						} else {
-							return cb(user_widget, 500, 'text/plain', '');
+							return cb(user_widget, 500, '');
 						}
 					});
 				});
 			}
 		} else {
-			return cb(null, 500, 'text/plain', '');
+			return cb(null, 500, '');
 		}
 	});
 }
 
 function emitUserWidget(socket, data, cb) {
-	getUserWidget(data, function(user_widget, statusCode, contentType, output) {
+	getUserWidget(data, function(user_widget, statusCode, output) {
 		socket.emit(data.event_name, {
 			output : output,
 			user_widget : user_widget,
-			statusCode : statusCode,
-			contentType : contentType
+			statusCode : statusCode
 		});
 
 		if (cb) {

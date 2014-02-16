@@ -9,6 +9,7 @@ exports.page = function(req, res, app, next) {
 			var socket_port = 1338;
 
 			res.render('index', {
+				page: 'index',
 				user : user,
 				sid : sid,
 				url : current_url,
@@ -16,6 +17,6 @@ exports.page = function(req, res, app, next) {
 			});
 		});
 	} else {
-		next();
+		res.redirect('/login');
 	}
 };

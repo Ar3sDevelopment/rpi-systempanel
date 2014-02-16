@@ -9,12 +9,12 @@ exports.page = function(req, res) {
 			if (uid != -1) {
 				var crypto = require('crypto');
 				var sid = crypto.createHash('sha1').update(uid + '|' + req.body.username + '|' + req.body.password).digest('hex');
-				res.session.sid = sid;
+				req.session.sid = sid;
 				var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
 				settings.update_sid(sid, ip, uid, function (result) {
 					if (result) {
-						res.redirect('/index/' + sid);
+						res.redirect('/');
 					} else {
 						res.render('login', {
 							url : current_url,
