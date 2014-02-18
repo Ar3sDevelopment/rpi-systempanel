@@ -1,0 +1,99 @@
+[
+	{
+		"username": "demo",
+		"password": "",
+		"secret": "0123456789ABCDEF",
+		"selected_widgets": [
+			{
+				"id_html": "sys_info",
+				"widget": "spw-system",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "cpu_info",
+				"widget": "spw-processor",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "transmission",
+				"widget": "spw-transmission",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "camera",
+				"widget": "spw-raspistill",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "usb_info",
+				"widget": "spw-usb",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "memory_info",
+				"widget": "spw-memory",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "terminal",
+				"widget": "spw-terminal",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "network",
+				"widget": "spw-network",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "power",
+				"widget": "spw-power",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "cpu_graph",
+				"widget": "spw-cpu_graph",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "temp_graph",
+				"widget": "spw-temp_graph",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "ram_graph",
+				"widget": "spw-ram_graph",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "processes",
+				"widget": "spw-process",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "disks",
+				"widget": "spw-disks",
+				"visible": "true",
+				"enabled": "true"
+			},
+			{
+				"id_html": "updates",
+				"widget": "spw-updates",
+				"visible": "true",
+				"enabled": "true"
+			}
+		]
+	}
+]

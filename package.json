@@ -20,6 +20,21 @@
 		"crypto": "*",
 		"jade": "*",
 		"stylus": "*",
-		"nib": "*"
+		"nib": "*",
+		"spw-cpu_graph": "*",
+		"spw-disks": "*",
+		"spw-memory": "*",
+		"spw-network": "*",
+		"spw-power": "*",
+		"spw-process": "*",
+		"spw-processor": "*",
+		"spw-ram_graph": "*",
+		"spw-raspistill": "*",
+		"spw-system": "*",
+		"spw-temp_graph": "*",
+		"spw-terminal": "*",
+		"spw-transmission": "*",
+		"spw-updates": "*",
+		"spw-usb": "*"
 	}
 }
