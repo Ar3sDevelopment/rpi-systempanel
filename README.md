@@ -17,7 +17,3 @@ If you want to try you can watch and edit the panelwidgets folder.
 
 #Installation#
 **Work in progress for restyling**
-
-##Important##
-**Introduced Stored Procedures but not in the install.php yet so you have to restore it from the sql you find in the root.
-I'm working on an updater for keeping data between versions and updating stored procedures too.**
