@@ -7,7 +7,7 @@ if page && page != 'login'
 				span.icon-bar
 				span.icon-bar
 				span.icon-bar
-			a.navbar-brand(href="/index/#{sid}")
+			a.navbar-brand(href="/")
 				img(src="/images/rpi.png")
 		div#menu-navbar-collapse.collapse.navbar-collapse
 			ul.nav.navbar-nav
@@ -17,10 +17,6 @@ if page && page != 'login'
 				li(class=(page == "settings") ? "active" : "")
 					a(href="/settings")
 						| Settings
-				if admin
-					li(class=(page == "admin") ? "active" : "")
-						a(href="old/widgetpanel/index.php?sid=#{sid}")
-							| Admin
 				li
 					a(href="/logout")
 						| Logout

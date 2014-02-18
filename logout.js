@@ -1,17 +1,11 @@
 exports.page = function (req, res, app, next) {
-	var sid = req.session.sid;
-	if (sid) {
+	var username = req.session.username;
+	if (username) {
 		var settings = require('./framework/settings.js');
 
-		settings.get_user_info(sid, function (result) {
+		settings.get_user_info(username, function (result) {
 			if (result) {
-				settings.update_sid(null, ip, result.id, function (result) {
-					if (result) {
-						res.redirect('/login');
-					}else {
-						next();
-					}
-				});
+				res.redirect('/login');
 			}else {
 				next();
 			}

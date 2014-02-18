@@ -12,13 +12,13 @@ div.panel.panel-success(id=userWidget.id_html)
 if (userWidget.widget.updatetime > 0)
 	script(type="text/javascript").
 		$(document).ready(function () {
-			$.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
+			$.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{user.username}');
 			$('##{userWidget.id_html} .panel-heading .refreshWidget').click(function () {
-				$.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
+				$.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{user.username}');
 			});
 		});
 else
 	script(type="text/javascript").
 		$(document).ready(function () {
-			$.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{sid}');
+			$.downloadWidget(socket, '#{userWidget.id_html}', #{userWidget.id}, '#{user.username}');
 		});

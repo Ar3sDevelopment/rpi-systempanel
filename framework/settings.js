@@ -59,14 +59,11 @@ exports.toggleWidgetState = function(username, widget_id, enabled, cb) {
 exports.save_user = function(user, cb) {
 };
 
-exports.save_user_widget = function(sid, widget, cb) {
-	db.saveUserWidget(sid, widget, cb);
+exports.create_user_widget = function(username, widget, wid, cb) {
 };
 
-exports.delete_user_widget = function(sid, widget, cb) {
-	db.deleteUserWidget(sid, widget, cb);
+exports.save_user_widget = function(username, widget, cb) {
 };
 
-exports.create_user_widget = function(sid, widget, wid, cb) {
-	db.createUserWidget(sid, widget, wid, cb);
+exports.delete_user_widget = function(username, widget, cb) {
 };

@@ -1,7 +1,7 @@
 exports.page = function(req, res, app, next) {
 	var settings = require('./framework/settings.js');
-	var sid = req.session.sid;
-	if (sid) {
+	var username = req.session.username;
+	if (username) {
 		var widget_id;
 		var widget;
 
@@ -9,7 +9,7 @@ exports.page = function(req, res, app, next) {
 			if (req.body.visibility !== undefined) {
 				widget_id = req.body["widget-id"];
 
-				settings.toggleWidgetVisibility(sid, widget_id, req.body.visibility, function (data) {
+				settings.toggleWidgetVisibility(username, widget_id, req.body.visibility, function (data) {
 					if (data) {
 						res.send({ visible: req.body.visibility });
 					} else {
@@ -19,7 +19,7 @@ exports.page = function(req, res, app, next) {
 			} else if (req.body.enable !== undefined) {
 				widget_id = req.body["widget-id"];
 
-				settings.toggleWidgetState(sid, widget_id, req.body.enable, function (data) {
+				settings.toggleWidgetState(username, widget_id, req.body.enable, function (data) {
 					if (data) {
 						res.send({ enabled: req.body.enable });
 					} else {
@@ -27,17 +27,20 @@ exports.page = function(req, res, app, next) {
 					}
 				});
 			} else if (req.body.save_user !== undefined) {
-				var username = req.body.username;
-				var hashmethod = req.body.hashmethod;
+				var new_username = req.body.username;
 				var crypto = require('crypto');
-				var password = crypto.createHash(hashmethod).update(req.body.password).digest('hex');
+				var password = crypto.createHash('sha512').update(req.body.password).digest('hex');
 
-				settings.save_user(sid, username, password, hashmethod, function (data) {
-					if (data) {
-						res.send();
-					} else {
-						res.send();
-					}
+				settings.get_user_info(username, function (user) {
+					user.username = new_username;
+					user.password = password;
+					settings.save_user(user, function (data) {
+						if (data) {
+							res.send();
+						} else {
+							res.send();
+						}
+					});
 				});
 			} else if (req.body.assign_widget !== undefined) {
 				widget = {
@@ -46,7 +49,7 @@ exports.page = function(req, res, app, next) {
 				};
 				var wid = req.body.wid;
 
-				settings.create_user_widget(sid, widget, wid, function (data) {
+				settings.create_user_widget(username, widget, wid, function (data) {
 					if (data) {
 						res.send();
 					} else {
@@ -61,7 +64,7 @@ exports.page = function(req, res, app, next) {
 				};
 
 				if (req.body.widget_action == 'save') {
-					settings.save_user_widget(sid, widget, function (data) {
+					settings.save_user_widget(username, widget, function (data) {
 						if (data) {
 							res.send();
 						}else {
@@ -69,7 +72,7 @@ exports.page = function(req, res, app, next) {
 						}
 					});
 				}else if (req.body.widget_action == 'delete') {
-					settings.delete_user_widget(sid, widget, function (data) {
+					settings.delete_user_widget(username, widget, function (data) {
 						if (data) {
 							res.send();
 						} else {
@@ -79,15 +82,14 @@ exports.page = function(req, res, app, next) {
 				}
 			}
 		} else {
-			settings.load(sid, function(user) {
-				settings.get_hash_methods(sid, function (hashes) {
+			settings.get_user_info(username, function(user) {
+				settings.get_hash_methods(username, function (hashes) {
 					var current_url = req.headers.host.split(':')[0];
 					var socket_port = 1338;
 
 					res.render('settings', {
 						page: 'settings',
 						user : user,
-						sid : sid,
 						url : current_url,
 						port : socket_port,
 						hashes: hashes

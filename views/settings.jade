@@ -5,7 +5,7 @@ block script
 		$(document).ready(function () {
 			$('[name="visibility"]').click(function () {
 				$this = $(this);
-				var postData = { sid: '#{model.sid}', 'visibility': $this.data('val'), 'widget-id': $this.data('widget-id') };
+				var postData = { username: '#{user.username}', 'visibility': $this.data('val'), 'widget-id': $this.data('widget-id') };
 				$.post('/settings', postData, function (data) {
 					$this.data('val', data.visible ? 0 : 1);
 					if (data.visible) {
@@ -17,7 +17,7 @@ block script
 			});
 			$('[name="enable"]').click(function () {
 				$this = $(this);
-				var postData = { sid: '#{sid}', 'enable': $this.data('val'), 'widget-id': $this.data('widget-id') };
+				var postData = { username: '#{user.username}', 'enable': $this.data('val'), 'widget-id': $this.data('widget-id') };
 				$.post('/settings', postData, function (data) {
 					$this.data('val', data.enabled ? 0 : 1);
 					if (data.enabled) {
@@ -51,7 +51,7 @@ block script
 
 block content
 	form.form-horizontal(action="/settings",data-type="ajax",method="post")
-		input(type="hidden",name="sid",value=sid)
+		input(type="hidden",name="username",value=user.username)
 		div.row
 			div.col-md-12
 				div.well
@@ -82,14 +82,14 @@ block content
 		div.row
 			div.col-md-12
 				div.well
-					button.btn.btn-primary(data-toggle="modal",data-target="#assignWidget",href="/widgetcreate/" + sid)
+					button.btn.btn-primary(data-toggle="modal",data-target="#assignWidget",href="/widgetcreate/" + user.username)
 						| Assign New Widget
 				div#assignWidget.modal.fade(tabindex="-1",role="dialog",aria-labelledby="assignModalLabel",aria-hidden="true")
 		div.row
 			each user_widget in user.widgets
 				div(class="col-md-" + user_widget.widget.columns)
 					form.form-horizontal(action="/settings",method="POST",data-type="ajax",data-success="widgetSaved",data-error="widgetError")
-						input(type="hidden",name="sid",value=sid)
+						input(type="hidden",name="username",value=user.username)
 						input(type="hidden",name="widget_id",value=user_widget.id)
 						div.well
 							include userwidget

@@ -30,7 +30,6 @@ app.use(express.cookieParser());
 app.use(express.session({ secret: '1234567890ABCDEF' }));
 app.use(app.router);
 app.use('/tmp', express.static(__dirname + '/tmp'));
-app.use(require('./admin/admin.js'));
 
 app.get('/', function(req, res, next) {
 	require('./index.js').page(req, res, app, next);
@@ -63,7 +62,7 @@ app.get('/widgetcreate', function (req, res, next) {
 function getUserWidget(data, cb) {
 	var settings = require('./framework/settings.js');
 
-	settings.load(data.sid, function(user) {
+	settings.get_user_info(data.username, function(user) {
 		if (user != null) {
 			var user_widget = null;
 
@@ -78,36 +77,36 @@ function getUserWidget(data, cb) {
 				var loaded_widget = require('./' + path.join(folder, user_widget.widget.phpfile + '.js'));
 				loaded_widget.manage_post(data.post_params, function(result, output) {
 					if (result) {
-						return cb(user_widget, 200, output);
-					}
-
-					loaded_widget.data(function(widget_data) {
-						if (widget_data != null) {
-							if (data.json) {
-								return cb(user_widget, 200, 'application/json', widget_data);
+						cb(user_widget, 200, output);
+					} else {
+						loaded_widget.data(function(widget_data) {
+							if (widget_data != null) {
+								if (data.json) {
+									cb(user_widget, 200, 'application/json', widget_data);
+								} else {
+									app.set('views', path.join(folder.replace('.', __dirname),'views'));
+									app.render(user_widget.widget.templatefile.replace('.tpl', ''), {
+										data : widget_data,
+										user_widget : user_widget,
+										username : data.username
+									}, function(err, output) {
+										app.set('views', path.join(__dirname,'views'));
+										if (!err) {
+											cb(user_widget, 200, output);
+										} else {
+											cb(null, 500, '');
+										}
+									});
+								}
 							} else {
-								app.set('views', path.join(folder.replace('.', __dirname),'views'));
-								app.render(user_widget.widget.templatefile.replace('.tpl', ''), {
-									data : widget_data,
-									user_widget : user_widget,
-									sid : data.sid
-								}, function(err, output) {
-									app.set('views', path.join(__dirname,'views'));
-									if (!err) {
-										return cb(user_widget, 200, output);
-									} else {
-										console.log(err);
-									}
-								});
+								cb(user_widget, 500, '');
 							}
-						} else {
-							return cb(user_widget, 500, '');
-						}
-					});
+						});
+					}
 				});
 			}
 		} else {
-			return cb(null, 500, '');
+			cb(null, 500, '');
 		}
 	});
 }

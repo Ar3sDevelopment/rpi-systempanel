@@ -36,20 +36,20 @@ var updatingWidgets = [];
 		}
 	};
 
-	$.downloadWidget = function(socket, widget_id_html, widget_id, sid) {
+	$.downloadWidget = function(socket, widget_id_html, widget_id, username) {
 		socket.emit('request_first_data', {
 			json : false,
-			sid : sid,
+			username : username,
 			widget_id : widget_id
 		});
 	};
 
-	$.startUpdatingWidget = function(socket, widget_id, sid, callback, callbackPostData, mode) {
+	$.startUpdatingWidget = function(socket, widget_id, username, callback, callbackPostData, mode) {
 		if ($.inArray(widget_id, updatingWidgets) == -1) {
 			updatingWidgets.push(widget_id);
 			var defData = {
 				json : (mode == 'json'),
-				sid : sid,
+				username : username,
 				widget_id : widget_id
 			};
 			socket.on('updated_data_' + widget_id, function(data) {
@@ -67,16 +67,16 @@ var updatingWidgets = [];
 		}
 	};
 
-	$.startUpdatingWidgetJson = function(socket, widget_id, sid, callback, callbackPostData) {
-		$.startUpdatingWidget(socket, widget_id, sid, callback, callbackPostData, 'json');
+	$.startUpdatingWidgetJson = function(socket, widget_id, username, callback, callbackPostData) {
+		$.startUpdatingWidget(socket, widget_id, username, callback, callbackPostData, 'json');
 	};
 
-	$.startUpdatingWidgetHtml = function(socket, widget_id, sid, callback, callbackPostData) {
-		$.startUpdatingWidget(socket, widget_id, sid, callback, callbackPostData, 'html');
+	$.startUpdatingWidgetHtml = function(socket, widget_id, username, callback, callbackPostData) {
+		$.startUpdatingWidget(socket, widget_id, username, callback, callbackPostData, 'html');
 	};
 
-	$.sendPostDataToWidget = function (socket, widget_id, sid, postData) {
-		postData.sid = sid;
+	$.sendPostDataToWidget = function (socket, widget_id, username, postData) {
+		postData.username = username;
 		postData.json = true;
 		postData.widget_id = widget_id;
 		socket.emit('post_data', postData);

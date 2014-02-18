@@ -1,17 +1,15 @@
-exports.page = function(req, res, app, next) {
-	var sid = req.session.sid;
-	if (sid) {
-		//TODO: Verificare la validità della sessione
+exports.page = function(req, res) {
+	var username = req.session.username;
+	if (username) {
 		var settings = require('./framework/settings.js');
 
-		settings.load(sid, function(user) {
+		settings.get_user_info(username, function(user) {
 			var current_url = req.headers.host.split(':')[0];
 			var socket_port = 1338;
 
 			res.render('index', {
 				page: 'index',
 				user : user,
-				sid : sid,
 				url : current_url,
 				port : socket_port
 			});
