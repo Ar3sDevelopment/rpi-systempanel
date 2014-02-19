@@ -73,8 +73,7 @@ function getUserWidget(data, cb) {
 			}
 
 			if (user_widget) {
-				var folder = path.join('panelwidgets',user_widget.widget.folder);
-				var loaded_widget = require('./' + path.join(folder, user_widget.widget.phpfile + '.js'));
+				var loaded_widget = require(user_widget.widget);
 				loaded_widget.manage_post(data.post_params, function(result, output) {
 					if (result) {
 						cb(user_widget, 200, output);
@@ -84,8 +83,8 @@ function getUserWidget(data, cb) {
 								if (data.json) {
 									cb(user_widget, 200, 'application/json', widget_data);
 								} else {
-									app.set('views', path.join(folder.replace('.', __dirname),'views'));
-									app.render(user_widget.widget.templatefile.replace('.tpl', ''), {
+									app.set('views', path.join(__dirname ,'node_modules', user_widget.widget ,'views'));
+									app.render(user_widget.widget.replace('spw-', ''), {
 										data : widget_data,
 										user_widget : user_widget,
 										username : data.username
