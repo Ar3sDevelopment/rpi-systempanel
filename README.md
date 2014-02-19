@@ -12,8 +12,7 @@ A Node.js System Information Panel with custom widgets, developed for Raspberry 
 The Panel is mobile ready with support for iOS web apps bookmarked to Home Screen thanks to Bootstrap v3.
 
 ##Widgets##
-*Widgets soon can be developed or customized following some simple guidelines and will be moved to their directory*<br />
-If you want to try you can watch and edit the panelwidgets folder.
+**Work in progress for restyling**
 
 #Installation#
 **Work in progress for restyling**
