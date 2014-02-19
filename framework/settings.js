@@ -24,12 +24,12 @@ exports.check_login = function(username, password, cb) {
 
 exports.toggleWidgetVisibility = function(username, widget_id, visibility, cb) {
 	exports.get_user_info(username, function (user) {
-		for (var i = 0; i < user.selected_widgets.length; i++)
+		for (var i = 0; i < user.widgets.length; i++)
 		{
-			var selected_widget = user.selected_widgets[i];
-			if (selected_widget.id_html == widget_id) {
-				selected_widget.visible = visibility;
-				user.selected_widgets[i] = selected_widget;
+			var widget = user.widgets[i];
+			if (widget.id_html == widget_id) {
+				widget.visible = visibility;
+				user.widgets[i] = widget;
 			}
 		}
 
@@ -41,12 +41,12 @@ exports.toggleWidgetVisibility = function(username, widget_id, visibility, cb) {
 
 exports.toggleWidgetState = function(username, widget_id, enabled, cb) {
 	exports.get_user_info(username, function (user) {
-		for (var i = 0; i < user.selected_widgets.length; i++)
+		for (var i = 0; i < user.widgets.length; i++)
 		{
-			var selected_widget = user.selected_widgets[i];
-			if (selected_widget.id_html == widget_id) {
-				selected_widget.enabled = enabled;
-				user.selected_widgets[i] = selected_widget;
+			var widget = user.widgets[i];
+			if (widget.id_html == widget_id) {
+				widget.enabled = enabled;
+				user.widgets[i] = widget;
 			}
 		}
 
@@ -74,7 +74,7 @@ exports.save_user = function(user, cb) {
 
 exports.create_user_widget = function(username, widget, cb) {
 	exports.get_user_info(username, function (user) {
-		user.selected_widgets.push(widget);
+		user.widgets.push(widget);
 		exports.save_user(user, function () {
 			cb(true);
 		});
@@ -83,11 +83,11 @@ exports.create_user_widget = function(username, widget, cb) {
 
 exports.save_user_widget = function(username, widget, cb) {
 	exports.get_user_info(username, function (user) {
-		for (var i = 0; i < user.selected_widgets; i++) {
-			var selected_widget = user.selected_widgets[i];
-			if (selected_widget.id_html == widget.id_html) {
-				selected_widget = widget;
-				user.selected_widgets[i] = selected_widget;
+		for (var i = 0; i < user.widgets; i++) {
+			var user_widget = user.widgets[i];
+			if (user_widget.id_html == widget.id_html) {
+				user_widget = widget;
+				user.widgets[i] = user_widget;
 			}
 		}
 		exports.save_user(user, function () {
@@ -98,10 +98,10 @@ exports.save_user_widget = function(username, widget, cb) {
 
 exports.delete_user_widget = function(username, widget, cb) {
 	exports.get_user_info(username, function (user) {
-		for (var i = 0; i < user.selected_widgets; i++) {
-			var selected_widget = user.selected_widgets[i];
-			if (selected_widget.id_html == widget.id_html) {
-				user.selected_widgets.splice(i,1);
+		for (var i = 0; i < user.widgets; i++) {
+			var user_widget = user.widgets[i];
+			if (user_widget.id_html == widget.id_html) {
+				user.widgets.splice(i,1);
 			}
 		}
 		exports.save_user(user, function () {
