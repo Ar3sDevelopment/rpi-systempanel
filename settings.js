@@ -45,11 +45,11 @@ exports.page = function(req, res, app, next) {
 			} else if (req.body.assign_widget !== undefined) {
 				widget = {
 					id_html: req.body.widget_id_html,
-					poistion: req.body.widget_position
+					poistion: req.body.widget_position,
+					widget: req.body.wid
 				};
-				var wid = req.body.wid;
 
-				settings.create_user_widget(username, widget, wid, function (data) {
+				settings.create_user_widget(username, widget, function (data) {
 					if (data) {
 						res.send();
 					} else {
@@ -58,7 +58,7 @@ exports.page = function(req, res, app, next) {
 				});
 			} else if (req.body.widget_action !== undefined) {
 				widget = {
-					id: req.body.widget_id,
+					widget: req.body.widget_id,
 					id_html: req.body.widget_id_html,
 					poistion: req.body.widget_position
 				};

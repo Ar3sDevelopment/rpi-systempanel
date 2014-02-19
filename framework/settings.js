@@ -57,13 +57,60 @@ exports.toggleWidgetState = function(username, widget_id, enabled, cb) {
 };
 
 exports.save_user = function(user, cb) {
+	var fs = require('fs');
+	var json = require('./settings.json');
+
+	for (var i = 0; i < json.length && !user; i++)
+	{
+		if (json[i].username == user.username) {
+			json[i] = user;
+		}
+	}
+
+	fs.writeFile('./settings.json', JSON.stringify(json, null, 4), function(err) {
+		cb(!err);
+	});
 };
 
-exports.create_user_widget = function(username, widget, wid, cb) {
+exports.create_user_widget = function(username, widget, cb) {
+	exports.get_user_info(username, function (user) {
+		for (var i = 0; i < user.selected_widgets; i++) {
+			var selected_widget = user.selected_widgets[i];
+			if (selected_widget.id_html == widget.id_html) {
+				selected_widget = widget;
+				user.selected_widgets[i] = selected_widget;
+
+				//TODO: Create
+			}
+		}
+		cb(true);
+	});
 };
 
 exports.save_user_widget = function(username, widget, cb) {
+	exports.get_user_info(username, function (user) {
+		for (var i = 0; i < user.selected_widgets; i++) {
+			var selected_widget = user.selected_widgets[i];
+			if (selected_widget.id_html == widget.id_html) {
+				selected_widget = widget;
+				user.selected_widgets[i] = selected_widget;
+			}
+		}
+		cb(true);
+	});
 };
 
 exports.delete_user_widget = function(username, widget, cb) {
+	exports.get_user_info(username, function (user) {
+		for (var i = 0; i < user.selected_widgets; i++) {
+			var selected_widget = user.selected_widgets[i];
+			if (selected_widget.id_html == widget.id_html) {
+				selected_widget = widget;
+				user.selected_widgets[i] = selected_widget;
+
+				//TODO: Delete
+			}
+		}
+		cb(true);
+	});
 };
