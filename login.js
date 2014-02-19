@@ -4,9 +4,11 @@ exports.page = function(req, res) {
 
 	if (req.body && req.body.username && req.body.password) {
 		var settings = require('./framework/settings.js');
+		var crypto = require('crypto');
+		var password = crypto.createHash('sha512').update(req.body.password).digest('hex');
 
-		settings.check_login(req.body.username, req.body.password, function (res) {
-			if (res) {
+		settings.check_login(req.body.username, password, function (result) {
+			if (result) {
 				req.session.username = req.body.username;
 				res.redirect('/');
 			} else {

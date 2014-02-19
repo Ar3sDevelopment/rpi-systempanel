@@ -16,7 +16,6 @@
 		"socket.io": "*",
 		"url": "*",
 		"path": "*",
-		"mysql": "*",
 		"crypto": "*",
 		"jade": "*",
 		"stylus": "*",
