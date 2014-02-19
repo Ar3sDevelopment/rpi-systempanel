@@ -74,16 +74,10 @@ exports.save_user = function(user, cb) {
 
 exports.create_user_widget = function(username, widget, cb) {
 	exports.get_user_info(username, function (user) {
-		for (var i = 0; i < user.selected_widgets; i++) {
-			var selected_widget = user.selected_widgets[i];
-			if (selected_widget.id_html == widget.id_html) {
-				selected_widget = widget;
-				user.selected_widgets[i] = selected_widget;
-
-				//TODO: Create
-			}
-		}
-		cb(true);
+		user.selected_widgets.push(widget);
+		exports.save_user(user, function () {
+			cb(true);
+		});
 	});
 };
 
@@ -96,7 +90,9 @@ exports.save_user_widget = function(username, widget, cb) {
 				user.selected_widgets[i] = selected_widget;
 			}
 		}
-		cb(true);
+		exports.save_user(user, function () {
+			cb(true);
+		});
 	});
 };
 
@@ -105,12 +101,11 @@ exports.delete_user_widget = function(username, widget, cb) {
 		for (var i = 0; i < user.selected_widgets; i++) {
 			var selected_widget = user.selected_widgets[i];
 			if (selected_widget.id_html == widget.id_html) {
-				selected_widget = widget;
-				user.selected_widgets[i] = selected_widget;
-
-				//TODO: Delete
+				user.selected_widgets.splice(i,1);
 			}
 		}
-		cb(true);
+		exports.save_user(user, function () {
+			cb(true);
+		});
 	});
 };
